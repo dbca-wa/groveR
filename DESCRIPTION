@@ -18,6 +18,7 @@ Imports:
     ggplot2,
     fasterize,
     fs,
+    magrittr,
     purrr,
     raster,
     readr,
