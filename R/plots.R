@@ -26,7 +26,7 @@
 #' }
 #'
 #' @import dplyr
-#' @import ggplot
+#' @import ggplot2
 #' @importFrom readr read_csv
 #'
 #' @export
@@ -104,7 +104,7 @@ veg_dens_class_plot <- function(icsv, cap){
 #' }
 #'
 #' @import dplyr
-#' @import ggplot
+#' @import ggplot2
 #' @importFrom readr read_csv
 #'
 #' @export
