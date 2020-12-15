@@ -26,6 +26,7 @@
 #' }
 #'
 #' @import dplyr
+#' @importFrom magrittr %>%
 #' @import ggplot2
 #' @importFrom readr read_csv
 #'
@@ -73,7 +74,6 @@ veg_dens_class_plot <- function(icsv, cap){
     pname <- paste0(dirname(icsv), "/", gsub(" ", "_", df2$Site[1]),"_",
                     yr_range, ".png")
     ggsave(p, filename = pname, width = 10, height = 7)
-    return(p)
   }
 
 }
@@ -104,6 +104,7 @@ veg_dens_class_plot <- function(icsv, cap){
 #' }
 #'
 #' @import dplyr
+#' @importFrom magrittr %>%
 #' @import ggplot2
 #' @importFrom readr read_csv
 #'
