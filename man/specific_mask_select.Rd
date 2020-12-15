@@ -18,7 +18,7 @@ software (e.g. ArcMap).}
 \item{choice}{A character vector of year/s to mask.}
 
 \item{imask}{Character file path to directory of specific raster masks to
-apply. Commonly something like `raster_masks\cloud_masks\`.}
+apply. Commonly something like "raster_masks/cloud_masks/".}
 
 \item{maskkey}{Character representation of the file extension of the raster
 masks.}
