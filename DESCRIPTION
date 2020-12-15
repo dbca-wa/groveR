@@ -1,6 +1,6 @@
 Package: groveR
 Type: Package
-Title: Functions for vegetation monitoring
+Title: Functions for mangrove monitoring
 Version: 0.1.0
 Authors@R: person("Bart", "Huntley", email = "bart.huntley@dbca.wa.gov.au",
                   role = c("aut", "cre", "prg", "res"),
@@ -8,8 +8,19 @@ Authors@R: person("Bart", "Huntley", email = "bart.huntley@dbca.wa.gov.au",
 Maintainer: Bart Huntley <bart.huntley@dbca.wa.gov.au>
 URL: https://github.com/Bartesto/groveR
 BugReports: https://github.com/Bartesto/groveR/issues
-Description: Tools to process satellite mosaics into useful vegetation 
+Description: Tools to process satellite mosaics into useful mangrove 
     monitoring products.
 License: file LICENSE
 Encoding: UTF-8
 LazyData: true
+Imports: 
+    dplyr,
+    fasterize,
+    fs,
+    purrr,
+    raster,
+    readr,
+    sf,
+    stringr,
+    tibble
+RoxygenNote: 7.1.0
