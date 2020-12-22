@@ -1,0 +1,84 @@
+---
+title: "Dealing With Cloud"
+output: 
+  prettydoc::html_pretty:
+    theme: leonids
+    highlight: github
+vignette: >
+  %\VignetteIndexEntry{Dealing With Cloud}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+![](plots/tree_logo_small.png)
+
+## Purpose
+Clouds are the bane of remote sensing studies. They obscure the reflectance values 
+of the endmembers we are interested in and if not dealt with will skew results. 
+Clouds should have been masked out of the index rasters and depending on the method 
+or software, either a shape file or raster mask would have been used.
+
+Null or NA values are left in the place of clouds post masking. In the Mangrove 
+Monitoring program at DBCA we encode these places with a value (-99) that 
+differentiates it from other masked areas. That way we can report on areas "lost"  
+to reporting or classify these areas based on the likelihood they haven't changed 
+since the previous time step.
+
+
+## Use the cloud_mask() functions
+In `groveR` there are functions that take the masks used to originally mask out 
+cloud (must be raster masks) and redefine those areas with a -99 value. There is 
+a "bulk" version that can take a whole directory of raster inputs and apply the 
+masks based on year. There is also a "select" version that allows for re-doing or 
+updating one or a selection of years.
+
+Cloud raster masks should be stored in `raster_masks/cloud_masks/` and must have 
+the year they apply to in their name. See internal data example.
+
+To run the "bulk" version:
+
+```{r, bulk, eval=FALSE}
+# Assign the parameters
+irast <- "./veg_dens_mskd_for_trends"
+rastkey <- ".img"
+imask <- "./raster_masks/cloud_masks"
+maskkey <- ".img"
+
+# Run the function
+cloud_mask_bulk(irast, rastkey, imask, maskkey)
+```
+
+* **irast** - file path to input veg density rasters that have been masked "generally".
+* **rastkey** - wildcard to ensure correct file extension is parsed. 
+* **imask** - file path to input cloud mask rasters.
+* **maskkey** - wildcard to ensure correct file extension is parsed.
+
+To run the "select" version:
+
+```{r, select, eval=FALSE}
+# Assign the parameters
+irast <- "./veg_dens_mskd_for_trends"
+rastkey <- ".img"
+choice <- 2006
+imask <- "./raster_masks/cloud_masks"
+maskkey <- ".img"
+
+# Run the function
+cloud_mask_select(irast, rastkey, choice, imask, maskkey)
+```
+
+The only new parameter is:
+
+* **choice** - numeric representing one or a selection of years e.g. c(2006, 2008)
+
+## What's going to happen?
+A new directory will be created, `veg_dens_mskd_for_class/` and the cloud encoded  
+vegetation density rasters will be written to it. These will be the inputs for 
+other functions.
