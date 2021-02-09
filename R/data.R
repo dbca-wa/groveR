@@ -1,4 +1,4 @@
-#' Functions to make directories and example data
+# Functions to make directories and example data
 
 #' A Function to create folders for user data
 #'
