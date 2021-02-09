@@ -2,8 +2,7 @@
 % Please edit documentation in R/data.R
 \name{make_folders}
 \alias{make_folders}
-\title{Functions to make directories and example data
-A Function to create folders for user data}
+\title{A Function to create folders for user data}
 \usage{
 make_folders(p = ".")
 }
