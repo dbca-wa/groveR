@@ -41,9 +41,10 @@
 #'
 #' @examples
 #' \dontrun{
-#' veg_dens(irast = "Z:/DEC/projectXX/mosaics"), rastkey = ".ers",
+#' veg_dens(irast = "Z:/DEC/projectXX/mosaics", rastkey = ".ers",
 #'     choice = c("1991", "2010"), index = "ndvi", ext = ".tif",
-#'     calibration = "./supplementary/calibration.csv")}
+#'     calibration = "./supplementary/calibration.csv")
+#'     }
 #'
 #' @import dplyr
 #' @importFrom magrittr %>%
