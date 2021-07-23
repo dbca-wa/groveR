@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>A Function to create folders for user data — make_folders • groveR</title>
+<title>A function to calculate trend class classification area for reporting. — trend_class_area • groveR</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="A Function to create folders for user data — make_folders" />
-<meta property="og:description" content="make_folders" />
+<meta property="og:title" content="A function to calculate trend class classification area for reporting. — trend_class_area" />
+<meta property="og:description" content="change_extent creates area stats for previously generated trend class
+     rasters." />
 
 
 
@@ -114,48 +115,59 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>A Function to create folders for user data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/Bartesto/groveR/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>make_folders.Rd</code></div>
+    <h1>A function to calculate trend class classification area for reporting.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/Bartesto/groveR/blob/master/R/main.R'><code>R/main.R</code></a></small>
+    <div class="hidden name"><code>trend_class_area.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>make_folders</code></p>
+    <p><code>change_extent</code> creates area stats for previously generated trend class
+     rasters.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_folders</span><span class='op'>(</span>p <span class='op'>=</span> <span class='st'>"."</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>trend_class_area</span><span class='op'>(</span><span class='va'>irast</span>, <span class='va'>iregions</span>, <span class='va'>attribname</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>p</th>
-      <td><p>Character file path for the processing folder (top level directory).
-Defaults to current location, i.e. ".".</p></td>
+      <th>irast</th>
+      <td><p>Character file path to the trend class raster for a distinct period
+that has been written to the `trend_class\` directory. If multiple periods
+(and rasters) exist, run this one at a time.</p></td>
+    </tr>
+    <tr>
+      <th>iregions</th>
+      <td><p>Character file path to a shape file (including extension)
+that defines reporting regions. The shape file should have an attribute
+column that defines the overall reporting "region" plus "site", if
+applicable, such as "NatPark_site1", "NatPark_site2" etc. The underscore
+delineates region from site.</p></td>
+    </tr>
+    <tr>
+      <th>attribname</th>
+      <td><p>Character string of the name of the attribute column that
+contains the region information.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Creates directories and sub-directories for user data.</p>
+    <p>Calculated areas are exported via csv file to `trend_class\`.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function creates the directories and sub-directories required
-    to store user data (or example data if working through the vignettes).
-    These are:</p><ul>
-<li><p>`raster_masks/`</p></li>
-<li><p>`raster_masks/cloud_masks/`</p></li>
-<li><p>`supplementary/`</p></li>
-<li><p>`vectors/`</p></li>
-</ul>
-
+    <p>This function is designed to calculate the area of each trend class
+    as defined by using the <code><a href='trend_class.html'>trend_class</a></code> per reporting area or
+    site.Reporting areas are defined by input shape file. Outputs results to
+    csv.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Bart Huntley, <a href='mailto:bart.huntley@dbca.wa.gov.au'>bart.huntley@dbca.wa.gov.au</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>make_folders</span><span class='op'>(</span>p <span class='op'>=</span> <span class='st'>"."</span><span class='op'>)</span>
+<span class='fu'>trend_class_areas</span><span class='op'>(</span>irast <span class='op'>=</span> <span class='st'>"./trend_class/LgCSMP_mangroves_2005-2009_trendclass.img"</span>,
+    iregions <span class='op'>=</span> <span class='st'>"./vectors/regions.shp"</span>, attribname <span class='op'>=</span> <span class='st'>"regions"</span><span class='op'>)</span>
 <span class='op'>}</span>
 
 </div></pre>
