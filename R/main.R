@@ -1071,7 +1071,7 @@ trend_class <- function(irast, rastkey, end, period, classes){
 #'
 #' @export
 
-trend_class_areas <- function(irast, iregions, attribname){
+trend_class_area <- function(irast, iregions, attribname){
   suppressWarnings({
     regions <- sf::st_read(iregions)
     reps <- unique(regions[[attribname]])

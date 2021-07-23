@@ -80,7 +80,7 @@ veg_dens_class_plot <- function(icsv, cap){
 
 #' A function to generate a stacked bar chart for mangrove change summaries.
 #'
-#' \code{ext_chng_plot} creates stacked bar chart of vegetation change summaries.
+#' \code{change_extent_plot} creates stacked bar chart of vegetation change summaries.
 #'
 #' @details Takes a file path to an extent change csv file as created by
 #'     \code{link{change_extent}} located in `extent_change\` and produce
@@ -99,7 +99,7 @@ veg_dens_class_plot <- function(icsv, cap){
 #'
 #' @examples
 #' \dontrun{
-#' ext_chng_plot(icsv = "./extent_change/NatPark_2005-2009_extent_summaries.csv",
+#' change_extent_plot(icsv = "./extent_change/NatPark_2005-2009_extent_summaries.csv",
 #'     cap = "RSSA")
 #' }
 #'
@@ -109,7 +109,7 @@ veg_dens_class_plot <- function(icsv, cap){
 #' @importFrom readr read_csv
 #'
 #' @export
-ext_chng_plot <- function(icsv, cap){
+change_extent_plot <- function(icsv, cap){
   ext_chng_cols <- c('gain' = '#0000CC',
                      'stable' = '#808080',
                      'loss' = '#FF0000',
