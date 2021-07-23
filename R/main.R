@@ -583,10 +583,6 @@ cloud_mask_select <- function(irast, rastkey, choice, imask, maskkey){
 #' veg_class(irast = "./veg_dens_mskd", rastkey = ".tif",
 #'     imask = FALSE, maskkey = NA,
 #'     classes = "./supplementary/density_classes.csv")
-#'
-#' veg_class(irast = "./veg_dens_mskd_cld", rastkey = ".tif",
-#'     imask = "./raster_masks/cloud_masks, maskkey = .tif,
-#'     classes = "./supplementary/density_classes.csv")
 #' }
 #'
 #' @import dplyr

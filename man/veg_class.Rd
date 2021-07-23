@@ -58,6 +58,14 @@ This function is designed to take the continuous values, in say a
    density but they can still be identified and removed (e.g. any value > 10)
    in downstream analysis.
 }
+\examples{
+\dontrun{
+veg_class(irast = "./veg_dens_mskd", rastkey = ".tif",
+    imask = FALSE, maskkey = NA,
+    classes = "./supplementary/density_classes.csv")
+}
+
+}
 \author{
 Bart Huntley, \email{bart.huntley@dbca.wa.gov.au}
 }
