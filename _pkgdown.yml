@@ -1,0 +1,65 @@
+template:
+  params:
+    bootswatch: flatly
+
+destination: docs
+
+articles:
+  - title: Helpful guide
+    desc: >
+      Helpful guides that describe the worflow utilising the groveR package
+    contents:
+      - intro
+      - one
+      - two
+      - three
+      - four
+      - five
+
+reference:
+  - title: "Make a workspace"
+    desc: >
+      Creating a folder structure to get you started.
+    contents:
+      - make_folders
+
+  - title: "Vegetation density products"
+    desc: >
+      Creating and masking vegetation density products.
+    contents:
+      - veg_dens
+      - mask_product
+      - cloud_mask_bulk
+      - cloud_mask_select
+
+  - title: "Vegetation classification"
+    desc: >
+      Vegetation classification and getting area statistics.
+    contents:
+      - veg_class
+      - veg_class_area
+      - veg_dens_class_plot
+
+  - title: "Trend classification"
+    desc: >
+      Trend classification and getting area statistics.
+    contents:
+      - trend_class
+      - trend_class_area
+
+  - title: "Change in extent"
+    desc: >
+      Calculation of change in vegetation extent and creation of change rasters.
+    contents:
+      - change_extent
+      - change_extent_plot
+
+  - title: "Access the example data"
+    desc: >
+      Functions that will make example data.
+    contents:
+      - make_example_data
+      - make_index_rasters
+
+
+url: https://bartesto.github.io/ScatMatch
