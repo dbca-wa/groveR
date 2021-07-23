@@ -129,7 +129,7 @@ veg_dens <- function(irast, rastkey, choice, index, ext, calibration){
 #'     masks.
 #'
 #' @return For each input raster a masked product will be written to file in a
-#'     folder named `veg_dens_mskd_for_trends/`. Masked values will be NA.
+#'     folder named `veg_dens_mskd/`. Masked values will be NA.
 #'
 #' @author Bart Huntley, \email{bart.huntley@@dbca.wa.gov.au}
 #'
@@ -153,23 +153,23 @@ mask_product <- function(irast, rastkey, choice, imask, maskkey){
       rastdf <- dplyr::tibble(path = fs::dir_ls(irast,
                                                 glob = paste0("*",
                                                               rastkey, "$"))) %>%
-        dplyr::mutate(bname = stringr::str_replace(basename(path), "Dens_",
-                                                   "Dens_MskdTrends_"))
+        dplyr::mutate(bname = stringr::str_replace(basename(path), "Dens",
+                                                   "Dens_Mskd"))
     } else {
       rastdf <- dplyr::tibble(path = fs::dir_ls(irast,
                                                 glob = paste0("*",
                                                               rastkey, "$"))) %>%
         dplyr::mutate(yr = readr::parse_number(basename(path))) %>%
         dplyr::filter(yr %in% choice) %>%
-        dplyr::mutate(bname = stringr::str_replace(basename(path), "Dens_",
-                                                   "Dens_MskdTrends_"))
+        dplyr::mutate(bname = stringr::str_replace(basename(path), "Dens",
+                                                   "Dens_Mskd"))
     }
     maskdf <- dplyr::tibble(path = fs::dir_ls(imask,
                                               glob = paste0("*",
                                                             maskkey, "$"))) %>%
       dplyr::mutate(inverse = stringr::str_detect(basename(path), "INV"))
     # output folder
-    out <- "./veg_dens_mskd_for_trends"
+    out <- "./veg_dens_mskd"
     if (!file.exists(out)) {dir.create(out)}
     for(i in seq_along(rastdf[[1]])){
       ir1 <-  raster::raster(rastdf[[1]][i])
