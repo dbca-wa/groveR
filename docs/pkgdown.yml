@@ -1,0 +1,12 @@
+pandoc: 2.7.3
+pkgdown: 1.6.1
+pkgdown_sha: ~
+articles:
+  five: five.html
+  four: four.html
+  intro: intro.html
+  one: one.html
+  three: three.html
+  two: two.html
+last_built: 2021-07-23T07:30Z
+
