@@ -133,8 +133,8 @@
     <tr>
       <th>irast</th>
       <td><p>Character file path to input veg density rasters that have been
-through the cloud masking process, i.e. those that are found in
-`veg_dens_mskd_for_class\`.</p></td>
+through the masking process, i.e. those that are found in
+`veg_dens_mskd\` or `veg_dens_mskd_cld\`.</p></td>
     </tr>
     <tr>
       <th>rastkey</th>
@@ -144,14 +144,15 @@ software (e.g. ArcMap).</p></td>
     </tr>
     <tr>
       <th>imask</th>
-      <td><p>Character file path to directory of raster masks that were
-applied using a "cloud_mask" function. If there were none or you would
-prefer that no "probable" classifications be carried out use FALSE.</p></td>
+      <td><p>A character file path to directory of raster masks that were
+created using a "cloud_mask" function if a "probable" classification is
+desired. If there were none or you would prefer that no "probable"
+classifications be carried out use FALSE.</p></td>
     </tr>
     <tr>
       <th>maskkey</th>
       <td><p>Character representation of the file extension of the raster
-masks.</p></td>
+masks if a "probable" classification is desired. If not use NA</p></td>
     </tr>
     <tr>
       <th>classes</th>
@@ -162,8 +163,9 @@ csv file including file path.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>All input rasters will be reclassified and be written to
-    `veg_class_cloud_prob/`.</p>
+    <p>All input rasters will be reclassified and be written to either
+    `veg_class_cloud_prob/` for "probable" classifications or `veg_class/` if
+    standard classifications are carried out.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function is designed to take the continuous values, in say a
@@ -191,9 +193,9 @@ csv file including file path.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>veg_class</span><span class='op'>(</span>irast <span class='op'>=</span> <span class='st'>"./veg_dens_mskd_for_class"</span>, rastkey <span class='op'>=</span> <span class='st'>".tif"</span>,
-    imask <span class='op'>=</span> <span class='st'>"Z:/DEC/projectXX/processing/raster_masks/cloud_masks"</span>,
-    maskkey <span class='op'>=</span> <span class='st'>".ers"</span>, classes <span class='op'>=</span> <span class='st'>"./supplementary/density_classes.csv"</span><span class='op'>)</span>
+<span class='fu'>veg_class</span><span class='op'>(</span>irast <span class='op'>=</span> <span class='st'>"./veg_dens_mskd"</span>, rastkey <span class='op'>=</span> <span class='st'>".tif"</span>,
+    imask <span class='op'>=</span> <span class='cn'>FALSE</span>, maskkey <span class='op'>=</span> <span class='cn'>NA</span>,
+    classes <span class='op'>=</span> <span class='st'>"./supplementary/density_classes.csv"</span><span class='op'>)</span>
 <span class='op'>}</span>
 
 </div></pre>
