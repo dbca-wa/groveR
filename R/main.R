@@ -425,14 +425,14 @@ cloud_mask_bulk <- function(irast, rastkey, imask, maskkey){
 #' @param choice A character vector of year/s to mask.
 #'
 #' @return Any cloud masking will carried out to affected input rasters and
-#'     these will be written to `veg_dens_mskd_for_class/`. cloud masked
+#'     these will be written to `veg_dens_mskd_cld/`. cloud masked
 #'     areas will have a -99 value.
 #'
 #' @author Bart Huntley, \email{bart.huntley@@dbca.wa.gov.au}
 #'
 #' @examples
 #' \dontrun{
-#' cloud_mask_select(irast = "./veg_dens_mskd_for_trends", rastkey = ".tif",
+#' cloud_mask_select(irast = "./veg_dens_mskd", rastkey = ".tif",
 #'     imask = "Z:/DEC/projectXX/processing/raster_masks/cloud_masks",
 #'     maskkey = ".ers", choice = c("2011", "2015"))
 #' }
@@ -450,10 +450,10 @@ cloud_mask_select <- function(irast, rastkey, choice, imask, maskkey){
     rastdf <- dplyr::tibble(path = fs::dir_ls(irast,
                                               glob = paste0("*",
                                                             rastkey, "$"))) %>%
-      dplyr::mutate(pathnew = stringr::str_replace(path, "mskd_for_trends",
-                                                   "mskd_for_class"),
-                    pathnew = stringr::str_replace(pathnew, "MskdTrends_",
-                                                   "MskdClass_"),
+      dplyr::mutate(pathnew = stringr::str_replace(path, "mskd",
+                                                   "mskd_cld"),
+                    pathnew = stringr::str_replace(pathnew, "Mskd",
+                                                   "MskdCld"),
                     year = readr::parse_number(basename(path)))
     maskdf <- dplyr::tibble(path = fs::dir_ls(imask,
                                               glob = paste0("*",
@@ -466,7 +466,7 @@ cloud_mask_select <- function(irast, rastkey, choice, imask, maskkey){
       ifelse(is.na(x1) & is.na(x2), NA,
              ifelse(x2 == -99 & is.na(x1), x1, x2))}
     # output folder
-    out <- "./veg_dens_mskd_for_class"
+    out <- "./veg_dens_mskd_cld"
     if (!file.exists(out)) {dir.create(out)}
     for(i in seq_along(choice)){
       yr1 <- jdf[[3]][1]
