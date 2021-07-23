@@ -20,8 +20,8 @@ to be processed choice can be "all".}
 \item{index}{Character representation of the index (should be part of the
 input raster file name) which will be replaced in the new output file name.}
 
-\item{ext}{Character representation of the desired file type output. Common
-types include ".tif" and ".img".}
+\item{ext}{Character representation of the desired file type output. Prefer
+".img" to avoid missing crs information.}
 
 \item{calibration}{Character representation of the name of the calibration
 csv file including file path.}
@@ -53,7 +53,7 @@ Density to vegetation index relationship must be established through
 \examples{
 \dontrun{
 veg_dens(irast = "Z:/DEC/projectXX/mosaics", rastkey = ".ers",
-    choice = c("1991", "2010"), index = "ndvi", ext = ".tif",
+    choice = c("1991", "2010"), index = "ndvi", ext = ".img",
     calibration = "./supplementary/calibration.csv")
     }
 

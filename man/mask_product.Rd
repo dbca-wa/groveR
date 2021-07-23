@@ -23,7 +23,7 @@ masks.}
 }
 \value{
 For each input raster a masked product will be written to file in a
-    folder named `veg_dens_mskd_for_trends/`. Masked values will be NA.
+    folder named `veg_dens_mskd/`. Masked values will be NA.
 }
 \description{
 \code{mask_product} takes one or multiple input rasters and applies
