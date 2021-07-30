@@ -86,7 +86,7 @@ veg_dens <- function(irast, rastkey, choice, index, ext, calibration){
     if (!file.exists(out)) {dir.create(out)}
     # process rasters
     for(i in seq_along(rastdf[[1]])){
-      ir1 <- raster::raster(rastdf[[1]][i])
+      ir1 <- raster::raster(rastdf[['path']][i])
       cat("Calculating vegetation density..." , basename(rastdf[[1]][i]), "\n")
       # apply functions per pixel
       ir2 <- raster::overlay(ir1, fun = vdens)
@@ -94,7 +94,7 @@ veg_dens <- function(irast, rastkey, choice, index, ext, calibration){
       ir2[ir2 < calib[["lower"]]] <- NA
       ir2[ir2 > calib[["upper"]]] <- NA
       # write output to file
-      fname <- paste0(out, "/", rastdf[[2]][i])
+      fname <- paste0(out, "/", rastdf[['bname']][i])
       # change extension
       fname <- gsub(tools::file_ext(fname), tools::file_ext(ext), fname)
       raster::writeRaster(ir2, filename = fname,
