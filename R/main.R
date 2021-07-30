@@ -71,7 +71,8 @@ veg_dens <- function(irast, rastkey, choice, index, ext, calibration){
         dplyr::mutate(yr = readr::parse_number(basename(path))) %>%
         dplyr::filter(yr %in% choice) %>%
         dplyr::mutate(bname = stringr::str_replace(basename(path), index,
-                                                   "V_Dens"))
+                                                   "V_Dens")) %>%
+        dplyr::select(-yr)
     }
     # calibration file
     calib <- readr::read_csv(calibration)
