@@ -126,12 +126,13 @@ change_extent_plot <- function(icsv, cap){
     dplyr::mutate(Status = factor(Status,
                                   levels = c('loss', 'cloud likely loss','gain', 'cloud likely gain',
                                              'stable', 'cloud likely stable',
-                                             'cloud no data', NA)))
-  sites <- unique(df$Site)
+                                             'cloud no data', NA)),
+                  RS = paste0(Region, "_", Site))
+  sites <- unique(df$RS)
   for(i in seq_along(sites)){
     site <- sites[i]
     df2 <- df %>%
-      dplyr::filter(Site == site)
+      dplyr::filter(RS == site)
     # helpers
     as_of <- Sys.Date()
 
