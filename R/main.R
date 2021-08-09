@@ -780,6 +780,9 @@ veg_class <- function(irast, rastkey, imask, maskkey, classes){
 #' @param attribname Character string of the name of the attribute column that
 #'     contains the region information.
 #'
+#' @param areaname Character string of desired monitoring area name for inclusion
+#'     to output csv name.
+#'
 #' @return Calculated areas are exported via csv file to `extent_summaries\`.
 #'
 #' @author Bart Huntley, \email{bart.huntley@@dbca.wa.gov.au}
@@ -787,7 +790,8 @@ veg_class <- function(irast, rastkey, imask, maskkey, classes){
 #' @examples
 #' \dontrun{
 #' veg_class_area(irast = "./veg_class_cloud_prob", rastkey = ".tif",
-#'     iregions = "./vectors/regions.shp", attribname = "regions")
+#'     iregions = "./vectors/regions.shp", attribname = "regions",
+#'     areaname = "NKMP_all")
 #' }
 #'
 #' @import dplyr
@@ -801,7 +805,7 @@ veg_class <- function(irast, rastkey, imask, maskkey, classes){
 #' @importFrom readr write_csv
 #'
 #' @export
-veg_class_area <- function(irast, rastkey, iregions, attribname){
+veg_class_area <- function(irast, rastkey, iregions, attribname, areaname){
   suppressWarnings({
     irs <- fs::dir_ls(irast, glob = paste0("*", rastkey, "$"))
     rastdf <- dplyr::tibble(path = irs) %>%
@@ -880,7 +884,7 @@ veg_class_area <- function(irast, rastkey, iregions, attribname){
     ayrs <- unique(stats$Year)
     yrs <- paste0("_", min(ayrs), "-", max(ayrs), "_")
     # park
-    park <- unlist(stringr::str_split(stats$Region[1], "_"))[1]
+    park <- areaname
     # output name
     oname <- paste0(out, "/", park, yrs, "extent_summaries.csv")
     readr::write_csv(stats, path = oname)

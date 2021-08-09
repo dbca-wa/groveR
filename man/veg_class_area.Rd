@@ -4,7 +4,7 @@
 \alias{veg_class_area}
 \title{A function to calculate vegetation classification area for reporting.}
 \usage{
-veg_class_area(irast, rastkey, iregions, attribname)
+veg_class_area(irast, rastkey, iregions, attribname, areaname)
 }
 \arguments{
 \item{irast}{Character file path to input veg density rasters that have been
@@ -23,6 +23,9 @@ delineates region from site.}
 
 \item{attribname}{Character string of the name of the attribute column that
 contains the region information.}
+
+\item{areaname}{Character string of desired monitoring area name for inclusion
+to output csv name.}
 }
 \value{
 Calculated areas are exported via csv file to `extent_summaries\`.
@@ -38,7 +41,8 @@ This function is designed to calculate the area of each class as
 \examples{
 \dontrun{
 veg_class_area(irast = "./veg_class_cloud_prob", rastkey = ".tif",
-    iregions = "./vectors/regions.shp", attribname = "regions")
+    iregions = "./vectors/regions.shp", attribname = "regions",
+    areaname = "NKMP_all")
 }
 
 }
