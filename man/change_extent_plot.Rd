@@ -4,11 +4,14 @@
 \alias{change_extent_plot}
 \title{A function to generate a stacked bar chart for mangrove change summaries.}
 \usage{
-change_extent_plot(icsv, cap)
+change_extent_plot(icsv, areaname, cap)
 }
 \arguments{
 \item{icsv}{Character representation of the name of the extent change
 csv file including file path.}
+
+\item{areaname}{Character string of desired monitoring area name for inclusion
+to output png name.}
 
 \item{cap}{Character string of caption (not title) to supply to the plot. If
 none required use empty quotes i.e. "".}
