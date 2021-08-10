@@ -31,7 +31,7 @@ Takes a file path to an extent change csv file as created by
 \examples{
 \dontrun{
 change_extent_plot(icsv = "./extent_change/NatPark_2005-2009_extent_summaries.csv",
-    cap = "RSSA")
+    areaname = "NatPark", cap = "RSSA")
 }
 
 }

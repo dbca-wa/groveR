@@ -25,7 +25,7 @@
 #' @examples
 #' \dontrun{
 #' veg_dens_class_plot(icsv = "./extent_summaries/NatPark_2005-2009_extent_summaries.csv",
-#'     cap = "RSSA")
+#'     areaname = "NatPark", cap = "RSSA")
 #' }
 #'
 #' @import dplyr
@@ -106,7 +106,7 @@ veg_dens_class_plot <- function(icsv, areaname, cap){
 #' @examples
 #' \dontrun{
 #' change_extent_plot(icsv = "./extent_change/NatPark_2005-2009_extent_summaries.csv",
-#'     cap = "RSSA")
+#'     areaname = "NatPark", cap = "RSSA")
 #' }
 #'
 #' @import dplyr
