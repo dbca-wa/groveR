@@ -11,6 +11,9 @@
 #' @param icsv Character representation of the name of the extent summary
 #'     csv file including file path.
 #'
+#' @param areaname Character string of desired monitoring area name for inclusion
+#'     to output png name.
+#'
 #' @param cap Character string of caption (not title) to supply to the plot. If
 #'     none required use empty quotes i.e. "".
 #'
@@ -31,7 +34,7 @@
 #' @importFrom readr read_csv
 #'
 #' @export
-veg_dens_class_plot <- function(icsv, cap){
+veg_dens_class_plot <- function(icsv, areaname, cap){
   dens_class_cols <- c('10-19%' = "#33FE31",
                        '20-29%' = "#20CB27",
                        '30-49%' = "#109A1D",
@@ -71,8 +74,8 @@ veg_dens_class_plot <- function(icsv, cap){
       theme_bw() +
       theme(axis.text.x = element_text(angle=70, vjust = 0.5))
 
-    pname <- paste0(dirname(icsv), "/", gsub(" ", "_", df2$Site[1]),"_",
-                    yr_range, ".png")
+    pname <- paste0(dirname(icsv), "/", areaname, "_",
+                    yr_range, "_veg_dens_class.png")
     ggsave(p, filename = pname, width = 10, height = 7)
   }
 
@@ -88,6 +91,9 @@ veg_dens_class_plot <- function(icsv, cap){
 #'
 #' @param icsv Character representation of the name of the extent change
 #'     csv file including file path.
+#'
+#' @param areaname Character string of desired monitoring area name for inclusion
+#'     to output png name.
 #'
 #' @param cap Character string of caption (not title) to supply to the plot. If
 #'     none required use empty quotes i.e. "".
@@ -109,7 +115,7 @@ veg_dens_class_plot <- function(icsv, cap){
 #' @importFrom readr read_csv
 #'
 #' @export
-change_extent_plot <- function(icsv, cap){
+change_extent_plot <- function(icsv, areaname, cap){
   ext_chng_cols <- c('gain' = '#0000CC',
                      'stable' = '#808080',
                      'loss' = '#FF0000',
@@ -147,8 +153,7 @@ change_extent_plot <- function(icsv, cap){
       theme_bw() +
       theme(axis.text.x = element_text(angle=70, vjust = 0.5))
 
-    pname <- paste0(dirname(icsv), "/", df2$Region[1], "_",
-                    gsub(" ", "_", df2$Site[i]), ".png")
+    pname <- paste0(dirname(icsv), "/", areaname, "_change_extent.png")
     ggsave(p, filename = pname, width = 9, height = 7)
   }
 }
