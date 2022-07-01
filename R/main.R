@@ -818,6 +818,8 @@ veg_class_area <- function(irast, rastkey, iregions, attribname, areaname){
     if (!file.exists(out)) {dir.create(out)}
     # stack rasters
     rsk <- raster::stack(rastdf[[1]])
+    # find pixel res and calculate hectares
+    res_mult <- (round(res(rsk)[1])^2)/10000
     stats <- dplyr::tibble()
     cat("Calculating veg classes... \n")
     for(i in seq_along(reps)){
@@ -839,7 +841,7 @@ veg_class_area <- function(irast, rastkey, iregions, attribname, areaname){
         purrr::map_df(~ as.data.frame(.x), .id = "id") %>%
         dplyr::mutate(Region = name_r,
                       Site = name_s,
-                      Area = count * 0.09,
+                      Area = count * res_mult,
                       DensityClass = case_when(
                         value == 1 ~ '10-19%',
                         value == 2 ~ '20-29%',
