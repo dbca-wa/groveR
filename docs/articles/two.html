@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">groveR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -55,7 +51,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/Bartesto/groveR/">
+  <a href="https://github.com/Bartesto/groveR/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -70,13 +66,14 @@
 
       
 
-      </header><script src="two_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Populate the Processing Folder with Example Data</h1>
+      <h1 data-toc-skip>Populate the Processing Folder with Example
+Data</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/Bartesto/groveR/blob/master/vignettes/two.Rmd"><code>vignettes/two.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Bartesto/groveR/blob/HEAD/vignettes/two.Rmd" class="external-link"><code>vignettes/two.Rmd</code></a></small>
       <div class="hidden name"><code>two.Rmd</code></div>
 
     </div>
@@ -84,40 +81,64 @@
     
     
 <p><img src="plots/tree_logo_small.png"></p>
-<div id="purpose" class="section level2">
-<h2 class="hasAnchor">
-<a href="#purpose" class="anchor"></a>Purpose</h2>
-<p>The best way to get a handle on this package is to try it out with the example data. The following will guide you through putting the example data into the suggested <strong>Processing Folder</strong> directory.</p>
+<div class="section level2">
+<h2 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
+</h2>
+<p>The best way to get a handle on this package is to try it out with
+the example data. The following will guide you through putting the
+example data into the suggested <strong>Processing Folder</strong>
+directory.</p>
 </div>
-<div id="populate-with-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#populate-with-data" class="anchor"></a>Populate with data</h2>
-<p>At this point either fill the directories with the example data or if you are an old hand at this, use your own data. If using your own data you can skip this bit and start the next vignette.</p>
-<p>So at this stage you have the folders setup and the is your working directory. Run the following code to save the example data to where it needs to be.</p>
+<div class="section level2">
+<h2 id="populate-with-data">Populate with data<a class="anchor" aria-label="anchor" href="#populate-with-data"></a>
+</h2>
+<p>At this point either fill the directories with the example data or if
+you are an old hand at this, use your own data. If using your own data
+you can skip this bit and start the next vignette.</p>
+<p>So at this stage you have the folders setup and the is your working
+directory. Run the following code to save the example data to where it
+needs to be.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Access internal dummy user data and write to sub-directories</span>
-<span class="fu"><a href="../reference/make_example_data.html">make_example_data</a></span><span class="op">(</span>p <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Access internal dummy user data and write to sub-directories</span></span>
+<span><span class="fu"><a href="../reference/make_example_data.html">make_example_data</a></span><span class="op">(</span>p <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span></code></pre></div>
 <p>After running that your directories should look like this:</p>
 <p><img src="plots/ex_data.png"></p>
 </div>
-<div id="example-index-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example-index-data" class="anchor"></a>Example index data</h2>
-<p>Often the starting index raster data wouldn’t be stored within the <strong>Processing Folder</strong> as it would be large and the result of other processing steps, such as mosaicking. For the purposes of demonstration, however, we will store the example index raster here. Note the code below will also create a folder, <code>index_rasters/</code>.</p>
+<div class="section level2">
+<h2 id="example-index-data">Example index data<a class="anchor" aria-label="anchor" href="#example-index-data"></a>
+</h2>
+<p>Often the starting index raster data wouldn’t be stored within the
+<strong>Processing Folder</strong> as it would be large and the result
+of other processing steps, such as mosaicking. For the purposes of
+demonstration, however, we will store the example index raster here.
+Note the code below will also create a folder,
+<code>index_rasters/</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Access internal dummy index data and write to sub-directory</span>
-<span class="fu"><a href="../reference/make_index_rasters.html">make_index_rasters</a></span><span class="op">(</span>p <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Access internal dummy index data and write to sub-directory</span></span>
+<span><span class="fu"><a href="../reference/make_index_rasters.html">make_index_rasters</a></span><span class="op">(</span>p <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span></code></pre></div>
 <p>After running that your directories should look like this:</p>
 <p><img src="plots/ex_data2.png"></p>
 </div>
-<div id="what-have-we-got" class="section level2">
-<h2 class="hasAnchor">
-<a href="#what-have-we-got" class="anchor"></a>What have we got?</h2>
-<p>The index raster data is a small subset in area and time (2005-2009) from a monitoring program in Lalang-Garram Camden Sound Marine Park in the Kimberley region Western Australia.</p>
-<p><strong>NOTE on naming</strong>. Its always good to maintain a naming convention that shows the provenance of the imagery data. The name of the data used here for example indicates that the data is Landsat NBART, for the LgSCMP, it is NDVI, shows the year and that it is projected to Albers Australia.</p>
-<p>There is both a land and a reef mask to suit as well as cloud mask for the 2006 index raster. The reef mask is an example of an inverse mask (more on this later).</p>
-<p>In the supplementary directory is a calibration file (model coefficients) to transform the index to vegetation densities. There are also density and trend class files for classification.</p>
-<p>Lastly there is a shape file in the vectors directory which gives boundaries for both a fictitious reporting region and some sites within it.</p>
+<div class="section level2">
+<h2 id="what-have-we-got">What have we got?<a class="anchor" aria-label="anchor" href="#what-have-we-got"></a>
+</h2>
+<p>The index raster data is a small subset in area and time (2005-2009)
+from a monitoring program in Lalang-Garram Camden Sound Marine Park in
+the Kimberley region Western Australia.</p>
+<p><strong>NOTE on naming</strong>. Its always good to maintain a naming
+convention that shows the provenance of the imagery data. The name of
+the data used here for example indicates that the data is Landsat NBART,
+for the LgSCMP, it is NDVI, shows the year and that it is projected to
+Albers Australia.</p>
+<p>There is both a land and a reef mask to suit as well as cloud mask
+for the 2006 index raster. The reef mask is an example of an inverse
+mask (more on this later).</p>
+<p>In the supplementary directory is a calibration file (model
+coefficients) to transform the index to vegetation densities. There are
+also density and trend class files for classification.</p>
+<p>Lastly there is a shape file in the vectors directory which gives
+boundaries for both a fictitious reporting region and some sites within
+it.</p>
 </div>
   </div>
 
@@ -132,11 +153,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Bart Huntley.</p>
+  <p></p>
+<p>Developed by Bart Huntley.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>
@@ -144,6 +167,8 @@
 
   
 
+
+  
 
   </body>
 </html>

@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">groveR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -55,7 +51,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/Bartesto/groveR/">
+  <a href="https://github.com/Bartesto/groveR/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -70,13 +66,13 @@
 
       
 
-      </header><script src="three_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Index to Vegetation Density</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/Bartesto/groveR/blob/master/vignettes/three.Rmd"><code>vignettes/three.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Bartesto/groveR/blob/HEAD/vignettes/three.Rmd" class="external-link"><code>vignettes/three.Rmd</code></a></small>
       <div class="hidden name"><code>three.Rmd</code></div>
 
     </div>
@@ -84,57 +80,85 @@
     
     
 <p><img src="plots/tree_logo_small.png"></p>
-<div id="purpose" class="section level2">
-<h2 class="hasAnchor">
-<a href="#purpose" class="anchor"></a>Purpose</h2>
-<p>This is where the whole analysis begins. A vegetation index will be converted to a cover metric which will make all outputs more meaningful. There will have been a lot of work done prior to this stage. Field measures of cover will have been regressed with a variety of vegetation indices to find the best relationship. That work will have resulted in an index being chosen for the annual data plus model coefficients being recorded in the calibration file.</p>
+<div class="section level2">
+<h2 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
+</h2>
+<p>This is where the whole analysis begins. A vegetation index will be
+converted to a cover metric which will make all outputs more meaningful.
+There will have been a lot of work done prior to this stage. Field
+measures of cover will have been regressed with a variety of vegetation
+indices to find the best relationship. That work will have resulted in
+an index being chosen for the annual data plus model coefficients being
+recorded in the calibration file.</p>
 </div>
-<div id="calibration-file" class="section level2">
-<h2 class="hasAnchor">
-<a href="#calibration-file" class="anchor"></a>Calibration file</h2>
-<p>This csv file holds the model coefficients that when applied to the index rasters, will convert them to a measure of cover. It should be located in the <strong>Processing Folder</strong> in <code>supplementary/</code>. The csv needs to have the following format:</p>
+<div class="section level2">
+<h2 id="calibration-file">Calibration file<a class="anchor" aria-label="anchor" href="#calibration-file"></a>
+</h2>
+<p>This csv file holds the model coefficients that when applied to the
+index rasters, will convert them to a measure of cover. It should be
+located in the <strong>Processing Folder</strong> in
+<code>supplementary/</code>. The csv needs to have the following
+format:</p>
 <p><img src="plots/calib.png"></p>
-<p>Please ensure the column names are as indicated above. The names mean:</p>
+<p>Please ensure the column names are as indicated above. The names
+mean:</p>
 <p><strong>coef</strong> - the model coefficient.</p>
 <p><strong>intercept</strong> - the model intercept.</p>
-<p><strong>multiple</strong> - a multiple to turn the model output to a percentage.</p>
-<p><strong>lower</strong> - a lower limit to apply to the veg density. In this instance we are not interested in densities below 10%.</p>
-<p><strong>upper</strong> - an upper limit to apply to the veg density.</p>
+<p><strong>multiple</strong> - a multiple to turn the model output to a
+percentage.</p>
+<p><strong>lower</strong> - a lower limit to apply to the veg density.
+In this instance we are not interested in densities below 10%.</p>
+<p><strong>upper</strong> - an upper limit to apply to the veg
+density.</p>
 </div>
-<div id="use-the-veg_dens-function" class="section level2">
-<h2 class="hasAnchor">
-<a href="#use-the-veg_dens-function" class="anchor"></a>Use the veg_dens() function</h2>
-<p>Lets run the function. The following code block uses the data we have set up previously. If using your own data change the parameters to suit. Below I assign all the parameters to variables and pass those to the function. I find this neater and will do this in the remaining vignettes. Alternatively you can input the parameters directly to the function.</p>
+<div class="section level2">
+<h2 id="use-the-veg_dens-function">Use the veg_dens() function<a class="anchor" aria-label="anchor" href="#use-the-veg_dens-function"></a>
+</h2>
+<p>Lets run the function. The following code block uses the data we have
+set up previously. If using your own data change the parameters to suit.
+Below I assign all the parameters to variables and pass those to the
+function. I find this neater and will do this in the remaining
+vignettes. Alternatively you can input the parameters directly to the
+function.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Assign the parameters</span>
-<span class="va">irast</span> <span class="op">&lt;-</span> <span class="st">"./index_rasters"</span>
-<span class="va">rastkey</span> <span class="op">&lt;-</span> <span class="st">"AA.img"</span>
-<span class="va">choice</span> <span class="op">&lt;-</span> <span class="st">"all"</span>
-<span class="va">index</span> <span class="op">&lt;-</span> <span class="st">"ndvi"</span>
-<span class="va">ext</span> <span class="op">&lt;-</span> <span class="st">".img"</span>
-<span class="va">calibration</span> <span class="op">&lt;-</span> <span class="st">"./supplementary/calibration.csv"</span>
-
-<span class="co"># Run the function</span>
-<span class="fu"><a href="../reference/veg_dens.html">veg_dens</a></span><span class="op">(</span><span class="va">irast</span>, <span class="va">rastkey</span>, <span class="va">choice</span>, <span class="va">index</span>, <span class="va">ext</span>, <span class="va">calibration</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Assign the parameters</span></span>
+<span><span class="va">irast</span> <span class="op">&lt;-</span> <span class="st">"./index_rasters"</span></span>
+<span><span class="va">rastkey</span> <span class="op">&lt;-</span> <span class="st">"AA.img"</span></span>
+<span><span class="va">choice</span> <span class="op">&lt;-</span> <span class="st">"all"</span></span>
+<span><span class="va">index</span> <span class="op">&lt;-</span> <span class="st">"ndvi"</span></span>
+<span><span class="va">ext</span> <span class="op">&lt;-</span> <span class="st">".img"</span></span>
+<span><span class="va">calibration</span> <span class="op">&lt;-</span> <span class="st">"./supplementary/calibration.csv"</span></span>
+<span></span>
+<span><span class="co"># Run the function</span></span>
+<span><span class="fu"><a href="../reference/veg_dens.html">veg_dens</a></span><span class="op">(</span><span class="va">irast</span>, <span class="va">rastkey</span>, <span class="va">choice</span>, <span class="va">index</span>, <span class="va">ext</span>, <span class="va">calibration</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>
 <strong>irast</strong> - input index raster file path.</li>
 <li>
-<strong>rastkey</strong> - wildcard to ensure correct file extension is parsed.</li>
+<strong>rastkey</strong> - wildcard to ensure correct file extension
+is parsed.</li>
 <li>
-<strong>choice</strong> - here we elect to do everything in the folder. When updating products you can input one year, e.g. 2006 or a selection e.g. c(2006, 2009). Note years can be entered as a numeric.</li>
+<strong>choice</strong> - here we elect to do everything in the
+folder. When updating products you can input one year, e.g. 2006 or a
+selection e.g. c(2006, 2009). Note years can be entered as a
+numeric.</li>
 <li>
-<strong>index</strong> - as it appears in the file name. The function will construct a new name for the out put and replace this.</li>
+<strong>index</strong> - as it appears in the file name. The
+function will construct a new name for the out put and replace
+this.</li>
 <li>
-<strong>ext</strong> - output raster format of choice (would recommend .img).</li>
+<strong>ext</strong> - output raster format of choice (would
+recommend .img).</li>
 <li>
 <strong>calibration</strong> - calibration csv location.</li>
 </ul>
 </div>
-<div id="whats-going-to-happen" class="section level2">
-<h2 class="hasAnchor">
-<a href="#whats-going-to-happen" class="anchor"></a>What’s going to happen?</h2>
-<p>A new directory will be created, <code>veg_dens/</code> and vegetation density rasters will be written to it. These will be the inputs for the next function.</p>
+<div class="section level2">
+<h2 id="whats-going-to-happen">What’s going to happen?<a class="anchor" aria-label="anchor" href="#whats-going-to-happen"></a>
+</h2>
+<p>A new directory will be created, <code>veg_dens/</code> and
+vegetation density rasters will be written to it. These will be the
+inputs for the next function.</p>
 </div>
   </div>
 
@@ -149,11 +173,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Bart Huntley.</p>
+  <p></p>
+<p>Developed by Bart Huntley.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>
@@ -161,6 +187,8 @@
 
   
 
+
+  
 
   </body>
 </html>

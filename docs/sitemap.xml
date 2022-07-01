@@ -1,7 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://bartesto.github.io/groveR/404.html</loc>
+  </url>
+  <url>
+    <loc>https://bartesto.github.io/groveR/articles/five.html</loc>
+  </url>
+  <url>
+    <loc>https://bartesto.github.io/groveR/articles/four.html</loc>
+  </url>
+  <url>
+    <loc>https://bartesto.github.io/groveR/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://bartesto.github.io/groveR/articles/intro.html</loc>
+  </url>
+  <url>
+    <loc>https://bartesto.github.io/groveR/articles/one.html</loc>
+  </url>
+  <url>
+    <loc>https://bartesto.github.io/groveR/articles/three.html</loc>
+  </url>
+  <url>
+    <loc>https://bartesto.github.io/groveR/articles/two.html</loc>
+  </url>
+  <url>
+    <loc>https://bartesto.github.io/groveR/authors.html</loc>
+  </url>
+  <url>
     <loc>https://bartesto.github.io/groveR/index.html</loc>
+  </url>
+  <url>
+    <loc>https://bartesto.github.io/groveR/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://bartesto.github.io/groveR/news/index.html</loc>
   </url>
   <url>
     <loc>https://bartesto.github.io/groveR/reference/change_extent.html</loc>
@@ -14,6 +47,12 @@
   </url>
   <url>
     <loc>https://bartesto.github.io/groveR/reference/cloud_mask_select.html</loc>
+  </url>
+  <url>
+    <loc>https://bartesto.github.io/groveR/reference/ext_chng_plot.html</loc>
+  </url>
+  <url>
+    <loc>https://bartesto.github.io/groveR/reference/index.html</loc>
   </url>
   <url>
     <loc>https://bartesto.github.io/groveR/reference/make_example_data.html</loc>
@@ -34,6 +73,9 @@
     <loc>https://bartesto.github.io/groveR/reference/trend_class_area.html</loc>
   </url>
   <url>
+    <loc>https://bartesto.github.io/groveR/reference/trend_class_areas.html</loc>
+  </url>
+  <url>
     <loc>https://bartesto.github.io/groveR/reference/veg_class.html</loc>
   </url>
   <url>
@@ -44,23 +86,5 @@
   </url>
   <url>
     <loc>https://bartesto.github.io/groveR/reference/veg_dens_class_plot.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/articles/five.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/articles/four.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/articles/intro.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/articles/one.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/articles/three.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/articles/two.html</loc>
   </url>
 </urlset>

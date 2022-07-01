@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">groveR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -55,7 +51,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/Bartesto/groveR/">
+  <a href="https://github.com/Bartesto/groveR/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -70,13 +66,13 @@
 
       
 
-      </header><script src="one_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Package Install and Processing Folder Setup</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/Bartesto/groveR/blob/master/vignettes/one.Rmd"><code>vignettes/one.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Bartesto/groveR/blob/HEAD/vignettes/one.Rmd" class="external-link"><code>vignettes/one.Rmd</code></a></small>
       <div class="hidden name"><code>one.Rmd</code></div>
 
     </div>
@@ -84,65 +80,107 @@
     
     
 <p><img src="plots/tree_logo_small.png"></p>
-<div id="install-and-load-the-package" class="section level2">
-<h2 class="hasAnchor">
-<a href="#install-and-load-the-package" class="anchor"></a>Install and load the package</h2>
-<p>You only need to install the package once (unless you are updating it). The package lives on GitHub so you will need <code>devtools</code> to install.</p>
+<div class="section level2">
+<h2 id="install-and-load-the-package">Install and load the package<a class="anchor" aria-label="anchor" href="#install-and-load-the-package"></a>
+</h2>
+<p>You only need to install the package once (unless you are updating
+it). The package lives on GitHub so you will need <code>devtools</code>
+to install.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Install and load groveR</span>
-<span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"dbca-wa/groveR"</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Bartesto/groveR">groveR</a></span><span class="op">)</span></code></pre></div>
-<p>Once this is done you need to set up a standard processing environment.</p>
+<code class="sourceCode R"><span><span class="co"># Install and load groveR</span></span>
+<span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"dbca-wa/groveR"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Bartesto/groveR" class="external-link">groveR</a></span><span class="op">)</span></span></code></pre></div>
+<p>Once this is done you need to set up a standard processing
+environment.</p>
 </div>
-<div id="why" class="section level2">
-<h2 class="hasAnchor">
-<a href="#why" class="anchor"></a>Why?</h2>
-<p>The functions in this package are going to require access to various data and will produce raster and csv products. If everything is located in a standard structure your analysis will run smoother and you won’t be inclined to lose anything.</p>
+<div class="section level2">
+<h2 id="why">Why?<a class="anchor" aria-label="anchor" href="#why"></a>
+</h2>
+<p>The functions in this package are going to require access to various
+data and will produce raster and csv products. If everything is located
+in a standard structure your analysis will run smoother and you won’t be
+inclined to lose anything.</p>
 </div>
-<div id="how" class="section level2">
-<h2 class="hasAnchor">
-<a href="#how" class="anchor"></a>How?</h2>
-<p>You will firstly create a top level directory (<strong>Processing Folder</strong>) where all interim products and final outputs will be generated. This can be wherever and named whatever is convenient. As previously suggested, if set up as an RStudio Project, this will already be your working directory. If not this is where you should set it to. Following this you can populate it with sub-directories that will house user data inputs. If you run the code below it will create those for you.</p>
+<div class="section level2">
+<h2 id="how">How?<a class="anchor" aria-label="anchor" href="#how"></a>
+</h2>
+<p>You will firstly create a top level directory (<strong>Processing
+Folder</strong>) where all interim products and final outputs will be
+generated. This can be wherever and named whatever is convenient. As
+previously suggested, if set up as an RStudio Project, this will already
+be your working directory. If not this is where you should set it to.
+Following this you can populate it with sub-directories that will house
+user data inputs. If you run the code below it will create those for
+you.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Make the sub-directories in the processing folder</span>
-<span class="fu"><a href="../reference/make_folders.html">make_folders</a></span><span class="op">(</span>p <span class="op">=</span><span class="st">"."</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Make the sub-directories in the processing folder</span></span>
+<span><span class="fu"><a href="../reference/make_folders.html">make_folders</a></span><span class="op">(</span>p <span class="op">=</span><span class="st">"."</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="what-does-it-look-like" class="section level2">
-<h2 class="hasAnchor">
-<a href="#what-does-it-look-like" class="anchor"></a>What does it look like?</h2>
+<div class="section level2">
+<h2 id="what-does-it-look-like">What does it look like?<a class="anchor" aria-label="anchor" href="#what-does-it-look-like"></a>
+</h2>
 <p>The sub-directories have the following structure:</p>
 <p><img src="plots/fstruct.png"></p>
 <ul>
-<li><p><code>raster_masks/</code> will contain “general” raster masks of the type that will be applied to all satellite data.</p></li>
-<li><p><code>raster_masks/cloud_masks/</code> will contain “specific” raster masks that will be applied only to certain satellite data dates.</p></li>
-<li><p><code>supplementary/</code> will contain three csv files. One each to describe calibration coefficients, density classes and trend classes.</p></li>
-<li><p><code>vectors/</code> will contain a shape file that delineates the region that output area stats are generated for.</p></li>
+<li><p><code>raster_masks/</code> will contain “general” raster masks of
+the type that will be applied to all satellite data.</p></li>
+<li><p><code>raster_masks/cloud_masks/</code> will contain “specific”
+raster masks that will be applied only to certain satellite data
+dates.</p></li>
+<li><p><code>supplementary/</code> will contain three csv files. One
+each to describe calibration coefficients, density classes and trend
+classes.</p></li>
+<li><p><code>vectors/</code> will contain a shape file that delineates
+the region that output area stats are generated for.</p></li>
 </ul>
 </div>
-<div id="whats-next" class="section level2">
-<h2 class="hasAnchor">
-<a href="#whats-next" class="anchor"></a>What’s next?</h2>
-<p>The starting point for this workflow is a directory containing pre-generated annual vegetation index rasters that cover an area to be reported on. These index rasters, one per year, will have been chosen on the basis of:</p>
+<div class="section level2">
+<h2 id="whats-next">What’s next?<a class="anchor" aria-label="anchor" href="#whats-next"></a>
+</h2>
+<p>The starting point for this workflow is a directory containing
+pre-generated annual vegetation index rasters that cover an area to be
+reported on. These index rasters, one per year, will have been chosen on
+the basis of:</p>
 <ul>
-<li>An appropriate index, when used in a model, provide the best measure of cover.</li>
-<li>That the time of capture is the same for all time steps i.e. the same season.</li>
-<li>That they are free from cloud, or where cloud is unavoidable, they have had cloud masked and the appropriate mask has been retained.</li>
-<li>That they cover the whole area of interest. If the area of interest is larger than an available satellite scene, they have been mosiacked together.</li>
-<li>That they all have identical extents (footprints) and pixel sizes.</li>
+<li>An appropriate index, when used in a model, provide the best measure
+of cover.</li>
+<li>That the time of capture is the same for all time steps i.e. the
+same season.</li>
+<li>That they are free from cloud, or where cloud is unavoidable, they
+have had cloud masked and the appropriate mask has been retained.</li>
+<li>That they cover the whole area of interest. If the area of interest
+is larger than an available satellite scene, they have been mosiacked
+together.</li>
+<li>That they all have identical extents (footprints) and pixel
+sizes.</li>
 </ul>
-<p>The above data will be large and as such should not be located in the <strong>Processing Folder</strong>. You will however need to know where it is and be able to provide a filepath to it’s location.</p>
-<p>The other data that you will need to provide will be stored in the appropriate sub-directories of the described <strong>Processing Folder</strong>. Ensure any masks have the same extents and pixel sizes as the annual rasters. The required csv files will be described in detail later in the vignettes as will the shape file.</p>
+<p>The above data will be large and as such should not be located in the
+<strong>Processing Folder</strong>. You will however need to know where
+it is and be able to provide a filepath to it’s location.</p>
+<p>The other data that you will need to provide will be stored in the
+appropriate sub-directories of the described <strong>Processing
+Folder</strong>. Ensure any masks have the same extents and pixel sizes
+as the annual rasters. The required csv files will be described in
+detail later in the vignettes as will the shape file.</p>
 </div>
-<div id="a-note-on-projections" class="section level2">
-<h2 class="hasAnchor">
-<a href="#a-note-on-projections" class="anchor"></a>A Note on Projections</h2>
-<p>Any data that is used for your analysis must have a consistent projection. As reporting areas used in mangrove monitoring can straddle more than one UTM zone, Albers Australia (EPSG: 3577) has been used as a default. This is a reasonable choice as it enables easy calculation for area in metres and UTM zones are not an issue.</p>
+<div class="section level2">
+<h2 id="a-note-on-projections">A Note on Projections<a class="anchor" aria-label="anchor" href="#a-note-on-projections"></a>
+</h2>
+<p>Any data that is used for your analysis must have a consistent
+projection. As reporting areas used in mangrove monitoring can straddle
+more than one UTM zone, Albers Australia (EPSG: 3577) has been used as a
+default. This is a reasonable choice as it enables easy calculation for
+area in metres and UTM zones are not an issue.</p>
 </div>
-<div id="another-note---example-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#another-note---example-data" class="anchor"></a>Another Note - Example Data</h2>
-<p>Shipped with this package is example data from the Kimberley’s. The following vignettes will make use of this data to demonstrate capabilities. The next vignette will describe how to extract the example data from the package into the <strong>Processing Folder</strong> sub-directories.</p>
+<div class="section level2">
+<h2 id="another-note---example-data">Another Note - Example Data<a class="anchor" aria-label="anchor" href="#another-note---example-data"></a>
+</h2>
+<p>Shipped with this package is example data from the Kimberley’s. The
+following vignettes will make use of this data to demonstrate
+capabilities. The next vignette will describe how to extract the example
+data from the package into the <strong>Processing Folder</strong>
+sub-directories.</p>
 </div>
   </div>
 
@@ -157,11 +195,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Bart Huntley.</p>
+  <p></p>
+<p>Developed by Bart Huntley.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>
@@ -169,6 +209,8 @@
 
   
 
+
+  
 
   </body>
 </html>
