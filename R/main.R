@@ -1264,7 +1264,7 @@ change_extent <- function(irast, rastkey, iregions, attribname){
         # mask out
         c_m <- raster::mask(x = c, mask = rep_ir)
         # find pixel res and calculate hectares
-        res_mult <- (round(raster::res(tcs)[1])^2)/10000
+        res_mult <- (round(raster::res(c_m)[1])^2)/10000
         # area calcs
         period <- paste0(rastdf[[2]][i], "-", rastdf[[2]][i +1])
         out_df <-  tibble::as_tibble(raster::freq(c_m)) %>%
