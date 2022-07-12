@@ -1288,9 +1288,9 @@ change_extent <- function(irast, rastkey, iregions, attribname){
 
     }
 
-    tofind <- paste0(readr::parse_number(basename(rastdf[[4]][1])), "_AA", rastkey)
+    tofind <- tail(strsplit(rastdf[[4]][1], "_")[[1]], n = 1)
     cname <- stringr::str_replace(rastdf[[4]][1],
-                         tofind,
-                         paste0(cdate, ".csv"))
+                                  tofind,
+                                  paste0(cdate, ".csv"))
     readr::write_csv(stats, path = cname)
   })}
