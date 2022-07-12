@@ -1084,6 +1084,8 @@ trend_class_area <- function(irast, iregions, attribname){
     reps <- unique(regions[[attribname]])
     # trendclass raster
     tcs <- raster::raster(irast)
+    # find pixel res and calculate hectares
+    res_mult <- (round(res(tcs)[1])^2)/10000
     out_list <- list()
     for(i in seq_along(reps)){
       # monitoring vector
@@ -1100,7 +1102,7 @@ trend_class_area <- function(irast, iregions, attribname){
         dplyr::filter(!is.na(value)) %>%
         dplyr::mutate(Region = name_r,
                       Site = name_s,
-                      Area = count * 0.09,
+                      Area = count * res_mult,
                       TrendClass = case_when(
                         value == 1 ~ "Major Gain",
                         value == 2 ~ "Minor Gain",
