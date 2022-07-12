@@ -819,7 +819,7 @@ veg_class_area <- function(irast, rastkey, iregions, attribname, areaname){
     # stack rasters
     rsk <- raster::stack(rastdf[[1]])
     # find pixel res and calculate hectares
-    res_mult <- (round(res(rsk)[1])^2)/10000
+    res_mult <- (round(raster::res(rsk)[1])^2)/10000
     stats <- dplyr::tibble()
     cat("Calculating veg classes... \n")
     for(i in seq_along(reps)){
@@ -1085,7 +1085,7 @@ trend_class_area <- function(irast, iregions, attribname){
     # trendclass raster
     tcs <- raster::raster(irast)
     # find pixel res and calculate hectares
-    res_mult <- (round(res(tcs)[1])^2)/10000
+    res_mult <- (round(raster::res(tcs)[1])^2)/10000
     out_list <- list()
     for(i in seq_along(reps)){
       # monitoring vector
@@ -1263,12 +1263,14 @@ change_extent <- function(irast, rastkey, iregions, attribname){
         rep_ir <- fasterize::fasterize(sf = rep_j, raster = c)
         # mask out
         c_m <- raster::mask(x = c, mask = rep_ir)
+        # find pixel res and calculate hectares
+        res_mult <- (round(raster::res(tcs)[1])^2)/10000
         # area calcs
         period <- paste0(rastdf[[2]][i], "-", rastdf[[2]][i +1])
         out_df <-  tibble::as_tibble(raster::freq(c_m)) %>%
           dplyr::mutate(Region = name_r,
                         Site = name_s,
-                        Area = count * 0.09,
+                        Area = count * res_mult,
                         Status = case_when(
                           value == 10 ~ 'gain',
                           value == 11 ~ 'loss',
