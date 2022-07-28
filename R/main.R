@@ -797,9 +797,8 @@ veg_class <- function(irast, rastkey, imask, maskkey, classes){
 #' @import dplyr
 #' @importFrom magrittr %>%
 #' @importFrom fs dir_ls
-#' @importFrom sf st_read
 #' @importFrom stringr str_split
-#' @importFrom raster stack mask freq
+#' @importFrom terra rast vect res rasterize mask freq
 #' @importFrom fasterize fasterize
 #' @importFrom purrr map_df
 #' @importFrom readr write_csv
@@ -811,34 +810,39 @@ veg_class_area <- function(irast, rastkey, iregions, attribname, areaname){
     rastdf <- dplyr::tibble(path = irs) %>%
       dplyr::mutate(yr = readr::parse_number(basename(path))) #%>%
     #dplyr::filter(!yr %in% dummies)
-    regions <- sf::st_read(iregions)
-    reps <- unique(regions[[attribname]])
+    regions <- terra::vect(iregions)
+    reps <- unique(regions[[attribname]][[1]])
     # output folder
     out <- "./extent_summaries"
     if (!file.exists(out)) {dir.create(out)}
     # stack rasters
-    rsk <- raster::stack(rastdf[[1]])
+    rsk <- terra::rast(rastdf[[1]])
     # find pixel res and calculate hectares
-    res_mult <- (round(raster::res(rsk)[1])^2)/10000
+    res_mult <- (round(terra::res(rsk)[1])^2)/10000
     stats <- dplyr::tibble()
     cat("Calculating veg classes... \n")
     for(i in seq_along(reps)){
       rep_i <- regions[i, attribname]
+      cat("Doing...", reps[i], "\n")
       name_r <- stringr::str_split(reps[i], "_")[[1]][1]
       name_s <- stringr::str_split(reps[i], "_")[[1]][2]
       # make raster mask
-      rep_ir <- fasterize::fasterize(sf = rep_i, raster = rsk[[1]])
+      # rep_ir <- fasterize::fasterize(sf = rep_i, raster = rsk[[1]])
+      rep_ir <- terra::rasterize(x = rep_i, y = rsk[[1]])
       # mask out
-      msk_ir <- raster::mask(x = rsk, mask = rep_ir)
+      # msk_ir <- raster::mask(x = rsk, mask = rep_ir)
+      msk_ir <- terra::mask(rsk, rep_ir)
+      names(msk_ir) <- rastdf[[2]]
       # calc freq table on stack
-      stk <- raster::freq(msk_ir)
+      # stk <- raster::freq(msk_ir)
+      stk <- terra::freq(msk_ir, usenames = TRUE)
       # sensible stack names
-      s_layer_names <- paste0(sapply(stringr::str_split(basename(rastdf[[1]]), "_"), "[[", 1), "_",
-                              rastdf[[2]])
-      names(stk) <- s_layer_names
+      # s_layer_names <- paste0(sapply(stringr::str_split(basename(rastdf[[1]]), "_"), "[[", 1), "_",
+      #                         rastdf[[2]])
+      # names(stk) <- s_layer_names
       # area outputs
       out_df <- stk %>%
-        purrr::map_df(~ as.data.frame(.x), .id = "id") %>%
+        # purrr::map_df(~ as.data.frame(.x), .id = "id") %>%
         dplyr::mutate(Region = name_r,
                       Site = name_s,
                       Area = count * res_mult,
@@ -876,10 +880,9 @@ veg_class_area <- function(irast, rastkey, iregions, attribname, areaname){
                         value == 13 ~ "Cloud likely Sparse - Medium",
                         value == 14 ~ "Cloud likely Medium - Dense",
                         value == 15 ~ "Cloud likely Dense",
-                        TRUE ~ "Other"
-                      ),
-                      Year = readr::parse_number(id)) %>%
-        dplyr::select(-count, -value, -id)
+                        TRUE ~ "Other")) %>%
+        dplyr::rename(Year = layer) %>%
+        dplyr::select(-count, -value)
       stats <- dplyr::bind_rows(stats, out_df)
     }
     # find start end year
