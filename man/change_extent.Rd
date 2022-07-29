@@ -5,7 +5,7 @@
 \title{A function to calculate change extent area and generate change rasters for
 reporting.}
 \usage{
-change_extent(irast, rastkey, iregions, attribname)
+change_extent(irast, rastkey, iregions, attribname, cloud = FALSE)
 }
 \arguments{
 \item{irast}{Character file path to input veg density rasters that have been
@@ -24,6 +24,10 @@ delineates region from site.}
 
 \item{attribname}{Character string of the name of the attribute column that
 contains the region information.}
+
+\item{cloud}{Logical. Default is FALSE. If input imagery has  undergone
+groveR cloud masking choose TRUE. Can add significant processesing time
+on very large rasters.}
 }
 \value{
 Rasters and calculated areas are exported to `extent_change\`.
@@ -46,7 +50,8 @@ This function is designed to do two things:
 \examples{
 \dontrun{
 change_extent(irast = "./veg_class", rastkey = ".img",
-    iregions = "./vectors/regions.shp", attribname = "regions")
+    iregions = "./vectors/regions.shp", attribname = "regions",
+    cloud = FALSE)
 }
 
 }

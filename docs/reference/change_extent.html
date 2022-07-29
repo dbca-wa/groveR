@@ -61,7 +61,7 @@ reporting.</h1>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">change_extent</span><span class="op">(</span><span class="va">irast</span>, <span class="va">rastkey</span>, <span class="va">iregions</span>, <span class="va">attribname</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">change_extent</span><span class="op">(</span><span class="va">irast</span>, <span class="va">rastkey</span>, <span class="va">iregions</span>, <span class="va">attribname</span>, cloud <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -90,6 +90,12 @@ delineates region from site.</p></dd>
 <dd><p>Character string of the name of the attribute column that
 contains the region information.</p></dd>
 
+
+<dt>cloud</dt>
+<dd><p>Logical. Default is FALSE. If input imagery has  undergone
+groveR cloud masking choose TRUE. Can add significant processesing time
+on very large rasters.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -115,7 +121,8 @@ contains the region information.</p></dd>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu">change_extent</span><span class="op">(</span>irast <span class="op">=</span> <span class="st">"./veg_class"</span>, rastkey <span class="op">=</span> <span class="st">".img"</span>,</span></span>
-<span class="r-in"><span>    iregions <span class="op">=</span> <span class="st">"./vectors/regions.shp"</span>, attribname <span class="op">=</span> <span class="st">"regions"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    iregions <span class="op">=</span> <span class="st">"./vectors/regions.shp"</span>, attribname <span class="op">=</span> <span class="st">"regions"</span>,</span></span>
+<span class="r-in"><span>    cloud <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

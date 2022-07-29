@@ -1152,6 +1152,9 @@ trend_class_area <- function(irast, iregions, attribname){
 #'     delineates region from site.
 #' @param attribname Character string of the name of the attribute column that
 #'     contains the region information.
+#' @param cloud Logical. Default is FALSE. If input imagery has  undergone
+#'     groveR cloud masking choose TRUE. Can add significant processesing time
+#'     on very large rasters.
 #'
 #'
 #' @return Rasters and calculated areas are exported to `extent_change\`.
@@ -1162,137 +1165,128 @@ trend_class_area <- function(irast, iregions, attribname){
 #' @examples
 #' \dontrun{
 #' change_extent(irast = "./veg_class", rastkey = ".img",
-#'     iregions = "./vectors/regions.shp", attribname = "regions")
+#'     iregions = "./vectors/regions.shp", attribname = "regions",
+#'     cloud = FALSE)
 #' }
 #'
 #' @import dplyr
 #' @importFrom magrittr %>%
 #' @importFrom fs dir_ls
-#' @importFrom readr parse_number write_csv
+#' @importFrom readr  write_csv
 #' @importFrom stringr str_replace str_split
-#' @importFrom sf st_read
-#' @importFrom raster raster reclassify writeRaster mask freq
-#' @importFrom tibble as_tibble
-#' @importFrom fasterize fasterize
+#' @importFrom sf st_as_sf st_area st_drop_geometry st_write
+#' @importFrom terra rast vect crop rasterize mask classify ifel
+#' @importFrom units set_units
 #'
 #' @export
-change_extent <- function(irast, rastkey, iregions, attribname){
-  suppressWarnings({
-    irs <- rev(fs::dir_ls(irast, glob = paste0("*", rastkey, "$")))
-    cdate <- Sys.Date()
-    rastdf <- dplyr::tibble(path = irs) %>%
-      dplyr::mutate(yr = readr::parse_number(basename(path))) %>%
-      dplyr::mutate(pathnew = stringr::str_replace(path, "veg_class",
-                                                   "extent_change"),
-                    pathnew1 = stringr::str_replace(pathnew, "Veg_Class",
-                                                    "extent_change_"),
-                    pathnew2 = stringr::str_replace(pathnew1, rastkey,
-                                                    paste0(yr-1, rastkey)))
+change_extent <- function(irast, rastkey, iregions, attribname, cloud = FALSE){
+  irs <- rev(fs::dir_ls(irast, glob = paste0("*",
+                                             rastkey, "$")))
+  cdate <- Sys.Date()
+  rastdf <- dplyr::tibble(path = irs) %>%
+    dplyr::mutate(yr = readr::parse_number(basename(path))) %>%
+    dplyr::mutate(pathnew = stringr::str_replace(path, "veg_class", "extent_change"),
+                  pathnew1 = stringr::str_replace(pathnew, "Veg_Class", "extent_change_"),
+                  pathnew2 = stringr::str_replace(pathnew1, rastkey, paste0(yr - 1, rastkey)))
+  end <- length(rastdf[[1]]) - 1
+  rcl <- c(0, 1, 1, 1, 5, 2, 5, 6, 6, 6, 11, 7, 11, 15,
+           8, 15, Inf, NA)
+  rclm <- matrix(rcl, ncol = 3, byrow = TRUE)
+  out <- "./extent_change"
+  if (!file.exists(out)) {
+    dir.create(out)
+  }
+  # stack up
+  whole_stack <- terra::rast(rastdf[['path']])
+  # using vect to play with terra
+  regions <- terra::vect(iregions)
 
-    # iterator needs to be one less to deal with last year not having a prior :)
-    end <- length(rastdf[[1]])- 1
-    #classification matrix for extent calcs
-    rcl <- c(0, 1 , 1,
-             1, 5, 2,
-             5, 6 , 6,
-             6, 11, 7,
-             11, 15, 8,
-             15, Inf, NA)
-    rclm <- matrix(rcl, ncol = 3, byrow = TRUE)
+  reps <- unique(regions[[attribname]][[1]])
+  stats <- dplyr::tibble()
+  # outer loop - by shape file reporting region
+  for(i in seq_along(reps)){
+    todo <- reps[i]
+    rep_i <- regions[i, attribname]
+    #crop and mask
+    mini_crp <- terra::crop(whole_stack, rep_i)
+    msk_i <- terra::rasterize(rep_i, mini_crp)
+    min_msk <- terra::mask(mini_crp, msk_i)
+    # inner loop - by year combo from mini stack
+    for(j in 1:end){
+      cat("Calculating change between...", rastdf[[2]][j],
+          "and", rastdf[[2]][j + 1], " for ", todo,"\n")
+      # get correct layers from stack
+      b1 <- min_msk[[j]] #recent
+      a1 <- min_msk[[j + 1]] #past
 
-    out <- "./extent_change"
-    if (!file.exists(out)) {dir.create(out)}
-    # parks/monitoring regions
-    regions <- sf::st_read(iregions)
-    reps <- unique(regions[[attribname]])
-    stats <- dplyr::tibble()
-    for(i in 1:end){
-      cat("Calculating change between...", rastdf[[2]][i], "and",
-          rastdf[[2]][i + 1], "\n")
-      # b relates to current year (remember file path order reversed - most recent first)
-      b1 <- raster::raster(rastdf[[1]][i])
-      b <- raster::reclassify(b1, rclm)
-      # a relates to prior year
-      a1 <- raster::raster(rastdf[[1]][i + 1])
-      a <- raster::reclassify(a1, rclm)
-      # empty raster based on other
-      c = raster::raster(a); c[] = NA
-      # classifications based on Kathy M rules
-      c[a==1 & b==1] <- NA
-      c[a==2 & b==1] <- 11
-      c[a==6 & b==1] <- NA
-      c[a==7 & b==1] <- NA
-      c[a==8 & b==1] <- 14
-      c[is.na(a) & b==1] <- NA
-      c[a==1 & b==2] <- 10
-      c[a==2 & b==2] <- 12
-      c[a==6 & b==2] <- 16
-      c[a==7 & b==2] <- 13
-      c[a==8 & b==2] <- 15
-      c[is.na(a) & b==2] <- 10
-      c[a==1 & b==6] <- NA
-      c[a==2 & b==6] <- 16
-      c[a==6 & b==6] <- NA
-      c[a==7 & b==6] <- NA
-      c[a==8 & b==6] <- 14
-      c[is.na(a) & b==6] <- NA
-      c[a==1 & b==7] <- NA
-      c[a==2 & b==7] <- 14
-      c[a==6 & b==7] <- NA
-      c[a==7 & b==7] <- NA
-      c[a==8 & b==7] <- 14
-      c[is.na(a) & b==7] <- NA
-      c[a==1 & b==8] <- 13
-      c[a==2 & b==8] <- 15
-      c[a==6 & b==8] <- 13
-      c[a==7 & b==8] <- 13
-      c[a==8 & b==8] <- 15
-      c[is.na(a) & b==8] <- 13
-      c[a==1 & is.na(b)] <- NA
-      c[a==2 & is.na(b)] <- 11
-      c[a==6 & is.na(b)] <- NA
-      c[a==7 & is.na(b)] <- NA
-      c[a==8 & is.na(b)] <- 14
-      c[is.na(a) & is.na(b)] <- NA
-      # output raster
-      raster::writeRaster(c, filename = rastdf[[5]][i], overwrite = TRUE)
-      for(j in seq_along(reps)){
-        # monitoring vector
-        rep_j <- regions[j, attribname]
-        name_r <- stringr::str_split(reps[j], "_")[[1]][1]
-        name_s <- stringr::str_split(reps[j], "_")[[1]][2]
-        # make raster mask
-        rep_ir <- fasterize::fasterize(sf = rep_j, raster = c)
-        # mask out
-        c_m <- raster::mask(x = c, mask = rep_ir)
-        # find pixel res and calculate hectares
-        res_mult <- (round(raster::res(c_m)[1])^2)/10000
-        # area calcs
-        period <- paste0(rastdf[[2]][i], "-", rastdf[[2]][i +1])
-        out_df <-  tibble::as_tibble(raster::freq(c_m)) %>%
-          dplyr::mutate(Region = name_r,
-                        Site = name_s,
-                        Area = count * res_mult,
-                        Status = case_when(
-                          value == 10 ~ 'gain',
-                          value == 11 ~ 'loss',
-                          value == 12 ~ 'stable',
-                          value == 13 ~ 'cloud likely gain',
-                          value == 14 ~ 'cloud likely loss',
-                          value == 15 ~ 'cloud likely stable',
-                          value == 16 ~ 'cloud no data',
-                          TRUE ~ "NA"
-                        ),
-                        Period = period) %>%
-          dplyr::select(-value, -count)
-        stats <- dplyr::bind_rows(stats, out_df)
+      # reclassify
+      b <- terra::classify(b1, rclm)
+      a <- terra::classify(a1, rclm)
+
+      # shorten calcs if no cloud probabilities
+      if(cloud == TRUE){
+        # conditional statements
+        a10 <- terra::ifel(a==1 & b==2 | is.na(a) & b==2, 10, 0)
+        a11 <- terra::ifel(a==2 & b==1 | a==2 & is.na(b), 11, 0)
+        a12 <- terra::ifel(a==2 & b==2, 12, 0)
+        a13 <- terra::ifel(a==7 & b==2 | a==1 & b==8 | a==6 & b==8 | a==7 & b==8 | is.na(a) & b==8, 13, 0)
+        a14 <- terra::ifel(a==8 & b==1 | a==8 & b==6 | a==2 & b==7 | a==8 & b==7 | a==8 & is.na(b), 14, 0)
+        a15 <- terra::ifel(a==8 & b==2 | a==2 & b==8 | a==8 & b==8, 15, 0)
+        a16 <- terra::ifel(a==6 & b==2 | a==2 & b==6, 16, 0)
+        ext_chng <- a10+a11+a12+a13+a14+a15+a16
+      } else {
+        # conditional statements
+        a10 <- terra::ifel(a==1 & b==2 | is.na(a) & b==2, 10, 0)
+        a11 <- terra::ifel(a==2 & b==1 | a==2 & is.na(b), 11, 0)
+        a12 <- terra::ifel(a==2 & b==2, 12, 0)
+        ext_chng <- a10+a11+a12
       }
 
-    }
+      # convert raster output to shp and also calc areas
+      v_chng <- terra::as.polygons(ext_chng) |>
+        sf::st_as_sf()
+      names(v_chng) <- c("gridcode", "geometry")
+      au <- units::set_units(sf::st_area(v_chng), ha)
+      period <- paste0(rastdf[[2]][j], "-", rastdf[[2]][j + 1])
+      name_v <- paste0(out, "/", todo, "_", period, ".shp")
+      v_dat_xy <- v_chng |>
+        dplyr::mutate(status = case_when(
+          gridcode == 10 ~ "gain",
+          gridcode == 11 ~ "loss",
+          gridcode == 12 ~ "stable",
+          gridcode == 13 ~ "cloud likely gain",
+          gridcode == 14 ~ "cloud likely loss",
+          gridcode == 15 ~ "cloud likely stable",
+          gridcode == 16 ~ "cloud no data",
+          TRUE ~ "other"
+        )) |>
+        dplyr::mutate(area_ha = au) |>
+        sf::st_write(dsn = name_v)
 
-    tofind <- tail(strsplit(rastdf[[4]][1], "_")[[1]], n = 1)
-    cname <- stringr::str_replace(rastdf[[4]][1],
-                                  tofind,
-                                  paste0(cdate, ".csv"))
-    readr::write_csv(stats, path = cname)
-  })}
+      # names
+      name_r <- stringr::str_split(todo, "_")[[1]][1]
+      name_s <- stringr::str_split(todo, "_")[[1]][2]
+
+      # shape file to df for stats
+      v_dat_df <- v_dat_xy |>
+        sf::st_drop_geometry() |>
+        dplyr::mutate(Region = name_r,
+                      Site = name_s,
+                      Period = period) |>
+        dplyr::select(Region, Site, area_ha, status, Period) |>
+        dplyr::rename(Area_ha = area_ha,
+                      Status = status) |>
+        dplyr::mutate(Area_ha = as.numeric(Area_ha))
+
+      stats <- dplyr::bind_rows(stats, v_dat_df)
+
+
+    }
+  }
+  # out put stats
+  tofind <- tail(strsplit(rastdf[[4]][1], "_")[[1]],
+                 n = 1)
+  cname <- stringr::str_replace(rastdf[[4]][1], tofind,
+                                paste0(cdate, ".csv"))
+  readr::write_csv(stats, file = cname)
+}
