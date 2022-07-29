@@ -128,9 +128,10 @@ change_extent_plot <- function(icsv, areaname, cap){
   df <-  readr::read_csv(icsv) %>%
     dplyr::filter(!is.na(Status)) %>%
     dplyr::group_by(Region, Site, Period, Status) %>%
-    dplyr::summarise(a = sum(Area)) %>%
+    dplyr::summarise(a = sum(Area_ha)) %>%
     dplyr::mutate(Status = factor(Status,
-                                  levels = c('loss', 'cloud likely loss','gain', 'cloud likely gain',
+                                  levels = c('loss', 'cloud likely loss','gain',
+                                             'cloud likely gain',
                                              'stable', 'cloud likely stable',
                                              'cloud no data', NA)),
                   RS = paste0(Region, "_", Site))
@@ -140,7 +141,7 @@ change_extent_plot <- function(icsv, areaname, cap){
     df2 <- df %>%
       dplyr::filter(RS == site)
     # helpers
-    as_of <- Sys.Date()
+    # as_of <- Sys.Date()
 
     p  <- ggplot(df2, aes(x = Period, y = a, fill = Status)) +
       geom_bar(position="stack", stat="identity") +
@@ -153,7 +154,7 @@ change_extent_plot <- function(icsv, areaname, cap){
       theme_bw() +
       theme(axis.text.x = element_text(angle=70, vjust = 0.5))
 
-    pname <- paste0(dirname(icsv), "/", areaname, "_change_extent.png")
+    pname <- paste0(dirname(icsv), "/", areaname, "_", site, "_change_extent.png")
     ggsave(p, filename = pname, width = 9, height = 7)
   }
 }
