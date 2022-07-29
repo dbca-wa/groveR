@@ -1,4 +1,4 @@
-pandoc: 2.17.1.1
+pandoc: '2.18'
 pkgdown: 2.0.5
 pkgdown_sha: ~
 articles:
@@ -8,7 +8,7 @@ articles:
   one: one.html
   three: three.html
   two: two.html
-last_built: 2022-07-01T00:51Z
+last_built: 2022-07-29T07:16Z
 urls:
   reference: https://bartesto.github.io/groveR/reference
   article: https://bartesto.github.io/groveR/articles
