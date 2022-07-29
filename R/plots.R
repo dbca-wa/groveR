@@ -48,9 +48,9 @@ veg_dens_class_plot <- function(icsv, areaname, cap){
                        'Cloud 70-100%' = "#314010")
   # summarise data
   df <-  readr::read_csv(icsv) %>%
-    dplyr::filter(DensityClass != "Other") %>%
-    dplyr::group_by(Region, Site, Year, DensityClass) %>%
-    dplyr::summarise(a = sum(Area))
+    dplyr::filter(DensityClass != "Other") #%>%
+    # dplyr::group_by(Region, Site, Year, DensityClass) %>%
+    # dplyr::summarise(a = sum(Area))
 
   sites <- unique(df$Site)
   for(i in seq_along(sites)){
@@ -75,7 +75,7 @@ veg_dens_class_plot <- function(icsv, areaname, cap){
       theme(axis.text.x = element_text(angle=70, vjust = 0.5))
 
     pname <- paste0(dirname(icsv), "/", areaname, "_",
-                    yr_range, "_veg_dens_class.png")
+                    yr_range, "_", site, "_veg_dens_class.png")
     ggsave(p, filename = pname, width = 10, height = 7)
   }
 
