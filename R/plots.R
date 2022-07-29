@@ -62,7 +62,7 @@ veg_dens_class_plot <- function(icsv, areaname, cap){
     scalex <- min(df$Year):max(df$Year)
 
 
-    p  <- ggplot(df2, aes(x = Year, y = a, fill = DensityClass)) +
+    p  <- ggplot(df2, aes(x = Year, y = Area, fill = DensityClass)) +
       geom_bar(position="stack", stat="identity") +
       scale_fill_manual(values = dens_class_cols) +
       scale_x_continuous(breaks = scalex) +
