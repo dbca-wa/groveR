@@ -1189,8 +1189,12 @@ change_extent <- function(irast, rastkey, iregions, attribname, cloud = FALSE){
                   pathnew1 = stringr::str_replace(pathnew, "Veg_Class", "extent_change_"),
                   pathnew2 = stringr::str_replace(pathnew1, rastkey, paste0(yr - 1, rastkey)))
   end <- length(rastdf[[1]]) - 1
-  rcl <- c(0, 1, 1, 1, 5, 2, 5, 6, 6, 6, 11, 7, 11, 15,
-           8, 15, Inf, NA)
+  rcl <- c(0, 1, 1,
+           1, 5, 2,
+           5, 6, 6,
+           6, 11, 7,
+           11, 15, 8,
+           15, Inf, NA)
   rclm <- matrix(rcl, ncol = 3, byrow = TRUE)
   out <- "./extent_change"
   if (!file.exists(out)) {
@@ -1234,12 +1238,14 @@ change_extent <- function(irast, rastkey, iregions, attribname, cloud = FALSE){
         a15 <- terra::ifel(a==8 & b==2 | a==2 & b==8 | a==8 & b==8, 15, 0)
         a16 <- terra::ifel(a==6 & b==2 | a==2 & b==6, 16, 0)
         ext_chng <- a10+a11+a12+a13+a14+a15+a16
+        ext_chng <- terra::ifel(ext_chng != 0, ext_chng, NA)
       } else {
         # conditional statements
         a10 <- terra::ifel(a==1 & b==2 | is.na(a) & b==2, 10, 0)
         a11 <- terra::ifel(a==2 & b==1 | a==2 & is.na(b), 11, 0)
         a12 <- terra::ifel(a==2 & b==2, 12, 0)
         ext_chng <- a10+a11+a12
+        ext_chng <- terra::ifel(ext_chng != 0, ext_chng, NA)
       }
 
       # convert raster output to shp and also calc areas
