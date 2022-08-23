@@ -37,8 +37,8 @@ the next vignette.
 
 ## Use the mask_product() function
 To mask out an area, a raster mask is applied to a raster of interest. Usually a 
-mask is generated with 1's and 0's, where 1's indicate the area of interest. When 
-the mask is applied, any areas where there is a 0 is excluded.
+mask is generated with 1's and NA values, where 1's indicate the area of interest. When 
+the mask is applied, any areas where there is a NA is excluded.
 
 The alternate scenario is also possible (1 indicates areas to be excluded) and in 
 this function that will be called an "inverse" mask. 
