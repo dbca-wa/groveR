@@ -113,11 +113,12 @@ veg_dens <- function(irast, rastkey, choice, index, ext, calibration){
 #'     Things like water bodies or non-target vegetation are examples. A folder
 #'     full of different raster masks can be applied with this function.
 #'
-#'     Raster masks are a binary raster indicating spatially where values of
-#'     interest are but can be created with the intent to include or exclude. If
-#'     a mask is designed to be used in an inverse manner then "INV" should be
-#'     included in its file name. The function will search for these letters and
-#'     reverse the mask accordingly.
+#'     Raster masks are a raster indicating spatially where values of
+#'     interest are but can be created with the intent to include or exclude.
+#'     Masks must contain only 1's and NA values. Normally a value of 1 indicates
+#'     the areas of interest however if a mask is designed to be used in an
+#'     inverse manner then "INV" should be included in its file name. The
+#'     function will search for these letters and reverse the mask accordingly.
 #'
 #' @param irast Character file path to directory veg density input rasters.
 #' @param rastkey Character representation of unique string to match in intended
@@ -160,7 +161,7 @@ mask_product <- function(irast, rastkey, choice, imask, maskkey){
       rastdf <- dplyr::tibble(path = fs::dir_ls(irast,
                                                 glob = paste0("*",
                                                               rastkey, "$"))) %>%
-        dplyr::mutate(yr = readr::parse_number(basename(path))) %>%
+        dplyr::mutate(yr = stringr::str_extract(basename(path), "(?<!\\d)\\d{4}(?!\\d)")) %>%
         dplyr::filter(yr %in% choice) %>%
         dplyr::mutate(bname = stringr::str_replace(basename(path), "Dens",
                                                    "Dens_Mskd"))
