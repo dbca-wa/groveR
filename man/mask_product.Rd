@@ -35,11 +35,12 @@ When producing raster products for an area there are often regions
     Things like water bodies or non-target vegetation are examples. A folder
     full of different raster masks can be applied with this function.
 
-    Raster masks are a binary raster indicating spatially where values of
-    interest are but can be created with the intent to include or exclude. If
-    a mask is designed to be used in an inverse manner then "INV" should be
-    included in its file name. The function will search for these letters and
-    reverse the mask accordingly.
+    Raster masks are a raster indicating spatially where values of
+    interest are but can be created with the intent to include or exclude.
+    Masks must contain only 1's and NA values. Normally a value of 1 indicates
+    the areas of interest however if a mask is designed to be used in an
+    inverse manner then "INV" should be included in its file name. The
+    function will search for these letters and reverse the mask accordingly.
 }
 \examples{
 \dontrun{
