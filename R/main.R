@@ -1248,45 +1248,50 @@ change_extent <- function(irast, rastkey, iregions, attribname, cloud = FALSE){
         ext_chng <- a10+a11+a12
         ext_chng <- terra::ifel(ext_chng != 0, ext_chng, NA)
       }
+      if(is.nan(terra::global(ext_chng)$mean) == FALSE){
+        # convert raster output to shp and also calc areas
+        v_chng <- terra::as.polygons(ext_chng) |>
+          sf::st_as_sf()
+        names(v_chng) <- c("gridcode", "geometry")
+        au <- units::set_units(sf::st_area(v_chng), ha)
+        period <- paste0(rastdf[[2]][j], "-", rastdf[[2]][j + 1])
+        name_v <- paste0(out, "/", todo, "_", period, ".shp")
+        v_dat_xy <- v_chng |>
+          dplyr::mutate(status = case_when(
+            gridcode == 10 ~ "gain",
+            gridcode == 11 ~ "loss",
+            gridcode == 12 ~ "stable",
+            gridcode == 13 ~ "cloud likely gain",
+            gridcode == 14 ~ "cloud likely loss",
+            gridcode == 15 ~ "cloud likely stable",
+            gridcode == 16 ~ "cloud no data",
+            TRUE ~ "other"
+          )) |>
+          dplyr::mutate(area_ha = au) |>
+          sf::st_write(dsn = name_v)
 
-      # convert raster output to shp and also calc areas
-      v_chng <- terra::as.polygons(ext_chng) |>
-        sf::st_as_sf()
-      names(v_chng) <- c("gridcode", "geometry")
-      au <- units::set_units(sf::st_area(v_chng), ha)
-      period <- paste0(rastdf[[2]][j], "-", rastdf[[2]][j + 1])
-      name_v <- paste0(out, "/", todo, "_", period, ".shp")
-      v_dat_xy <- v_chng |>
-        dplyr::mutate(status = case_when(
-          gridcode == 10 ~ "gain",
-          gridcode == 11 ~ "loss",
-          gridcode == 12 ~ "stable",
-          gridcode == 13 ~ "cloud likely gain",
-          gridcode == 14 ~ "cloud likely loss",
-          gridcode == 15 ~ "cloud likely stable",
-          gridcode == 16 ~ "cloud no data",
-          TRUE ~ "other"
-        )) |>
-        dplyr::mutate(area_ha = au) |>
-        sf::st_write(dsn = name_v)
+        # names
+        name_r <- stringr::str_split(todo, "_")[[1]][1]
+        name_s <- stringr::str_split(todo, "_")[[1]][2]
 
-      # names
-      name_r <- stringr::str_split(todo, "_")[[1]][1]
-      name_s <- stringr::str_split(todo, "_")[[1]][2]
+        # shape file to df for stats
+        v_dat_df <- v_dat_xy |>
+          sf::st_drop_geometry() |>
+          dplyr::mutate(Region = name_r,
+                        Site = name_s,
+                        Period = period) |>
+          dplyr::select(Region, Site, area_ha, status, Period) |>
+          dplyr::rename(Area_ha = area_ha,
+                        Status = status) |>
+          dplyr::mutate(Area_ha = as.numeric(Area_ha))
 
-      # shape file to df for stats
-      v_dat_df <- v_dat_xy |>
-        sf::st_drop_geometry() |>
-        dplyr::mutate(Region = name_r,
-                      Site = name_s,
-                      Period = period) |>
-        dplyr::select(Region, Site, area_ha, status, Period) |>
-        dplyr::rename(Area_ha = area_ha,
-                      Status = status) |>
-        dplyr::mutate(Area_ha = as.numeric(Area_ha))
+        stats <- dplyr::bind_rows(stats, v_dat_df)
 
-      stats <- dplyr::bind_rows(stats, v_dat_df)
-
+      } else {
+        cat("No extent detected between...", rastdf[[2]][j],
+            "and", rastdf[[2]][j + 1], " for ",
+            todo, " moving on\n")
+      }
 
     }
   }
