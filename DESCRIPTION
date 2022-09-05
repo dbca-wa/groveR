@@ -1,7 +1,7 @@
 Package: groveR
 Type: Package
 Title: Functions for mangrove monitoring
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: person("Bart", "Huntley", email = "bart.huntley@dbca.wa.gov.au",
                   role = c("aut", "cre", "prg", "res"),
                   comment = c(ORCID = "0000-0002-9519-4105"))

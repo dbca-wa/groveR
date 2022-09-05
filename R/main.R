@@ -1181,124 +1181,91 @@ trend_class_area <- function(irast, iregions, attribname){
 #'
 #' @export
 change_extent <- function(irast, rastkey, iregions, attribname, cloud = FALSE){
-  irs <- rev(fs::dir_ls(irast, glob = paste0("*",
-                                             rastkey, "$")))
+  irs <- rev(fs::dir_ls(irast, glob = paste0("*", rastkey, "$")))
   cdate <- Sys.Date()
   rastdf <- dplyr::tibble(path = irs) %>%
     dplyr::mutate(yr = readr::parse_number(basename(path))) %>%
-    dplyr::mutate(pathnew = stringr::str_replace(path, "veg_class", "extent_change"),
+    dplyr::mutate(pathnew = stringr::str_replace(path, "veg_class",
+                                                 "extent_change"),
                   pathnew1 = stringr::str_replace(pathnew, "Veg_Class", "extent_change_"),
                   pathnew2 = stringr::str_replace(pathnew1, rastkey, paste0(yr - 1, rastkey)))
   end <- length(rastdf[[1]]) - 1
-  rcl <- c(0, 1, 1,
-           1, 5, 2,
-           5, 6, 6,
-           6, 11, 7,
-           11, 15, 8,
+  rcl <- c(0, 1, 1, 1, 5, 2, 5, 6, 6, 6, 11, 7, 11, 15, 8,
            15, Inf, NA)
   rclm <- matrix(rcl, ncol = 3, byrow = TRUE)
   out <- "./extent_change"
   if (!file.exists(out)) {
     dir.create(out)
   }
-  # stack up
-  whole_stack <- terra::rast(rastdf[['path']])
-  # using vect to play with terra
+  whole_stack <- terra::rast(rastdf[["path"]])
   regions <- terra::vect(iregions)
-
   reps <- unique(regions[[attribname]][[1]])
   stats <- dplyr::tibble()
-  # outer loop - by shape file reporting region
-  for(i in seq_along(reps)){
+  for (i in seq_along(reps)){
     todo <- reps[i]
     rep_i <- regions[i, attribname]
-    #crop and mask
     mini_crp <- terra::crop(whole_stack, rep_i)
     msk_i <- terra::rasterize(rep_i, mini_crp)
     min_msk <- terra::mask(mini_crp, msk_i)
-    # inner loop - by year combo from mini stack
-    for(j in 1:end){
+    for (j in 1:end){
       cat("Calculating change between...", rastdf[[2]][j],
-          "and", rastdf[[2]][j + 1], " for ", todo,"\n")
-      # get correct layers from stack
-      b1 <- min_msk[[j]] #recent
-      a1 <- min_msk[[j + 1]] #past
-
-      # reclassify
+          "and", rastdf[[2]][j + 1], " for ",
+          todo, "\n")
+      b1 <- min_msk[[j]]
+      a1 <- min_msk[[j + 1]]
       b <- terra::classify(b1, rclm)
       a <- terra::classify(a1, rclm)
-
-      # shorten calcs if no cloud probabilities
-      if(cloud == TRUE){
-        # conditional statements
-        a10 <- terra::ifel(a==1 & b==2 | is.na(a) & b==2, 10, 0)
-        a11 <- terra::ifel(a==2 & b==1 | a==2 & is.na(b), 11, 0)
-        a12 <- terra::ifel(a==2 & b==2, 12, 0)
-        a13 <- terra::ifel(a==7 & b==2 | a==1 & b==8 | a==6 & b==8 | a==7 & b==8 | is.na(a) & b==8, 13, 0)
-        a14 <- terra::ifel(a==8 & b==1 | a==8 & b==6 | a==2 & b==7 | a==8 & b==7 | a==8 & is.na(b), 14, 0)
-        a15 <- terra::ifel(a==8 & b==2 | a==2 & b==8 | a==8 & b==8, 15, 0)
-        a16 <- terra::ifel(a==6 & b==2 | a==2 & b==6, 16, 0)
-        ext_chng <- a10+a11+a12+a13+a14+a15+a16
+      if (cloud == TRUE) {
+        a10 <- terra::ifel(a == 1 & b == 2 | is.na(a) & b == 2, 10, 0)
+        a11 <- terra::ifel(a == 2 & b == 1 | a == 2 & is.na(b), 11, 0)
+        a12 <- terra::ifel(a == 2 & b == 2, 12, 0)
+        a13 <- terra::ifel(a == 7 & b == 2 | a == 1 & b == 8 | a == 6 & b == 8 | a == 7 & b == 8 | is.na(a) & b == 8, 13, 0)
+        a14 <- terra::ifel(a == 8 & b == 1 | a == 8 & b == 6 | a == 2 & b == 7 | a == 8 & b == 7 | a == 8 & is.na(b), 14, 0)
+        a15 <- terra::ifel(a == 8 & b == 2 | a == 2 & b == 8 | a == 8 & b == 8, 15, 0)
+        a16 <- terra::ifel(a == 6 & b == 2 | a == 2 & b == 6, 16, 0)
+        ext_chng <- a10 + a11 + a12 + a13 + a14 + a15 + a16
         ext_chng <- terra::ifel(ext_chng != 0, ext_chng, NA)
       } else {
-        # conditional statements
-        a10 <- terra::ifel(a==1 & b==2 | is.na(a) & b==2, 10, 0)
-        a11 <- terra::ifel(a==2 & b==1 | a==2 & is.na(b), 11, 0)
-        a12 <- terra::ifel(a==2 & b==2, 12, 0)
-        ext_chng <- a10+a11+a12
+        a10 <- terra::ifel(a == 1 & b == 2 | is.na(a) & b == 2, 10, 0)
+        a11 <- terra::ifel(a == 2 & b == 1 | a == 2 & is.na(b), 11, 0)
+        a12 <- terra::ifel(a == 2 & b == 2, 12, 0)
+        ext_chng <- a10 + a11 + a12
         ext_chng <- terra::ifel(ext_chng != 0, ext_chng, NA)
       }
-      if(is.nan(terra::global(ext_chng)$mean) == FALSE){
-        # convert raster output to shp and also calc areas
-        v_chng <- terra::as.polygons(ext_chng) |>
-          sf::st_as_sf()
+      if(is.nan(terra::minmax(ext_chng)[[1]]) == FALSE) {
+        v_chng <- sf::st_as_sf(terra::as.polygons(ext_chng))
         names(v_chng) <- c("gridcode", "geometry")
         au <- units::set_units(sf::st_area(v_chng), ha)
         period <- paste0(rastdf[[2]][j], "-", rastdf[[2]][j + 1])
         name_v <- paste0(out, "/", todo, "_", period, ".shp")
-        v_dat_xy <- v_chng |>
-          dplyr::mutate(status = case_when(
-            gridcode == 10 ~ "gain",
-            gridcode == 11 ~ "loss",
-            gridcode == 12 ~ "stable",
-            gridcode == 13 ~ "cloud likely gain",
-            gridcode == 14 ~ "cloud likely loss",
-            gridcode == 15 ~ "cloud likely stable",
-            gridcode == 16 ~ "cloud no data",
-            TRUE ~ "other"
-          )) |>
-          dplyr::mutate(area_ha = au) |>
-          sf::st_write(dsn = name_v)
-
-        # names
+        v_dat_xy <- sf::st_write(dplyr::mutate(dplyr::mutate(v_chng,
+                                                             status = case_when(gridcode == 10 ~ "gain",
+                                                                                gridcode == 11 ~ "loss", gridcode == 12 ~ "stable", gridcode == 13 ~ "cloud likely gain",
+                                                                                gridcode == 14 ~ "cloud likely loss",
+                                                                                gridcode == 15 ~ "cloud likely stable",
+                                                                                gridcode == 16 ~ "cloud no data", TRUE ~  "other")),
+                                               area_ha = au), dsn = name_v)
         name_r <- stringr::str_split(todo, "_")[[1]][1]
         name_s <- stringr::str_split(todo, "_")[[1]][2]
-
-        # shape file to df for stats
-        v_dat_df <- v_dat_xy |>
-          sf::st_drop_geometry() |>
-          dplyr::mutate(Region = name_r,
-                        Site = name_s,
-                        Period = period) |>
-          dplyr::select(Region, Site, area_ha, status, Period) |>
-          dplyr::rename(Area_ha = area_ha,
-                        Status = status) |>
-          dplyr::mutate(Area_ha = as.numeric(Area_ha))
-
+        v_dat_df <- dplyr::mutate(dplyr::rename(dplyr::select(dplyr::mutate(sf::st_drop_geometry(v_dat_xy),
+                                                                            Region = name_r,
+                                                                            Site = name_s,
+                                                                            Period = period),
+                                                              Region, Site,
+                                                              area_ha, status,
+                                                              Period),
+                                                Area_ha = area_ha, Status = status),
+                                  Area_ha = as.numeric(Area_ha))
         stats <- dplyr::bind_rows(stats, v_dat_df)
-
       } else {
-        cat("No extent detected between...", rastdf[[2]][j],
-            "and", rastdf[[2]][j + 1], " for ",
-            todo, " moving on\n")
+        cat("No extent detected between...", rastdf[[2]][j], "and",
+            rastdf[[2]][j + 1], " for ", todo, " moving on\n")
       }
-
     }
   }
-  # out put stats
   tofind <- tail(strsplit(rastdf[[4]][1], "_")[[1]],
                  n = 1)
-  cname <- stringr::str_replace(rastdf[[4]][1], tofind,
-                                paste0(cdate, ".csv"))
+  cname <- stringr::str_replace(rastdf[[4]][1], tofind, paste0(cdate,
+                                                               ".csv"))
   readr::write_csv(stats, file = cname)
 }
