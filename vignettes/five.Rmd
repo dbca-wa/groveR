@@ -64,7 +64,7 @@ To run the "select" version:
 
 ```{r, select, eval=FALSE}
 # Assign the parameters
-irast <- "./veg_dens_mskd_for_trends"
+irast <- "./veg_dens_mskd"
 rastkey <- ".img"
 choice <- 2006
 imask <- "./raster_masks/cloud_masks"
