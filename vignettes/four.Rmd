@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 
 ## Purpose
 Masking is important in remote sensing analysis as it is used to exclude 
-areas not intended for processing. This focuses the analysis and cuts down  
+areas not intended for processing. This focuses the analysis and cuts down 
 processing times as only what's important is worked on.
 
 The masking that the `groveR` package performs can be thought of as "general" 
@@ -45,15 +45,15 @@ this function that will be called an "inverse" mask.
 
 The example data includes a land mask and an inverse reef mask and this will be 
 applied below. It is important that if your mask is "inverse" then it contains 
-'INV' in it's name. For example our reef mask is called "reef_msk_INV.img".
+'INV' in it's name. For example our reef mask is called "reef_msk_INV.tif".
 
 ```{r, gen_msk, eval=FALSE}
 # Assign the parameters
 irast <- "./veg_dens"
-rastkey <- ".img"
+rastkey <- ".tif"
 choice <- "all"
 imask <- "./raster_masks"
-maskkey <- ".img"
+maskkey <- ".tif"
 
 # Run the function
 mask_product(irast, rastkey, choice, imask, maskkey)
