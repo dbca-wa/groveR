@@ -59,7 +59,7 @@ make_folders <- function(p = "."){
 #' make_example_data(p = ".")
 #' }
 #'
-#' @importFrom raster raster writeRaster
+#' @importFrom terra rast writeRaster
 #' @importFrom readr read_csv write_csv
 #' @importFrom sf st_read st_write
 #'
@@ -67,20 +67,20 @@ make_folders <- function(p = "."){
 make_example_data <- function(p = "."){
   suppressWarnings({
     #masks
-    lmaskp <- system.file("extdata/raster_masks", "land_msk.img", package = "groveR")
-    lmask <- raster::raster(lmaskp)
-    fname <- file.path(p, "raster_masks/land_msk.img")
-    raster::writeRaster(lmask, filename = fname, datatype = 'INT1U')
+    lmaskp <- system.file("extdata/raster_masks", "land_msk.tif", package = "groveR")
+    lmask <- terra::rast(lmaskp)
+    fname <- file.path(p, "raster_masks/land_msk.tif")
+    terra::writeRaster(lmask, filename = fname, datatype = 'INT1U')
 
-    rmaskp <- system.file("extdata/raster_masks", "reef_msk_INV.img", package = "groveR")
-    rmask <- raster::raster(rmaskp)
-    fname <- file.path(p, "raster_masks/reef_msk_INV.img")
-    raster::writeRaster(rmask, filename = fname, datatype = 'INT1U')
+    rmaskp <- system.file("extdata/raster_masks", "reef_msk_INV.tif", package = "groveR")
+    rmask <- terra::rast(rmaskp)
+    fname <- file.path(p, "raster_masks/reef_msk_INV.tif")
+    terra::writeRaster(rmask, filename = fname, datatype = 'INT1U')
 
-    cmaskp <- system.file("extdata/raster_masks/cloud_masks", "LgCSMP_Landsat_NBART_ndvi_2006_AA_cloudmask.img", package = "groveR")
-    cmask <- raster::raster(cmaskp)
-    fname <- file.path(p, "raster_masks/cloud_masks/LgCSMP_Landsat_NBART_ndvi_2006_AA_cloudmask.img")
-    raster::writeRaster(cmask, filename = fname, datatype = 'INT1U')
+    cmaskp <- system.file("extdata/raster_masks/cloud_masks", "LgCSMP_Landsat_NBART_ndvi_2006_AA_cloudmask.tif", package = "groveR")
+    cmask <- terra::rast(cmaskp)
+    fname <- file.path(p, "raster_masks/cloud_masks/LgCSMP_Landsat_NBART_ndvi_2006_AA_cloudmask.tif")
+    terra::writeRaster(cmask, filename = fname, datatype = 'INT1U')
 
     #csvs
     calp <- system.file("extdata/supplementary", "calibration.csv", package = "groveR")
@@ -105,7 +105,6 @@ make_example_data <- function(p = "."){
     sf::st_write(shp, dsn = sname)
 
   })
-
 }
 
 #' A function to create a folder and set up example index data
