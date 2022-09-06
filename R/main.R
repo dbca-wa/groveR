@@ -591,7 +591,7 @@ cloud_mask_select <- function(irast, rastkey, choice, imask, maskkey){
 #' @importFrom fs dir_ls file_copy
 #' @importFrom stringr str_replace
 #' @importFrom readr parse_number read_csv
-#' @importFrom raster raster writeRaster reclassify stack overlay
+#' @importFrom terra rast writeRaster classify lapp
 #'
 #' @export
 veg_class <- function(irast, rastkey, imask, maskkey, classes){
@@ -642,33 +642,33 @@ veg_class <- function(irast, rastkey, imask, maskkey, classes){
     if (!file.exists(out)) {dir.create(out)}
     if(jdf$cloud[[1]] == TRUE){
       # deal with first of time series having clouds but no prior year reference image
-      s_rast <- raster::raster(jdf[[1]][1])
+      s_rast <- terra::rast(jdf[[1]][1])
       cat("Classifying...", basename(jdf[[1]][1]), "\n")
-      rcl <- raster::reclassify(s_rast, cl)
+      rcl <- terra::classify(s_rast, cl)
       # grab a non cloudy to effect some masking
       nci <- jdf %>%
         dplyr::filter(cloud == FALSE) %>%
         dplyr::pull(path.x)
       nci <- nci[1]
-      nci_rst <- raster::raster(nci)
-      st <- raster::stack(nci, rcl)
+      nci_rst <- terra::rast(nci)
+      st <- c(nci_rst, rcl)
       mskfun = function(x1, x2){
         ifelse(x2 == 6 & is.na(x1), NA, x2)
       }
-      cl_rst <- raster::overlay(st, fun = mskfun)
+      cl_rst <- terra::lapp(st, fun = mskfun)
 
-      raster::writeRaster(x = cl_rst, filename = jdf[[2]][1], datatype = 'INT1U',
-                          overwrite=TRUE)
+      terra::writeRaster(x = cl_rst, filename = jdf[[2]][1], datatype = 'INT1U',
+                         overwrite=TRUE)
 
       # classify non cloud affected images
       jdf2 <- jdf %>%
         dplyr::filter(cloud == FALSE)
       for(i in seq_along(jdf2[[1]])){
         cat("Classifying...", basename(jdf2[[1]][i]), "\n")
-        rst <- raster::raster(jdf2[[1]][i])
-        rcl <- raster::reclassify(rst, cl)
-        raster::writeRaster(x = rcl, filename = jdf2[[2]][i], datatype = 'INT1U',
-                            overwrite=TRUE)
+        rst <- terra::rast(jdf2[[1]][i])
+        rcl <- terra::classify(rst, cl)
+        terra::writeRaster(x = rcl, filename = jdf2[[2]][i], datatype = 'INT1U',
+                           overwrite=TRUE)
       }
       # classify cloudy using previous image
       # a df without first image
@@ -692,20 +692,20 @@ veg_class <- function(irast, rastkey, imask, maskkey, classes){
           dplyr::filter(year == yr - 1) %>%
           dplyr::pull(pathnew)#bring in classified image
         # current cloudy raster
-        c_rst <- raster::raster(c_n)
+        c_rst <- terra::rast(c_n)
         # classify it
-        c_rst_c <- raster::reclassify(c_rst, cl)
+        c_rst_c <- terra::classify(c_rst, cl)
         # previously already classified yr
-        p_rst <- raster::raster(p_n)
+        p_rst <- terra::rast(p_n)
         # stack it
-        st <- raster::stack(p_rst, c_rst_c)
+        st <- c(p_rst, c_rst_c)
         # now clean up based on prior image
-        clean_rst <- raster::overlay(st, fun = cldfun2)
+        clean_rst <- terra::lapp(st, fun = cldfun2)
         o_n <- jdf %>%
           dplyr::filter(year == yr) %>%
           dplyr::pull(pathnew)
-        raster::writeRaster(x = clean_rst, filename = o_n, datatype = "INTU",
-                            overwrite = TRUE)
+        terra::writeRaster(x = clean_rst, filename = o_n, datatype = "INTU",
+                           overwrite = TRUE)
       }
 
     } else {
@@ -715,10 +715,10 @@ veg_class <- function(irast, rastkey, imask, maskkey, classes){
         dplyr::filter(cloud == FALSE)
       for(i in seq_along(jdf2[[1]])){
         cat("Classifying...", basename(jdf2[[1]][i]), "\n")
-        rst <- raster::raster(jdf2[[1]][i])
-        rcl <- raster::reclassify(rst, cl)
-        raster::writeRaster(x = rcl, filename = jdf2[[2]][i], datatype = 'INT1U',
-                            overwrite=TRUE)
+        rst <- terra::rast(jdf2[[1]][i])
+        rcl <- terra::classify(rst, cl)
+        terra::writeRaster(x = rcl, filename = jdf2[[2]][i], datatype = 'INT1U',
+                           overwrite=TRUE)
       }
       # classify cloudy using previous image
       cloud_yrs <- jdf %>%
@@ -739,24 +739,25 @@ veg_class <- function(irast, rastkey, imask, maskkey, classes){
           dplyr::filter(year == yr - 1) %>%
           dplyr::pull(pathnew)#bring in classified image
         # current cloudy raster
-        c_rst <- raster::raster(c_n)
+        c_rst <- terra::rast(c_n)
         # classify it
-        c_rst_c <- raster::reclassify(c_rst, cl)
+        c_rst_c <- terra::classify(c_rst, cl)
         # previously already classified yr
-        p_rst <- raster::raster(p_n)
+        p_rst <- terra::rast(p_n)
         # stack it
-        st <- raster::stack(p_rst, c_rst_c)
+        st <- c(p_rst, c_rst_c)
         # now clean up based on prior image
-        clean_rst <- raster::overlay(st, fun = cldfun2)
+        clean_rst <- terra::lapp(st, fun = cldfun2)
         o_n <- jdf %>%
           dplyr::filter(year == yr) %>%
           dplyr::pull(pathnew)
-        raster::writeRaster(x = clean_rst, filename = o_n, datatype = "INTU",
-                            overwrite = TRUE)
+        terra::writeRaster(x = clean_rst, filename = o_n, datatype = "INTU",
+                           overwrite = TRUE)
       }
     }
   })
 }
+
 
 #' A function to calculate vegetation classification area for reporting.
 #'
