@@ -149,7 +149,7 @@ veg_dens <- function(irast, rastkey, choice, index, ext, calibration){
 #' @importFrom fs dir_ls
 #' @importFrom stringr str_replace str_detect
 #' @importFrom readr parse_number
-#' @importFrom raster raster mask writeRaster
+#' @importFrom terra rast mask writeRaster
 #'
 #' @export
 mask_product <- function(irast, rastkey, choice, imask, maskkey){
@@ -177,19 +177,18 @@ mask_product <- function(irast, rastkey, choice, imask, maskkey){
     out <- "./veg_dens_mskd"
     if (!file.exists(out)) {dir.create(out)}
     for(i in seq_along(rastdf[[1]])){
-      ir1 <-  raster::raster(rastdf[[1]][i])
+      ir1 <-  terra::rast(rastdf[[1]][i])
       cat("Masking...", basename(rastdf[[1]][i]), "\n")
       for(j in seq_along(maskdf[[1]])){
-        m <- raster::raster(maskdf[[1]][j])
+        m <- terra::rast(maskdf[[1]][j])
         if(maskdf[['inverse']][j] == FALSE){
-          ir1 <- raster::mask(ir1, m)
+          ir1 <- terra::mask(ir1, m)
         } else {
-          ir1 <- raster::mask(ir1, m, inverse = TRUE)
+          ir1 <- terra::mask(ir1, m, inverse = TRUE)
         }
       }
       mskdname <- paste0(out, "/", rastdf[['bname']][i])
-      raster::writeRaster(ir1, filename = mskdname, overwrite = TRUE,
-                          options=c('OVR=YES'))
+      terra::writeRaster(ir1, filename = mskdname, overwrite = TRUE)
     }
   })
 }
