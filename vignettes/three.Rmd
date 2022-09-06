@@ -58,10 +58,10 @@ parameters directly to the function.
 ```{r, veg_dens, eval=FALSE}
 # Assign the parameters
 irast <- "./index_rasters"
-rastkey <- "AA.img"
+rastkey <- "AA.tif"
 choice <- "all"
 index <- "ndvi"
-ext <- ".img"
+ext <- ".tif"
 calibration <- "./supplementary/calibration.csv"
 
 # Run the function
@@ -75,7 +75,7 @@ you can input one year, e.g. 2006 or a selection e.g. c(2006, 2009). Note years
 can be entered as a numeric.
 * **index** - as it appears in the file name. The function will construct a new name 
 for the out put and replace this.
-* **ext** - output raster format of choice (would recommend .img).
+* **ext** - output raster format of choice (would recommend .tif).
 * **calibration** - calibration csv location.
 
 ## What's going to happen?
