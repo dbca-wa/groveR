@@ -55,7 +55,7 @@
 #'
 #' @export
 
-veg_dens <- function(irast, rastkey, choice, index, ext, calibration){
+veg_dens <- (irast, rastkey, choice, index, ext, calibration){
   suppressWarnings({
     # rasters to process
     if(choice == "all"){
@@ -81,24 +81,27 @@ veg_dens <- function(irast, rastkey, choice, index, ext, calibration){
     intercept <- calib[["intercept"]]
     multiple <- calib[["multiple"]]
     vdens <- function(x) (((x * coef) + intercept) * multiple)
+    # cleaning matrix
+    rcl <- c(-Inf, calib[["lower"]] + 1, NA,
+             calib[["upper"]] + 1 , Inf, NA)
+    rcl_mat <- matrix(rcl, ncol = 3, byrow = TRUE)
     # output folder
     out <- "./veg_dens"
     if (!file.exists(out)) {dir.create(out)}
     # process rasters
     for(i in seq_along(rastdf[[1]])){
-      ir1 <- raster::raster(rastdf[['path']][i])
+      ir1 <- terra::rast(rastdf[['path']][i])
       cat("Calculating vegetation density..." , basename(rastdf[[1]][i]), "\n")
       # apply functions per pixel
-      ir2 <- raster::overlay(ir1, fun = vdens)
+      ir2 <- terra::lapp(ir1, fun = vdens)
       # clean
-      ir2[ir2 < calib[["lower"]]] <- NA
-      ir2[ir2 > calib[["upper"]]] <- NA
+      ir3 <- terra::classify(ir2, rcl_mat)
       # write output to file
       fname <- paste0(out, "/", rastdf[['bname']][i])
       # change extension
       fname <- gsub(tools::file_ext(fname), tools::file_ext(ext), fname)
-      raster::writeRaster(ir2, filename = fname,
-                          overwrite = TRUE, options=c('OVR=YES'))
+      terra::writeRaster(ir3, filename = fname,
+                         overwrite = TRUE)
     }
   })
 }
