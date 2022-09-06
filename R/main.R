@@ -51,11 +51,11 @@
 #' @importFrom fs dir_ls
 #' @importFrom stringr str_replace
 #' @importFrom readr parse_number read_csv
-#' @importFrom raster raster overlay writeRaster
+#' @importFrom terra rast lapp writeRaster
 #'
 #' @export
 
-veg_dens <- (irast, rastkey, choice, index, ext, calibration){
+veg_dens <- function(irast, rastkey, choice, index, ext, calibration){
   suppressWarnings({
     # rasters to process
     if(choice == "all"){
