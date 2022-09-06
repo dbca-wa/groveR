@@ -140,34 +140,34 @@ make_index_rasters <- function(p = "."){
 
     #data
     a <- system.file("extdata/index_rasters",
-                     "LgCSMP_Landsat_NBART_ndvi_2005_AA.img", package = "groveR")
-    ra <- raster::raster(a)
-    dname <- file.path(p, "index_rasters/LgCSMP_Landsat_NBART_ndvi_2005_AA.img")
-    raster::writeRaster(ra, filename = dname)
+                     "LgCSMP_Landsat_NBART_ndvi_2005_AA.tif", package = "groveR")
+    ra <- terra::rast(a)
+    dname <- file.path(p, "index_rasters/LgCSMP_Landsat_NBART_ndvi_2005_AA.tif")
+    terra::writeRaster(ra, filename = dname)
 
     b <- system.file("extdata/index_rasters",
-                     "LgCSMP_Landsat_NBART_ndvi_2006_AA.img", package = "groveR")
-    rb <- raster::raster(b)
-    dname <- file.path(p, "index_rasters/LgCSMP_Landsat_NBART_ndvi_2006_AA.img")
-    raster::writeRaster(rb, filename = dname)
+                     "LgCSMP_Landsat_NBART_ndvi_2006_AA.tif", package = "groveR")
+    rb <- terra::rast(b)
+    dname <- file.path(p, "index_rasters/LgCSMP_Landsat_NBART_ndvi_2006_AA.tif")
+    terra::writeRaster(rb, filename = dname)
 
     c <- system.file("extdata/index_rasters",
-                     "LgCSMP_Landsat_NBART_ndvi_2007_AA.img", package = "groveR")
-    rc <- raster::raster(c)
-    dname <- file.path(p, "index_rasters/LgCSMP_Landsat_NBART_ndvi_2007_AA.img")
-    raster::writeRaster(rc, filename = dname)
+                     "LgCSMP_Landsat_NBART_ndvi_2007_AA.tif", package = "groveR")
+    rc <- terra::rast(c)
+    dname <- file.path(p, "index_rasters/LgCSMP_Landsat_NBART_ndvi_2007_AA.tif")
+    terra::writeRaster(rc, filename = dname)
 
     d <- system.file("extdata/index_rasters",
-                     "LgCSMP_Landsat_NBART_ndvi_2008_AA.img", package = "groveR")
-    rd <- raster::raster(d)
-    dname <- file.path(p, "index_rasters/LgCSMP_Landsat_NBART_ndvi_2008_AA.img")
-    raster::writeRaster(rd, filename = dname)
+                     "LgCSMP_Landsat_NBART_ndvi_2008_AA.tif", package = "groveR")
+    rd <- terra::rast(d)
+    dname <- file.path(p, "index_rasters/LgCSMP_Landsat_NBART_ndvi_2008_AA.tif")
+    terra::writeRaster(rd, filename = dname)
 
     e <- system.file("extdata/index_rasters",
-                     "LgCSMP_Landsat_NBART_ndvi_2009_AA.img", package = "groveR")
-    re <- raster::raster(e)
-    dname <- file.path(p, "index_rasters/LgCSMP_Landsat_NBART_ndvi_2009_AA.img")
-    raster::writeRaster(re, filename = dname)
+                     "LgCSMP_Landsat_NBART_ndvi_2009_AA.tif", package = "groveR")
+    re <- terra::rast(e)
+    dname <- file.path(p, "index_rasters/LgCSMP_Landsat_NBART_ndvi_2009_AA.tif")
+    terra::writeRaster(re, filename = dname)
 
   })
 }
