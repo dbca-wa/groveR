@@ -252,7 +252,7 @@ mask_product <- function(irast, rastkey, choice, imask, maskkey){
 #' @importFrom fs dir_ls file_copy
 #' @importFrom stringr str_replace
 #' @importFrom readr parse_number
-#' @importFrom terra rast mask minmax writeRaster cover lapp
+#' @importFrom terra rast minmax writeRaster cover lapp
 #'
 #' @export
 cloud_mask_bulk <- function(irast, rastkey, imask, maskkey){
@@ -444,7 +444,7 @@ cloud_mask_bulk <- function(irast, rastkey, imask, maskkey){
 #' @importFrom fs dir_ls file_copy
 #' @importFrom stringr str_replace
 #' @importFrom readr parse_number
-#' @importFrom raster raster mask maxValue writeRaster cover overlay stack
+#' @importFrom terra rast minmax writeRaster cover lapp
 #'
 #' @export
 cloud_mask_select <- function(irast, rastkey, choice, imask, maskkey){
@@ -476,23 +476,23 @@ cloud_mask_select <- function(irast, rastkey, choice, imask, maskkey){
       cdata <- jdf %>%
         dplyr::filter(year == as.numeric(choice[i])) %>%
         dplyr::pull(cloud)
-      if(choice[i] == yr1 & cloudyr1 == TRUE){
+      if(choice[i] == yr1 & cloudyr1[[1]] == TRUE){
         # deal with first of time series having clouds but no prior year reference image
-        s_rast <- raster::raster(jdf[[1]][1])
-        c_rast <- raster::raster(jdf[[4]][1])
+        s_rast <- terra::rast(jdf[[1]][1])
+        cs_msk <- terra::rast(jdf[[4]][1])
         cat("Masking...", basename(jdf[[1]][1]), "\n")
         # find mask val
-        cmax <- raster::maxValue(c_rast)
-        c_rast[c_rast == cmax] <- - 99 #make -99 so outside allowable limits for veg dens
-        o_rast <- raster::cover(c_rast, s_rast)
-        raster::writeRaster(x = o_rast, filename = jdf[[2]][1], overwrite=TRUE)
-      } else if(choice[i] != yr1 & cdata == FALSE){
+        cmax <- terra::minmax(cs_msk)[[2]]
+        cs_msk <- terra::classify(cs_msk, cbind(cmax, -99))
+        o_rast <- terra::cover(cs_msk, s_rast)
+        terra::writeRaster(x = o_rast, filename = jdf[[2]][1], overwrite=TRUE)
+      } else if(choice[i] != yr1 & cdata[[1]] == FALSE){
         # deal with non- cloud affected images (i.e. just rename and move)
         cat("Copying and renaming unaffected image...",  "\n")
         copydf <- jdf %>%
           dplyr::filter(year == choice[i])
         fs::file_copy(copydf[[1]], copydf[[2]], overwrite=TRUE)
-      } else if(choice[i] != yr1 & cdata == TRUE){
+      } else if(choice[i] != yr1 & cdata[[1]] == TRUE){
         yr <- as.numeric(choice[i])
         # cloudy image name
         c_im <- jdf %>%
@@ -508,23 +508,22 @@ cloud_mask_select <- function(irast, rastkey, choice, imask, maskkey){
           dplyr::filter(year == yr) %>%
           dplyr::pull(path.y)
         # cloudy mask
-        cs_msk <- raster::raster(cs_n)
-        csmax <- raster::maxValue(cs_msk)
+        cs_msk <- terra::rast(cs_n)
+        csmax <- terra::minmax(cs_msk)[[2]]
         # cloudy raster to do, put in cloud
-        c_rst <- raster::raster(c_im)
-        cs_msk[cs_msk == csmax] <- - 99
-        o_rst <- raster::cover(cs_msk, c_rst)
+        c_rst <- terra::rast(c_im)
+        cs_msk <- terra::classify(cs_msk, cbind(csmax, -99))
+        o_rst <- terra::cover(cs_msk, c_rst)
         # bring in prior image
-        p_rst <- raster::raster(p_im)
-        st <- raster::stack(p_rst, o_rst)
+        p_rst <- terra::rast(p_im)
+        st <- c(p_rst, o_rst)
         # now clean up based on prior image
-        clean_rst <- raster::overlay(st, fun = cldfun)
+        clean_rst <- terra::lapp(st, fun = cldfun)
         # new name
         n_n <- jdf %>%
           dplyr::filter(year == yr) %>%
           dplyr::pull(pathnew)
-        raster::writeRaster(clean_rst, filename = n_n, overwrite = TRUE,
-                            options=c('OVR=YES'))
+        terra::writeRaster(clean_rst, filename = n_n, overwrite = TRUE)
       }
 
     }
