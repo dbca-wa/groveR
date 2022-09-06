@@ -46,10 +46,10 @@ To run the "bulk" version:
 
 ```{r, bulk, eval=FALSE}
 # Assign the parameters
-irast <- "./veg_dens_mskd_for_trends"
-rastkey <- ".img"
+irast <- "./veg_dens_mskd"
+rastkey <- ".tif"
 imask <- "./raster_masks/cloud_masks"
-maskkey <- ".img"
+maskkey <- ".tif"
 
 # Run the function
 cloud_mask_bulk(irast, rastkey, imask, maskkey)
