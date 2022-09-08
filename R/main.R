@@ -1059,10 +1059,9 @@ trend_class <- function(irast, rastkey, end, period, classes){
 #'
 #' @import dplyr
 #' @importFrom magrittr %>%
-#' @importFrom sf st_read
-#' @importFrom raster raster mask extension freq
+#' @importFrom terra rast mask freq res rasterize
+#' @importFrom tools file_path_sans_ext
 #' @importFrom stringr str_split
-#' @importFrom fasterize fasterize
 #' @importFrom tibble as_tibble
 #' @importFrom readr write_csv
 #'
@@ -1070,12 +1069,12 @@ trend_class <- function(irast, rastkey, end, period, classes){
 
 trend_class_area <- function(irast, iregions, attribname){
   suppressWarnings({
-    regions <- sf::st_read(iregions)
-    reps <- unique(regions[[attribname]])
+    regions <- terra::vect(iregions)
+    reps <- unique(regions[[attribname]][[1]])
     # trendclass raster
-    tcs <- raster::raster(irast)
+    tcs <- terra::rast(irast)
     # find pixel res and calculate hectares
-    res_mult <- (round(raster::res(tcs)[1])^2)/10000
+    res_mult <- (round(terra::res(tcs)[1])^2)/10000
     out_list <- list()
     for(i in seq_along(reps)){
       # monitoring vector
@@ -1084,28 +1083,28 @@ trend_class_area <- function(irast, iregions, attribname){
       name_s <- stringr::str_split(reps[i], "_")[[1]][2]
       cat(paste0("working on ", name_s, "...\n"))
       # make raster mask
-      rep_ir <- fasterize::fasterize(sf = rep_i, raster = tcs)
+      rep_ir <- terra::rasterize(rep_i, tcs)
       # mask out
-      msk_ir <- raster::mask(x = tcs, mask = rep_ir)
+      msk_ir <- terra::mask(x = tcs, mask = rep_ir)
       # calc freq
       stats <- tibble::as_tibble(raster::freq(msk_ir)) %>%
         dplyr::filter(!is.na(value)) %>%
         dplyr::mutate(Region = name_r,
                       Site = name_s,
                       Area = count * res_mult,
-                      TrendClass = case_when(
+                      TrendClass = dplyr::case_when(
                         value == 1 ~ "Major Gain",
                         value == 2 ~ "Minor Gain",
                         value == 3 ~ "Stable",
                         value == 4 ~ "Minor Loss",
                         TRUE ~ "Major Loss"
                       )) %>%
-        dplyr::select(-value, -count)
+        dplyr::select(-value, -count, -layer)
       out_list[[i]] <- stats
     }
     # output
     out_df <- do.call("rbind", out_list)
-    o_name <- gsub(raster::extension(irast), "_area_stats.csv", irast)
+    o_name <- paste0(tools::file_path_sans_ext(irast), "_area_stats.csv")
     readr::write_csv(out_df, path = o_name)
 
   })
