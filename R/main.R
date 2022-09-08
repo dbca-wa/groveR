@@ -42,7 +42,7 @@
 #' @examples
 #' \dontrun{
 #' veg_dens(irast = "Z:/DEC/projectXX/mosaics", rastkey = ".ers",
-#'     choice = c("1991", "2010"), index = "ndvi", ext = ".img",
+#'     choice = c("1991", "2010"), index = "ndvi", ext = ".tif",
 #'     calibration = "./supplementary/calibration.csv")
 #'     }
 #'
@@ -141,7 +141,7 @@ veg_dens <- function(irast, rastkey, choice, index, ext, calibration){
 #' @examples
 #' \dontrun{
 #' mask_product(irast = "./veg_dens", rastkey = ".tif", choice = "all",
-#'     imask = "Z:/DEC/projectXX/processing/raster_masks", maskkey = ".img")
+#'     imask = "Z:/DEC/projectXX/processing/raster_masks", maskkey = ".tif")
 #' }
 #'
 #' @import dplyr
@@ -962,7 +962,7 @@ trend_class <- function(irast, rastkey, end, period, classes){
     # empty dummy raster
     blank <- terra::rast(terra::rast(irs1[1]))
     terra::values(blank) <- NA
-    # write out dummy ratsers if required
+    # write out dummy rasters if required
     if(nrow(dum_rst) > 0){
       cat("Dealing with dummy years... \n")
       for(i in seq_along(dum_rst[[2]])){
@@ -1087,7 +1087,7 @@ trend_class_area <- function(irast, iregions, attribname){
       # mask out
       msk_ir <- terra::mask(x = tcs, mask = rep_ir)
       # calc freq
-      stats <- tibble::as_tibble(raster::freq(msk_ir)) %>%
+      stats <- tibble::as_tibble(terra::freq(msk_ir)) %>%
         dplyr::filter(!is.na(value)) %>%
         dplyr::mutate(Region = name_r,
                       Site = name_s,
@@ -1151,7 +1151,7 @@ trend_class_area <- function(irast, iregions, attribname){
 #'
 #' @examples
 #' \dontrun{
-#' change_extent(irast = "./veg_class", rastkey = ".img",
+#' change_extent(irast = "./veg_class", rastkey = ".tif",
 #'     iregions = "./vectors/regions.shp", attribname = "regions",
 #'     cloud = FALSE)
 #' }
