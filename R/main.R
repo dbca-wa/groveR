@@ -827,26 +827,17 @@ veg_class_area <- function(irast, rastkey, iregions, attribname, areaname){
       name_r <- stringr::str_split(reps[i], "_")[[1]][1]
       name_s <- stringr::str_split(reps[i], "_")[[1]][2]
       # make raster mask
-      # rep_ir <- fasterize::fasterize(sf = rep_i, raster = rsk[[1]])
       rep_ir <- terra::rasterize(x = rep_i, y = rsk[[1]])
       # mask out
-      # msk_ir <- raster::mask(x = rsk, mask = rep_ir)
       msk_ir <- terra::mask(rsk, rep_ir)
       names(msk_ir) <- rastdf[[2]]
-      # calc freq table on stack
-      # stk <- raster::freq(msk_ir)
+      # calc freq
       stk <- terra::freq(msk_ir, usenames = TRUE)
-      # sensible stack names
-      # s_layer_names <- paste0(sapply(stringr::str_split(basename(rastdf[[1]]), "_"), "[[", 1), "_",
-      #                         rastdf[[2]])
-      # names(stk) <- s_layer_names
-      # area outputs
       out_df <- stk %>%
-        # purrr::map_df(~ as.data.frame(.x), .id = "id") %>%
         dplyr::mutate(Region = name_r,
                       Site = name_s,
                       Area = count * res_mult,
-                      DensityClass = case_when(
+                      DensityClass = dplyr::case_when(
                         value == 1 ~ '10-19%',
                         value == 2 ~ '20-29%',
                         value == 3 ~ '30-49%',
@@ -860,7 +851,7 @@ veg_class_area <- function(irast, rastkey, iregions, attribname, areaname){
                         value == 15 ~ 'Cloud 70-100%',
                         TRUE ~ "Other"
                       ),
-                      Habitat = case_when(
+                      Habitat = dplyr::case_when(
                         value == 1 ~ "Very Sparse Mangroves",
                         value >= 2 & value <= 5 ~ "Mangroves",
                         value == 6 ~ "Cloud",
@@ -868,7 +859,7 @@ veg_class_area <- function(irast, rastkey, iregions, attribname, areaname){
                         value >= 12 & value <= 15 ~ "Cloud likely Mangrove",
                         TRUE ~ "Other"
                       ),
-                      Density = case_when(
+                      Density = dplyr::case_when(
                         value == 1 ~ "Very Sparse",
                         value == 2 ~ "Sparse",
                         value == 3 ~ "Sparse - Medium",
@@ -888,14 +879,11 @@ veg_class_area <- function(irast, rastkey, iregions, attribname, areaname){
     # find start end year
     ayrs <- unique(stats$Year)
     yrs <- paste0("_", min(ayrs), "-", max(ayrs), "_")
-    # park
-    park <- areaname
     # output name
-    oname <- paste0(out, "/", park, yrs, "extent_summaries.csv")
+    oname <- paste0(out, "/", areaname, yrs, "extent_summaries.csv")
     readr::write_csv(stats, path = oname)
   })
 }
-
 
 #' A function for calculating trend and trend class images
 #'
