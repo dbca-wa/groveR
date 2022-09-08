@@ -800,7 +800,6 @@ veg_class <- function(irast, rastkey, imask, maskkey, classes){
 #' @importFrom fs dir_ls
 #' @importFrom stringr str_split
 #' @importFrom terra rast vect res rasterize mask freq
-#' @importFrom purrr map_df
 #' @importFrom readr write_csv
 #'
 #' @export
