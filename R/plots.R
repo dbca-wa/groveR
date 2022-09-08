@@ -48,9 +48,7 @@ veg_dens_class_plot <- function(icsv, areaname, cap){
                        'Cloud 70-100%' = "#314010")
   # summarise data
   df <-  readr::read_csv(icsv) %>%
-    dplyr::filter(DensityClass != "Other") #%>%
-    # dplyr::group_by(Region, Site, Year, DensityClass) %>%
-    # dplyr::summarise(a = sum(Area))
+    dplyr::filter(DensityClass != "Other")
 
   sites <- unique(df$Site)
   for(i in seq_along(sites)){
@@ -60,7 +58,6 @@ veg_dens_class_plot <- function(icsv, areaname, cap){
     # helpers
     yr_range <- paste0(min(df$Year), '-', max(df$Year))
     scalex <- min(df$Year):max(df$Year)
-
 
     p  <- ggplot(df2, aes(x = Year, y = Area, fill = DensityClass)) +
       geom_bar(position="stack", stat="identity") +
