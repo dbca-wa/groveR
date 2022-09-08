@@ -1168,13 +1168,11 @@ trend_class_area <- function(irast, iregions, attribname){
 #' @export
 change_extent <- function(irast, rastkey, iregions, attribname, cloud = FALSE){
   irs <- rev(fs::dir_ls(irast, glob = paste0("*", rastkey, "$")))
-  cdate <- Sys.Date()
   rastdf <- dplyr::tibble(path = irs) %>%
     dplyr::mutate(yr = readr::parse_number(basename(path))) %>%
     dplyr::mutate(pathnew = stringr::str_replace(path, "veg_class",
                                                  "extent_change"),
-                  pathnew1 = stringr::str_replace(pathnew, "Veg_Class", "extent_change_"),
-                  pathnew2 = stringr::str_replace(pathnew1, rastkey, paste0(yr - 1, rastkey)))
+                  pathnew1 = stringr::str_replace(pathnew, "Veg_Class", "extent_change"))
   end <- length(rastdf[[1]]) - 1
   rcl <- c(0, 1, 1, 1, 5, 2, 5, 6, 6, 6, 11, 7, 11, 15, 8,
            15, Inf, NA)
@@ -1225,11 +1223,11 @@ change_extent <- function(irast, rastkey, iregions, attribname, cloud = FALSE){
         period <- paste0(rastdf[[2]][j], "-", rastdf[[2]][j + 1])
         name_v <- paste0(out, "/", todo, "_", period, ".shp")
         v_dat_xy <- sf::st_write(dplyr::mutate(dplyr::mutate(v_chng,
-                                                             status = case_when(gridcode == 10 ~ "gain",
-                                                                                gridcode == 11 ~ "loss", gridcode == 12 ~ "stable", gridcode == 13 ~ "cloud likely gain",
-                                                                                gridcode == 14 ~ "cloud likely loss",
-                                                                                gridcode == 15 ~ "cloud likely stable",
-                                                                                gridcode == 16 ~ "cloud no data", TRUE ~  "other")),
+                                                             status = dplyr::case_when(gridcode == 10 ~ "gain",
+                                                                                       gridcode == 11 ~ "loss", gridcode == 12 ~ "stable", gridcode == 13 ~ "cloud likely gain",
+                                                                                       gridcode == 14 ~ "cloud likely loss",
+                                                                                       gridcode == 15 ~ "cloud likely stable",
+                                                                                       gridcode == 16 ~ "cloud no data", TRUE ~  "other")),
                                                area_ha = au), dsn = name_v)
         name_r <- stringr::str_split(todo, "_")[[1]][1]
         name_s <- stringr::str_split(todo, "_")[[1]][2]
@@ -1250,8 +1248,12 @@ change_extent <- function(irast, rastkey, iregions, attribname, cloud = FALSE){
     }
   }
   tofind <- tail(strsplit(rastdf[[4]][1], "_")[[1]],
-                 n = 1)
-  cname <- stringr::str_replace(rastdf[[4]][1], tofind, paste0(cdate,
-                                                               ".csv"))
-  readr::write_csv(stats, file = cname)
+                 n = 2)
+  yr_rng <- paste0(min(rastdf[[2]]), "-" , max(rastdf[[2]]))
+
+  cname <- stringr::str_replace(rastdf[[4]][1], tofind[1], "")
+
+  cname2 <- stringr::str_replace(cname, paste0("_", tofind[2]),
+                                 paste0(yr_rng, ".csv"))
+  readr::write_csv(stats, file = cname2)
 }
