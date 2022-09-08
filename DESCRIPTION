@@ -1,10 +1,11 @@
 Package: groveR
 Type: Package
 Title: Functions for mangrove monitoring
-Version: 0.2.1
+Version: 0.2.2
 Authors@R: person("Bart", "Huntley", email = "bart.huntley@dbca.wa.gov.au",
                   role = c("aut", "cre", "prg", "res"),
                   comment = c(ORCID = "0000-0002-9519-4105"))
+Depends: R (>= 4.1.0)
 Maintainer: Bart Huntley <bart.huntley@dbca.wa.gov.au>
 URL: https://github.com/Bartesto/groveR
 BugReports: https://github.com/Bartesto/groveR/issues
@@ -16,17 +17,15 @@ LazyData: true
 Imports: 
     dplyr,
     ggplot2,
-    fasterize,
     fs,
     magrittr,
-    purrr,
-    raster,
     readr,
     sf,
     stringr,
     terra,
     tibble,
-    units
+    units,
+    tools
 RoxygenNote: 7.2.0
 Suggests: 
     knitr,
