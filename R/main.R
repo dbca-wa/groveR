@@ -937,7 +937,7 @@ veg_class_area <- function(irast, rastkey, iregions, attribname, areaname){
 #' @importFrom magrittr %>%
 #' @importFrom fs dir_ls file_delete
 #' @importFrom readr parse_number read_csv
-#' @importFrom raster raster writeRaster stack nlayers calc reclassify
+#' @importFrom terra rast writeRaster  nlyr app classify
 #' @importFrom stringr str_split str_replace
 #'
 #' @export
@@ -961,13 +961,14 @@ trend_class <- function(irast, rastkey, end, period, classes){
     # df of missing rasters
     dum_rst <- dplyr::setdiff(dumdf, rastdf)
     # empty dummy raster
-    blank <- raster::raster(irs1[1]); blank[] <- NA
+    blank <- terra::rast(terra::rast(irs1[1]))
+    terra::values(blank) <- NA
     # write out dummy ratsers if required
     if(nrow(dum_rst) > 0){
       cat("Dealing with dummy years... \n")
       for(i in seq_along(dum_rst[[2]])){
         nname <- dum_rst[[2]][i]
-        raster::writeRaster(blank, nname, datatype = 'INT1U', overwrite = TRUE)
+        terra::writeRaster(blank, nname, datatype = 'INT1U', overwrite = TRUE)
       }
     } else {
       cat("No missing years... \n")
@@ -977,7 +978,7 @@ trend_class <- function(irast, rastkey, end, period, classes){
 
     irs2 <- fs::dir_ls(irast, glob = paste0("*", rastkey, "$"))
     # make stack and sensible names
-    stk <- raster::stack(irs2)
+    stk <- terra::rast(irs2)
     s_layer_names <- readr::parse_number(basename(irs2))
     names(stk) <- s_layer_names
     # subset stack
@@ -988,7 +989,7 @@ trend_class <- function(irast, rastkey, end, period, classes){
     out <- "./trend_class"
     if (!file.exists(out)) {dir.create(out)}
     # per pixel lm
-    time <- 1:raster::nlayers(trnd_stk)
+    time <- 1:terra::nlyr(trnd_stk)
     c_off <- ceiling(length(time)/2) # min data for lm choice
     lin_fun <- function(x) {
       if (sum(is.na(x)) > c_off) {
@@ -998,21 +999,21 @@ trend_class <- function(irast, rastkey, end, period, classes){
         m$coefficients[2]
       }
     }
-    trend <- raster::calc(trnd_stk, lin_fun)
+    trend <- terra::app(trnd_stk, lin_fun)
     # get classes
     cl <- as.matrix(readr::read_csv(classes))
     # reclassify to trend class
-    trnd_cl <- raster::reclassify(trend, cl)
+    trnd_cl <- terra::classify(trend, cl)
     # name and save
     ayrs <- readr::parse_number(names(trnd_stk))
     yrs <- paste0("_", min(ayrs), "-", max(ayrs), "_")
     park <- unlist(stringr::str_split(basename(irs2[1]), "_"))[1]
-    oname <- paste0(out, "/", park, "_mangroves", yrs, "trendclass.img")
-    tname <- paste0(out, "/", park, "_mangroves", yrs, "trend.img")
-    raster::writeRaster(trnd_cl, filename = oname, datatype = 'INT1U',
-                        overwrite = TRUE)
-    raster::writeRaster(trend, filename = tname, datatype = 'FLT4S',
-                        overwrite = TRUE)
+    oname <- paste0(out, "/", park, "_mangroves", yrs, "trendclass", rastkey)
+    tname <- paste0(out, "/", park, "_mangroves", yrs, "trend", rastkey)
+    terra::writeRaster(trnd_cl, filename = oname, datatype = 'INT1U',
+                       overwrite = TRUE)
+    terra::writeRaster(trend, filename = tname, datatype = 'FLT4S',
+                       overwrite = TRUE)
     ##Removal of dummies
     if(nrow(dum_rst) > 0){
       cat("Removing dummies... \n")
@@ -1023,7 +1024,6 @@ trend_class <- function(irast, rastkey, end, period, classes){
     } else {
       cat("No dummies to remove... \nAll finished... \n")
     }
-
   })
 }
 
