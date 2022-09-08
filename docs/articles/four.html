@@ -85,8 +85,7 @@
 </h2>
 <p>Masking is important in remote sensing analysis as it is used to
 exclude areas not intended for processing. This focuses the analysis and
-cuts down<br>
-processing times as only what’s important is worked on.</p>
+cuts down processing times as only what’s important is worked on.</p>
 <p>The masking that the <code>groveR</code> package performs can be
 thought of as “general” masking, where areas common to all image time
 steps are masked. For example in this study, land above the high water
@@ -111,14 +110,14 @@ mask.</p>
 <p>The example data includes a land mask and an inverse reef mask and
 this will be applied below. It is important that if your mask is
 “inverse” then it contains ‘INV’ in it’s name. For example our reef mask
-is called “reef_msk_INV.img”.</p>
+is called “reef_msk_INV.tif”.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Assign the parameters</span></span>
 <span><span class="va">irast</span> <span class="op">&lt;-</span> <span class="st">"./veg_dens"</span></span>
-<span><span class="va">rastkey</span> <span class="op">&lt;-</span> <span class="st">".img"</span></span>
+<span><span class="va">rastkey</span> <span class="op">&lt;-</span> <span class="st">".tif"</span></span>
 <span><span class="va">choice</span> <span class="op">&lt;-</span> <span class="st">"all"</span></span>
 <span><span class="va">imask</span> <span class="op">&lt;-</span> <span class="st">"./raster_masks"</span></span>
-<span><span class="va">maskkey</span> <span class="op">&lt;-</span> <span class="st">".img"</span></span>
+<span><span class="va">maskkey</span> <span class="op">&lt;-</span> <span class="st">".tif"</span></span>
 <span></span>
 <span><span class="co"># Run the function</span></span>
 <span><span class="fu"><a href="../reference/mask_product.html">mask_product</a></span><span class="op">(</span><span class="va">irast</span>, <span class="va">rastkey</span>, <span class="va">choice</span>, <span class="va">imask</span>, <span class="va">maskkey</span><span class="op">)</span></span></code></pre></div>

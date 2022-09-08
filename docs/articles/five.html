@@ -110,10 +110,10 @@ to in their name. See internal data example.</p>
 <p>To run the “bulk” version:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Assign the parameters</span></span>
-<span><span class="va">irast</span> <span class="op">&lt;-</span> <span class="st">"./veg_dens_mskd_for_trends"</span></span>
-<span><span class="va">rastkey</span> <span class="op">&lt;-</span> <span class="st">".img"</span></span>
+<span><span class="va">irast</span> <span class="op">&lt;-</span> <span class="st">"./veg_dens_mskd"</span></span>
+<span><span class="va">rastkey</span> <span class="op">&lt;-</span> <span class="st">".tif"</span></span>
 <span><span class="va">imask</span> <span class="op">&lt;-</span> <span class="st">"./raster_masks/cloud_masks"</span></span>
-<span><span class="va">maskkey</span> <span class="op">&lt;-</span> <span class="st">".img"</span></span>
+<span><span class="va">maskkey</span> <span class="op">&lt;-</span> <span class="st">".tif"</span></span>
 <span></span>
 <span><span class="co"># Run the function</span></span>
 <span><span class="fu"><a href="../reference/cloud_mask_bulk.html">cloud_mask_bulk</a></span><span class="op">(</span><span class="va">irast</span>, <span class="va">rastkey</span>, <span class="va">imask</span>, <span class="va">maskkey</span><span class="op">)</span></span></code></pre></div>
@@ -133,11 +133,11 @@ is parsed.</li>
 <p>To run the “select” version:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Assign the parameters</span></span>
-<span><span class="va">irast</span> <span class="op">&lt;-</span> <span class="st">"./veg_dens_mskd_for_trends"</span></span>
-<span><span class="va">rastkey</span> <span class="op">&lt;-</span> <span class="st">".img"</span></span>
+<span><span class="va">irast</span> <span class="op">&lt;-</span> <span class="st">"./veg_dens_mskd"</span></span>
+<span><span class="va">rastkey</span> <span class="op">&lt;-</span> <span class="st">".tif"</span></span>
 <span><span class="va">choice</span> <span class="op">&lt;-</span> <span class="fl">2006</span></span>
 <span><span class="va">imask</span> <span class="op">&lt;-</span> <span class="st">"./raster_masks/cloud_masks"</span></span>
-<span><span class="va">maskkey</span> <span class="op">&lt;-</span> <span class="st">".img"</span></span>
+<span><span class="va">maskkey</span> <span class="op">&lt;-</span> <span class="st">".tif"</span></span>
 <span></span>
 <span><span class="co"># Run the function</span></span>
 <span><span class="fu"><a href="../reference/cloud_mask_select.html">cloud_mask_select</a></span><span class="op">(</span><span class="va">irast</span>, <span class="va">rastkey</span>, <span class="va">choice</span>, <span class="va">imask</span>, <span class="va">maskkey</span><span class="op">)</span></span></code></pre></div>
