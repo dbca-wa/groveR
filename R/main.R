@@ -1173,11 +1173,14 @@ change_extent <- function(irast, rastkey, iregions, attribname, cloud = FALSE){
     dplyr::mutate(pathnew = stringr::str_replace(path, "veg_class",
                                                  "extent_change"),
                   pathnew1 = stringr::str_replace(pathnew, "Veg_Class", "extent_change"))
+  out <- paste0("./", stringr::str_split(rastdf[[3]], "/")[[1]][2])
+
   end <- length(rastdf[[1]]) - 1
   rcl <- c(0, 1, 1, 1, 5, 2, 5, 6, 6, 6, 11, 7, 11, 15, 8,
            15, Inf, NA)
   rclm <- matrix(rcl, ncol = 3, byrow = TRUE)
-  out <- "./extent_change"
+  #out <- "./extent_change"
+  out <- paste0("./", stringr::str_split(rastdf[[3]], "/")[[1]][2])
   if (!file.exists(out)) {
     dir.create(out)
   }
