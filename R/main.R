@@ -211,7 +211,7 @@ general_mask <- function(irast, imask, ext = ".tif", mval = 0){
 #' make_mask(ivect = ""vectors/cloud_new.shp", refimage = "veg_dens/LgCSMP_vdens_2018.tif"
 #' }
 #'
-#' @import terra
+#' @importFrom terra vect project rast rasterize subst writeRaster
 #' @importFrom tidyterra filter
 #'
 #' @export
@@ -284,7 +284,7 @@ make_mask <- function(ivect, refimage, attribname = "year", loc ="raster_masks/c
 #' @importFrom fs dir_ls file_copy
 #' @importFrom stringr str_replace
 #' @importFrom readr parse_number
-#' @import terra
+#' @importFrom terra rast writeRaster classify lapp minmax subst cover
 #'
 #' @export
 cloud_mask <- function(irast, imask, ext = ".tif"){
