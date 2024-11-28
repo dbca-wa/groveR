@@ -167,6 +167,70 @@ general_mask <- function(irast, imask, ext = ".tif", mval = 0){
   }
 }
 
+#' A function to create a cloud mask from a shape file
+#'
+#' \code{make_mask} takes an input polygon shape file and converts to a raster
+#'    mask.
+#'
+#' @details Input raster mosaics will inevitably contain the odd cloud or smoke
+#'    haze that obscures regions of interest. The user should create a polygon
+#'    shape file that identifies where the cloud is within the image as this
+#'    identifies where we have less certainty in our analysis. The user digitises
+#'    a polygon that surrounds the cloud and ensures that each polygon contains
+#'    an attribute called 'year' which has a 4 digit representation of the year
+#'    of the afflicted image.
+#'
+#'    On running the function it will generate a raster mask for each unique year
+#'    it finds in the attribute table, formatting them to the exact requirements for
+#'    use in the \code{link{cloud_mask}} function. Correct extents, cell sizes, crs
+#'    and mask values are all handled within the function.
+#'
+#'    Note that it is possible to use this function to create other masks, such
+#'    as the land mask. To do this follow the instructions and then rename and
+#'    relocate the product as required.
+#'
+#' @param ivect Character string of the file path and name of the input
+#'    shape file.
+#' @param refimage Character string of the file path and name of a raster
+#'    that has the correct extent and cell size for the current analysis, e.g.
+#'    this could be one of the input rasters for \code{link{veg_dens}}.
+#' @param attribname Character string of the name of the attribute column in the
+#'    shape file that gives the year that the polygon applies to. Defaults to
+#'    "year".
+#' @param loc Character string of the file path to the directory where the output/s
+#'    should be written. Defaults to"raster_masks/cloud_masks" which works with
+#'    the suggested project folder structure and workflow.
+#'
+#' @return cloud masks will be written to "raster_masks/cloud_masks" unless unless
+#'    'loc' parameter is changed, as tif files.
+#'
+#' @author Bart Huntley, \email{bart.huntley@@dbca.wa.gov.au}
+#'
+#' @examples
+#' \dontrun{
+#' make_mask(ivect = ""vectors/cloud_new.shp", refimage = "veg_dens/LgCSMP_vdens_2018.tif"
+#' }
+#'
+#' @import terra
+#' @importFrom tidyterra filter
+#'
+#' @export
+make_mask <- function(ivect, refimage, attribname = "year", loc ="raster_masks/cloud_masks"){
+  cv <- terra::vect(ivect) |>
+    terra::project("EPSG:3577")
+  rf <- terra::rast(refimage)
+  yrs <- unique(cv[[attribname]][[1]])
+  for(i in seq_along(yrs)){
+    yr <- yrs[i]
+    cm <- cv |>
+      tidyterra::filter(get(attribname) == yr) |>
+      terra::rasterize(rf)
+    cm <- terra::subst(cm, NA, 0)
+    cmname <- paste0(loc, "/cld_msk_", yr, ".tif")
+    terra::writeRaster(cm, cmname)
+  }
+}
+
 #' A function to apply cloud masks to rasters in bulk.
 #'
 #' \code{cloud_mask_bulk} takes multiple input rasters and applies
