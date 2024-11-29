@@ -118,8 +118,8 @@ veg_dens <- function(irast, areaname, ext = ".tif",
 #'
 #' @param irast Character file path to directory veg density input rasters.
 #' @param imask Character file path to directory of raster masks to apply.
-#' @param ext Character representation of the file extension of the raster
-#'     masks. Defaults to ".tif" as this is the preferred file type.
+#' @param ext Character representation of the file extension of the input rasters.
+#'     Defaults to ".tif" as this is the preferred file type.
 #' @param mval Numeric indicating the value to mask, e.g. a 0 indicates to mask
 #'    out this value occurs in the mask.
 #'
@@ -265,8 +265,8 @@ make_mask <- function(ivect, refimage, attribname = "year", loc ="raster_masks/c
 #'     `veg_dens_mskd/`.
 #' @param imask Character file path to directory of cloud raster masks to
 #'     apply. Commonly something like "raster_masks/cloud_masks".
-#' @param ext Character representation of the file extension of the raster
-#'     masks. Defaults to ".tif" as this is the preferred file type.
+#' @param ext Character representation of the file extension of the input rasters.
+#'     Defaults to ".tif" as this is the preferred file type.
 #'
 #' @return Any cloud masking will carried out to affected input rasters and
 #'     these will be written to `veg_dens_mskd_cld/`. cloud masked
@@ -385,8 +385,8 @@ cloud_mask <- function(irast, imask, ext = ".tif"){
 #' @param irast Character file path to input veg density rasters that have been
 #'     through the masking process, i.e. those that are found in
 #'     `veg_dens_mskd\` or `veg_dens_mskd_cld\`.
-#' @param ext Character representation of the file extension of the raster
-#'     masks. Defaults to ".tif" as this is the preferred file type.
+#' @param ext Character representation of the file extension of the input rasters.
+#'     Defaults to ".tif" as this is the preferred file type.
 #' @param classes Character string of the name of the density classes
 #'     csv file including file path. Defaults to "./supplementary/density_classes.csv"
 #'     which works with the suggested project folder structure and workflow.
@@ -487,8 +487,8 @@ veg_class <- function(irast, ext = ".tif", classes = "supplementary/density_clas
 #' @param areaname Character vector representing the geographical area that the
 #'     user is processing, e.g. marine park acronym. It will be used for inclusion
 #'     to the output csv name.
-#' @param ext Character representation of the file extension of the raster
-#'     masks. Defaults to ".tif" as this is the preferred file type.
+#' @param ext Character representation of the file extension of the input rasters.
+#'     Defaults to ".tif" as this is the preferred file type.
 #' @param probabilities Boolean to indicate whether to calculate cloudy
 #'     probabilities. Default is TRUE.
 #'
@@ -666,8 +666,8 @@ veg_class_area <- function(irast, iregions, attribname, areaname, ext = ".tif",
 #' @param classes Character representation of the name of the trend class
 #'     csv file including file path. Default is "supplementary/trend_classes.csv"
 #'     which works with the suggested project folder structure and workflow.
-#' @param ext Character representation of the file extension of the raster
-#'     masks. Defaults to ".tif" as this is the preferred file type.
+#' @param ext Character representation of the file extension of the input rasters.
+#'     Defaults to ".tif" as this is the preferred file type.
 #'
 #' @return A raster of slope values and a raster of trend classes are written to
 #'     `trend_class\` for the intended period of analysis.
@@ -850,28 +850,20 @@ trend_class_area <- function(irast, iregions, attribname){
   readr::write_csv(out_df, o_name)
 }
 
-#' A function to calculate change extent area and generate change rasters for
+#' A function to calculate area of extent change and generate change rasters for
 #' reporting.
 #'
-#'  \code{change_extent} creates change rasters between all consecutive  vegetation
-#'      classification rasters and summary area stats.
+#'  \code{extent_change} calculates change between all consecutive  vegetation
+#'      classification rasters and outputs summary area stats and change shape files.
 #'
-#' @details This function is designed to do two things:
-#'  \itemize{
-#'   \item Firstly it creates change rasters between consecutive vegetation
-#'       classification raster as produced by running \code{\link{veg_class}}. It
-#'       summarises the densities into loss gain and stable categories in the
-#'       output rasters.
-#'   \item Secondly it generates area stats for regions and sites, defined by a
-#'       user's shape file.
-#'   }
+#' @details This function calculates change between all consecutive  vegetation
+#'      classification rasters created from running \code{\link{veg_class}}. It
+#'      then outputs extent change area statistics as well as extent change shape
+#'      files to spatially show where change has occurred.
 #'
 #' @param irast Character file path to input veg density rasters that have been
 #'     through the veg classification process, i.e. those that are found in
 #'     `veg_class\`.
-#' @param rastkey Character representation of unique string to match in intended
-#'     rasters. This aids in not selecting additional files generated by other
-#'     software (e.g. ArcMap). It will also be the output format of any rasters.
 #' @param iregions Character file path to a shape file (including extension)
 #'     that defines reporting regions. The shape file should have an attribute
 #'     column that defines the overall reporting "region" plus "site", if
@@ -879,21 +871,19 @@ trend_class_area <- function(irast, iregions, attribname){
 #'     delineates region from site.
 #' @param attribname Character string of the name of the attribute column that
 #'     contains the region information.
-#' @param cloud Logical. Default is FALSE. If input imagery has  undergone
-#'     groveR cloud masking choose TRUE. Can add significant processesing time
-#'     on very large rasters.
+#' @param ext Character representation of the file extension of the input
+#'     rasters. Defaults to ".tif" as this is the preferred file type.
 #'
 #'
-#' @return Rasters and calculated areas are exported to `extent_change\`.
+#' @return The csv and shape files are exported to `extent_change\`.
 #'
 #'
 #' @author Bart Huntley, \email{bart.huntley@@dbca.wa.gov.au}
 #'
 #' @examples
 #' \dontrun{
-#' change_extent(irast = "./veg_class", rastkey = ".tif",
-#'     iregions = "./vectors/regions.shp", attribname = "regions",
-#'     cloud = FALSE)
+#' extent_change(irast = "veg_class", iregions = "vectors/regions.shp",
+#'     attribname = "regions")
 #' }
 #'
 #' @import dplyr
