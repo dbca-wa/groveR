@@ -72,11 +72,6 @@ make_example_data <- function(p = "."){
     fname <- file.path(p, "raster_masks/land_msk.tif")
     terra::writeRaster(lmask, filename = fname, datatype = 'INT1U')
 
-    rmaskp <- system.file("extdata/raster_masks", "reef_msk_INV.tif", package = "groveR")
-    rmask <- terra::rast(rmaskp)
-    fname <- file.path(p, "raster_masks/reef_msk_INV.tif")
-    terra::writeRaster(rmask, filename = fname, datatype = 'INT1U')
-
     cmaskp <- system.file("extdata/raster_masks/cloud_masks", "LgCSMP_Landsat_NBART_ndvi_2006_AA_cloudmask.tif", package = "groveR")
     cmask <- terra::rast(cmaskp)
     fname <- file.path(p, "raster_masks/cloud_masks/LgCSMP_Landsat_NBART_ndvi_2006_AA_cloudmask.tif")
@@ -140,34 +135,106 @@ make_index_rasters <- function(p = "."){
 
     #data
     a <- system.file("extdata/index_rasters",
-                     "LgCSMP_Landsat_NBART_ndvi_2005_AA.tif", package = "groveR")
+                     "lgcsmp_ndvi_2007.tif", package = "groveR")
     ra <- terra::rast(a)
-    dname <- file.path(p, "index_rasters/LgCSMP_Landsat_NBART_ndvi_2005_AA.tif")
+    dname <- file.path(p, "index_rasters/lgcsmp_ndvi_2007.tif")
     terra::writeRaster(ra, filename = dname)
 
     b <- system.file("extdata/index_rasters",
-                     "LgCSMP_Landsat_NBART_ndvi_2006_AA.tif", package = "groveR")
+                     "lgcsmp_ndvi_2008.tif", package = "groveR")
     rb <- terra::rast(b)
-    dname <- file.path(p, "index_rasters/LgCSMP_Landsat_NBART_ndvi_2006_AA.tif")
+    dname <- file.path(p, "index_rasters/lgcsmp_ndvi_2008.tif")
     terra::writeRaster(rb, filename = dname)
 
     c <- system.file("extdata/index_rasters",
-                     "LgCSMP_Landsat_NBART_ndvi_2007_AA.tif", package = "groveR")
+                     "lgcsmp_ndvi_2009.tif", package = "groveR")
     rc <- terra::rast(c)
-    dname <- file.path(p, "index_rasters/LgCSMP_Landsat_NBART_ndvi_2007_AA.tif")
+    dname <- file.path(p, "index_rasters/lgcsmp_ndvi_2009.tif")
     terra::writeRaster(rc, filename = dname)
 
     d <- system.file("extdata/index_rasters",
-                     "LgCSMP_Landsat_NBART_ndvi_2008_AA.tif", package = "groveR")
+                     "lgcsmp_ndvi_2010.tif", package = "groveR")
     rd <- terra::rast(d)
-    dname <- file.path(p, "index_rasters/LgCSMP_Landsat_NBART_ndvi_2008_AA.tif")
+    dname <- file.path(p, "index_rasters/lgcsmp_ndvi_2010.tif")
     terra::writeRaster(rd, filename = dname)
 
     e <- system.file("extdata/index_rasters",
-                     "LgCSMP_Landsat_NBART_ndvi_2009_AA.tif", package = "groveR")
+                     "lgcsmp_ndvi_2011.tif", package = "groveR")
     re <- terra::rast(e)
-    dname <- file.path(p, "index_rasters/LgCSMP_Landsat_NBART_ndvi_2009_AA.tif")
+    dname <- file.path(p, "index_rasters/lgcsmp_ndvi_2011.tif")
     terra::writeRaster(re, filename = dname)
+
+    f <- system.file("extdata/index_rasters",
+                     "lgcsmp_ndvi_2012.tif", package = "groveR")
+    rf <- terra::rast(f)
+    dname <- file.path(p, "index_rasters/lgcsmp_ndvi_2012.tif")
+    terra::writeRaster(rf, filename = dname)
+
+    g <- system.file("extdata/index_rasters",
+                     "lgcsmp_ndvi_2013.tif", package = "groveR")
+    rg <- terra::rast(g)
+    dname <- file.path(p, "index_rasters/lgcsmp_ndvi_2013.tif")
+    terra::writeRaster(rg, filename = dname)
+
+    h <- system.file("extdata/index_rasters",
+                     "lgcsmp_ndvi_2014.tif", package = "groveR")
+    rh <- terra::rast(h)
+    dname <- file.path(p, "index_rasters/lgcsmp_ndvi_2014.tif")
+    terra::writeRaster(rh, filename = dname)
+
+    i <- system.file("extdata/index_rasters",
+                     "lgcsmp_ndvi_2015.tif", package = "groveR")
+    ri <- terra::rast(i)
+    dname <- file.path(p, "index_rasters/lgcsmp_ndvi_2015.tif")
+    terra::writeRaster(ri, filename = dname)
+
+    j <- system.file("extdata/index_rasters",
+                     "lgcsmp_ndvi_2016.tif", package = "groveR")
+    rj <- terra::rast(j)
+    dname <- file.path(p, "index_rasters/lgcsmp_ndvi_2016.tif")
+    terra::writeRaster(rj, filename = dname)
+
+    k <- system.file("extdata/index_rasters",
+                     "lgcsmp_ndvi_2017.tif", package = "groveR")
+    rk <- terra::rast(k)
+    dname <- file.path(p, "index_rasters/lgcsmp_ndvi_2017.tif")
+    terra::writeRaster(rk, filename = dname)
+
+    l <- system.file("extdata/index_rasters",
+                     "lgcsmp_ndvi_2018.tif", package = "groveR")
+    rl <- terra::rast(l)
+    dname <- file.path(p, "index_rasters/lgcsmp_ndvi_2018.tif")
+    terra::writeRaster(rl, filename = dname)
+
+    m <- system.file("extdata/index_rasters",
+                     "lgcsmp_ndvi_2019.tif", package = "groveR")
+    rm <- terra::rast(m)
+    dname <- file.path(p, "index_rasters/lgcsmp_ndvi_2019.tif")
+    terra::writeRaster(rm, filename = dname)
+
+    n <- system.file("extdata/index_rasters",
+                     "lgcsmp_ndvi_2020.tif", package = "groveR")
+    rn <- terra::rast(n)
+    dname <- file.path(p, "index_rasters/lgcsmp_ndvi_2020.tif")
+    terra::writeRaster(rn, filename = dname)
+
+    o <- system.file("extdata/index_rasters",
+                     "lgcsmp_ndvi_2021.tif", package = "groveR")
+    ro <- terra::rast(o)
+    dname <- file.path(p, "index_rasters/lgcsmp_ndvi_2021.tif")
+    terra::writeRaster(ro, filename = dname)
+
+    q <- system.file("extdata/index_rasters",
+                     "lgcsmp_ndvi_2022.tif", package = "groveR")
+    rq <- terra::rast(q)
+    dname <- file.path(p, "index_rasters/lgcsmp_ndvi_2022.tif")
+    terra::writeRaster(rq, filename = dname)
+
+    r <- system.file("extdata/index_rasters",
+                     "lgcsmp_ndvi_2023.tif", package = "groveR")
+    rr <- terra::rast(r)
+    dname <- file.path(p, "index_rasters/lgcsmp_ndvi_2023.tif")
+    terra::writeRaster(rr, filename = dname)
 
   })
 }
