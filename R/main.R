@@ -897,34 +897,34 @@ trend_class_area <- function(irast, iregions, attribname){
 #' }
 #'
 #' @import dplyr
-#' @importFrom magrittr %>%
+#' @import cli
 #' @importFrom fs dir_ls
-#' @importFrom readr  write_csv
+#' @importFrom readr write_csv
 #' @importFrom stringr str_replace str_split
 #' @importFrom sf st_as_sf st_area st_drop_geometry st_write
-#' @importFrom terra rast vect crop rasterize mask classify ifel
+#' @importFrom terra rast vect crop rasterize mask classify ifel as.polygons
 #' @importFrom units set_units
 #'
 #' @export
-change_extent <- function(irast, rastkey, iregions, attribname, cloud = FALSE){
-  irs <- rev(fs::dir_ls(irast, glob = paste0("*", rastkey, "$")))
-  rastdf <- dplyr::tibble(path = irs) %>%
-    dplyr::mutate(yr = readr::parse_number(basename(path))) %>%
+extent_change <- function(irast, iregions, attribname, ext = ".tif"){
+  cli::cli_alert_info("Calculating change in extent between years")
+  rastdf <- dplyr::tibble(path = fs::dir_ls(irast, glob = paste0("*", ext, "$"))) |>
+    dplyr::mutate(yr = readr::parse_number(basename(path))) |>
+    dplyr::arrange(yr) |>
     dplyr::mutate(pathnew = stringr::str_replace(path, "veg_class",
                                                  "extent_change"),
-                  pathnew1 = stringr::str_replace(pathnew, "Veg_Class", "extent_change"))
-  out <- paste0("./", stringr::str_split(rastdf[[3]], "/")[[1]][2])
-
-  end <- length(rastdf[[1]]) - 1
+                  pathnew = stringr::str_replace(pathnew, "vegclass", "extentchange"))
+  end <- length(rastdf[["path"]]) - 1
   rcl <- c(0, 1, 1, 1, 5, 2, 5, 6, 6, 6, 11, 7, 11, 15, 8,
            15, Inf, NA)
   rclm <- matrix(rcl, ncol = 3, byrow = TRUE)
   #out <- "./extent_change"
-  out <- paste0("./", stringr::str_split(rastdf[[3]], "/")[[1]][2])
+  out <- "./extent_change"
   if (!file.exists(out)) {
     dir.create(out)
   }
   whole_stack <- terra::rast(rastdf[["path"]])
+  names(whole_stack) <- rastdf[["yr"]]
   regions <- terra::vect(iregions)
   reps <- unique(regions[[attribname]][[1]])
   stats <- dplyr::tibble()
@@ -935,30 +935,33 @@ change_extent <- function(irast, rastkey, iregions, attribname, cloud = FALSE){
     msk_i <- terra::rasterize(rep_i, mini_crp)
     min_msk <- terra::mask(mini_crp, msk_i)
     for (j in 1:end){
-      cat("Calculating change between...", rastdf[[2]][j],
-          "and", rastdf[[2]][j + 1], " for ",
-          todo, "\n")
-      b1 <- min_msk[[j]]
-      a1 <- min_msk[[j + 1]]
-      b <- terra::classify(b1, rclm)
+      y1 <- rastdf[["yr"]][j]
+      y2 <- rastdf[["yr"]][j + 1]
+      cli::cli_alert_info("Calculating change between {.emph {y1}} and {.emph {y2}}")
+      # 1st year
+      a1 <- min_msk[[j]]
       a <- terra::classify(a1, rclm)
-      if (cloud == TRUE) {
-        a10 <- terra::ifel(a == 1 & b == 2 | is.na(a) & b == 2, 10, 0)
-        a11 <- terra::ifel(a == 2 & b == 1 | a == 2 & is.na(b), 11, 0)
-        a12 <- terra::ifel(a == 2 & b == 2, 12, 0)
-        a13 <- terra::ifel(a == 7 & b == 2 | a == 1 & b == 8 | a == 6 & b == 8 | a == 7 & b == 8 | is.na(a) & b == 8, 13, 0)
-        a14 <- terra::ifel(a == 8 & b == 1 | a == 8 & b == 6 | a == 2 & b == 7 | a == 8 & b == 7 | a == 8 & is.na(b), 14, 0)
-        a15 <- terra::ifel(a == 8 & b == 2 | a == 2 & b == 8 | a == 8 & b == 8, 15, 0)
-        a16 <- terra::ifel(a == 6 & b == 2 | a == 2 & b == 6, 16, 0)
-        ext_chng <- a10 + a11 + a12 + a13 + a14 + a15 + a16
-        ext_chng <- terra::ifel(ext_chng != 0, ext_chng, NA)
-      } else {
-        a10 <- terra::ifel(a == 1 & b == 2 | is.na(a) & b == 2, 10, 0)
-        a11 <- terra::ifel(a == 2 & b == 1 | a == 2 & is.na(b), 11, 0)
-        a12 <- terra::ifel(a == 2 & b == 2, 12, 0)
-        ext_chng <- a10 + a11 + a12
-        ext_chng <- terra::ifel(ext_chng != 0, ext_chng, NA)
-      }
+      # 2nd year
+      b1 <- min_msk[[j + 1]]
+      b <- terra::classify(b1, rclm)
+      ## comparisons between years where a = yr , b = yr +1
+      # a = sparse and b = mangrove or a = NA and b = mangrove then gain
+      a10 <- terra::ifel(a == 1 & b == 2 | is.na(a) & b == 2, 10, 0)
+      # a = mangrove and b = sparse or a = mangrove and b = NA then loss
+      a11 <- terra::ifel(a == 2 & b == 1 | a == 2 & is.na(b), 11, 0)
+      # both years mangrove then stable
+      a12 <- terra::ifel(a == 2 & b == 2, 12, 0)
+      # cldy sparse and mangrove or sparse and cldy mangrove or cld and cldy mangrove or cldy sparse and cldy mangrove or NA and cldy mangrove then cld likely gain
+      a13 <- terra::ifel(a == 7 & b == 2 | a == 1 & b == 8 | a == 6 & b == 8 | a == 7 & b == 8 | is.na(a) & b == 8, 13, 0)
+      # cld mangrove and sparse or cldy mangrove and cld or mangrove and cldy sparse or cldy mangrove and cldy sparse or cldy mangrove and NA then cld likely loss
+      a14 <- terra::ifel(a == 8 & b == 1 | a == 8 & b == 6 | a == 2 & b == 7 | a == 8 & b == 7 | a == 8 & is.na(b), 14, 0)
+      # cld mangrove and mangrove or mangrove and cld mangrove or cld mangrove and cld mangrove cldy likely stable
+      a15 <- terra::ifel(a == 8 & b == 2 | a == 2 & b == 8 | a == 8 & b == 8, 15, 0)
+      # cld and mangrove or mangrove and cld then cldy no data
+      a16 <- terra::ifel(a == 6 & b == 2 | a == 2 & b == 6, 16, 0)
+      ext_chng <- a10 + a11 + a12 + a13 + a14 + a15 + a16
+      ext_chng <- terra::ifel(ext_chng != 0, ext_chng, NA)
+
       if(is.nan(terra::minmax(ext_chng)[[1]]) == FALSE) {
         v_chng <- sf::st_as_sf(terra::as.polygons(ext_chng))
         names(v_chng) <- c("gridcode", "geometry")
@@ -967,11 +970,13 @@ change_extent <- function(irast, rastkey, iregions, attribname, cloud = FALSE){
         name_v <- paste0(out, "/", todo, "_", period, ".shp")
         v_dat_xy <- sf::st_write(dplyr::mutate(dplyr::mutate(v_chng,
                                                              status = dplyr::case_when(gridcode == 10 ~ "gain",
-                                                                                       gridcode == 11 ~ "loss", gridcode == 12 ~ "stable", gridcode == 13 ~ "cloud likely gain",
+                                                                                       gridcode == 11 ~ "loss",
+                                                                                       gridcode == 12 ~ "stable",
+                                                                                       gridcode == 13 ~ "cloud likely gain",
                                                                                        gridcode == 14 ~ "cloud likely loss",
                                                                                        gridcode == 15 ~ "cloud likely stable",
                                                                                        gridcode == 16 ~ "cloud no data", TRUE ~  "other")),
-                                               area_ha = au), dsn = name_v)
+                                               area_ha = au), dsn = name_v, quiet = TRUE)
         name_r <- stringr::str_split(todo, "_")[[1]][1]
         name_s <- stringr::str_split(todo, "_")[[1]][2]
         v_dat_df <- dplyr::mutate(dplyr::rename(dplyr::select(dplyr::mutate(sf::st_drop_geometry(v_dat_xy),
@@ -985,18 +990,16 @@ change_extent <- function(irast, rastkey, iregions, attribname, cloud = FALSE){
                                   Area_ha = as.numeric(Area_ha))
         stats <- dplyr::bind_rows(stats, v_dat_df)
       } else {
-        cat("No extent detected between...", rastdf[[2]][j], "and",
-            rastdf[[2]][j + 1], " for ", todo, " moving on\n")
+        cli::cli_alert_info("No data detected between {.emph {y1}} and {.emph {y2}}")
+        # cat("No extent detected between...", rastdf[[2]][j], "and",
+        #     rastdf[[2]][j + 1], " for ", todo, " moving on\n")
       }
     }
   }
-  tofind <- tail(strsplit(rastdf[[4]][1], "_")[[1]],
-                 n = 2)
-  yr_rng <- paste0(min(rastdf[[2]]), "-" , max(rastdf[[2]]))
+  # find start end year
+  yrs <- paste0("_",min(rastdf[["yr"]]), "-" , max(rastdf[["yr"]]), "_")
+  # output name
+  oname <- paste0(out, "/", areaname, yrs, "extent_change.csv")
+  readr::write_csv(stats, file = oname)
 
-  cname <- stringr::str_replace(rastdf[[4]][1], tofind[1], "")
-
-  cname2 <- stringr::str_replace(cname, paste0("_", tofind[2]),
-                                 paste0(yr_rng, ".csv"))
-  readr::write_csv(stats, file = cname2)
 }
