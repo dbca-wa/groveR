@@ -770,7 +770,7 @@ trend_class <- function(irast, areaname, end, period = 10,
 
 #' A function to calculate trend class classification area for reporting.
 #'
-#'  \code{change_extent} creates area stats for previously generated trend class
+#'  \code{trend_class_area} creates area stats for previously generated trend class
 #'      rasters.
 #'
 #' @details This function is designed to calculate the area of each trend class
@@ -795,13 +795,13 @@ trend_class <- function(irast, areaname, end, period = 10,
 #'
 #' @examples
 #' \dontrun{
-#' trend_class_areas(irast = "./trend_class/LgCSMP_mangroves_2005-2009_trendclass.img",
-#'     iregions = "./vectors/regions.shp", attribname = "regions")
+#' trend_class_areas(irast = "trend_class/Test_National_Park_2014-2023_trendclass.tif",
+#'     iregions = "vectors/regions.shp", attribname = "regions")
 #' }
 #'
 #' @import dplyr
-#' @importFrom magrittr %>%
-#' @importFrom terra rast mask freq res rasterize
+#' @import cli
+#' @importFrom terra rast mask freq res rasterize vect
 #' @importFrom tools file_path_sans_ext
 #' @importFrom stringr str_split
 #' @importFrom tibble as_tibble
@@ -810,46 +810,44 @@ trend_class <- function(irast, areaname, end, period = 10,
 #' @export
 
 trend_class_area <- function(irast, iregions, attribname){
-  suppressWarnings({
-    regions <- terra::vect(iregions)
-    reps <- unique(regions[[attribname]][[1]])
-    # trendclass raster
-    tcs <- terra::rast(irast)
-    # find pixel res and calculate hectares
-    res_mult <- (round(terra::res(tcs)[1])^2)/10000
-    out_list <- list()
-    for(i in seq_along(reps)){
-      # monitoring vector
-      rep_i <- regions[i, attribname]
-      name_r <- stringr::str_split(reps[i], "_")[[1]][1]
-      name_s <- stringr::str_split(reps[i], "_")[[1]][2]
-      cat(paste0("working on ", name_s, "...\n"))
-      # make raster mask
-      rep_ir <- terra::rasterize(rep_i, tcs)
-      # mask out
-      msk_ir <- terra::mask(x = tcs, mask = rep_ir)
-      # calc freq
-      stats <- tibble::as_tibble(terra::freq(msk_ir)) %>%
-        dplyr::filter(!is.na(value)) %>%
-        dplyr::mutate(Region = name_r,
-                      Site = name_s,
-                      Area = count * res_mult,
-                      TrendClass = dplyr::case_when(
-                        value == 1 ~ "Major Gain",
-                        value == 2 ~ "Minor Gain",
-                        value == 3 ~ "Stable",
-                        value == 4 ~ "Minor Loss",
-                        TRUE ~ "Major Loss"
-                      )) %>%
-        dplyr::select(-value, -count, -layer)
-      out_list[[i]] <- stats
-    }
-    # output
-    out_df <- do.call("rbind", out_list)
-    o_name <- paste0(tools::file_path_sans_ext(irast), "_area_stats.csv")
-    readr::write_csv(out_df, path = o_name)
-
-  })
+  cli::cli_alert_info("Calculating vegetation classification trend areas")
+  regions <- terra::vect(iregions)
+  reps <- unique(regions[[attribname]][[1]])
+  # trendclass raster
+  tcs <- terra::rast(irast)
+  # find pixel res and calculate hectares
+  res_mult <- (round(terra::res(tcs)[1])^2)/10000
+  out_list <- list()
+  for(i in seq_along(reps)){
+    # monitoring vector
+    rep_i <- regions[i, attribname]
+    name_r <- stringr::str_split(reps[i], "_")[[1]][1]
+    name_s <- stringr::str_split(reps[i], "_")[[1]][2]
+    cat(paste0("working on ", name_s, "...\n"))
+    # make raster mask
+    rep_ir <- terra::rasterize(rep_i, tcs)
+    # mask out
+    msk_ir <- terra::mask(x = tcs, mask = rep_ir)
+    # calc freq
+    stats <- tibble::as_tibble(terra::freq(msk_ir))|>
+      dplyr::filter(!is.na(value))|>
+      dplyr::mutate(Region = name_r,
+                    Site = name_s,
+                    Area = count * res_mult,
+                    TrendClass = dplyr::case_when(
+                      value == 1 ~ "Major Gain",
+                      value == 2 ~ "Minor Gain",
+                      value == 3 ~ "Stable",
+                      value == 4 ~ "Minor Loss",
+                      TRUE ~ "Major Loss"
+                    ))|>
+      dplyr::select(-value, -count, -layer)
+    out_list[[i]] <- stats
+  }
+  # output
+  out_df <- do.call("rbind", out_list)
+  o_name <- paste0(tools::file_path_sans_ext(irast), "_area_stats.csv")
+  readr::write_csv(out_df, o_name)
 }
 
 #' A function to calculate change extent area and generate change rasters for
