@@ -24,8 +24,8 @@
 #'
 #' @examples
 #' \dontrun{
-#' veg_dens_class_plot(icsv = "./extent_summaries/NatPark_2005-2009_extent_summaries.csv",
-#'     areaname = "NatPark", cap = "RSSA")
+#' veg_dens_class_plot(icsv = "extent_summaries/lgcsmp_2014-2023_extent_summaries.csv",
+#'     areaname = "lgcsmp", cap = "RSSA")
 #' }
 #'
 #' @import dplyr
@@ -101,17 +101,16 @@ veg_dens_class_plot <- function(icsv, areaname, cap){
 #'
 #' @examples
 #' \dontrun{
-#' change_extent_plot(icsv = "./extent_change/NatPark_2005-2009_extent_summaries.csv",
-#'     areaname = "NatPark", cap = "RSSA")
+#' extent_change_plot(icsv = "extent_change/lgcsmp_2014-2023_extent_change.csv",
+#'     areaname = "lgcsmp", cap = "RSSA")
 #' }
 #'
 #' @import dplyr
-#' @importFrom magrittr %>%
 #' @import ggplot2
 #' @importFrom readr read_csv
 #'
 #' @export
-change_extent_plot <- function(icsv, areaname, cap){
+extent_change_plot <- function(icsv, areaname, cap){
   ext_chng_cols <- c('gain' = '#0000CC',
                      'stable' = '#808080',
                      'loss' = '#FF0000',
@@ -121,21 +120,21 @@ change_extent_plot <- function(icsv, areaname, cap){
                      'cloud likely loss' = "#FF9999"
   )
   # summarise data - factors for plotting order for Status
-  df <-  readr::read_csv(icsv) %>%
-    dplyr::filter(!is.na(Status)) %>%
-    dplyr::group_by(Region, Site, Period, Status) %>%
-    dplyr::summarise(a = sum(Area_ha)) %>%
-    dplyr::mutate(Status = factor(Status,
-                                  levels = c('loss', 'cloud likely loss','gain',
-                                             'cloud likely gain',
-                                             'stable', 'cloud likely stable',
-                                             'cloud no data', NA)),
-                  RS = paste0(Region, "_", Site))
-  sites <- unique(df$RS)
+  suppressMessages(df <-  readr::read_csv(icsv, col_types = readr::cols()) |>
+                     dplyr::filter(!is.na(Status)) |>
+                     dplyr::group_by(Region, Site, Period, Status) |>
+                     dplyr::summarise(a = sum(Area_ha)) |>
+                     dplyr::mutate(Status = factor(Status,
+                                                   levels = c('loss', 'cloud likely loss','gain',
+                                                              'cloud likely gain',
+                                                              'stable', 'cloud likely stable',
+                                                              'cloud no data', NA)),
+                                   RS = paste0(Region, "_", Site)))
+  sites <- unique(df$Site)
   for(i in seq_along(sites)){
     site <- sites[i]
-    df2 <- df %>%
-      dplyr::filter(RS == site)
+    df2 <- df |>
+      dplyr::filter(Site == site)
     # helpers
     # as_of <- Sys.Date()
 
@@ -154,4 +153,5 @@ change_extent_plot <- function(icsv, areaname, cap){
     ggsave(p, filename = pname, width = 9, height = 7)
   }
 }
+
 
