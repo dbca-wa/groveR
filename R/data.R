@@ -66,16 +66,11 @@ make_folders <- function(p = "."){
 #' @export
 make_example_data <- function(p = "."){
   suppressWarnings({
-    #masks
+    #land mask
     lmaskp <- system.file("extdata/raster_masks", "land_msk.tif", package = "groveR")
     lmask <- terra::rast(lmaskp)
     fname <- file.path(p, "raster_masks/land_msk.tif")
     terra::writeRaster(lmask, filename = fname, datatype = 'INT1U')
-
-    cmaskp <- system.file("extdata/raster_masks/cloud_masks", "LgCSMP_Landsat_NBART_ndvi_2006_AA_cloudmask.tif", package = "groveR")
-    cmask <- terra::rast(cmaskp)
-    fname <- file.path(p, "raster_masks/cloud_masks/LgCSMP_Landsat_NBART_ndvi_2006_AA_cloudmask.tif")
-    terra::writeRaster(cmask, filename = fname, datatype = 'INT1U')
 
     #csvs
     calp <- system.file("extdata/supplementary", "calibration.csv", package = "groveR")
@@ -98,6 +93,11 @@ make_example_data <- function(p = "."){
     shp <- sf::st_read(shpp)
     sname <- file.path(p, "vectors/regions.shp")
     sf::st_write(shp, dsn = sname)
+
+    shp2p <- system.file("extdata/vectors", "cloud_vectors.shp", package = "groveR")
+    shp2 <- sf::st_read(shp2p)
+    sname2 <- file.path(p, "vectors/cloud_vectors.shp")
+    sf::st_write(shp2, dsn = sname2)
 
   })
 }
