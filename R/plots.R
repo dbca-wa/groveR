@@ -29,7 +29,6 @@
 #' }
 #'
 #' @import dplyr
-#' @importFrom magrittr %>%
 #' @import ggplot2
 #' @importFrom readr read_csv
 #'
@@ -47,13 +46,13 @@ veg_dens_class_plot <- function(icsv, areaname, cap){
                        'Cloud 50-69%' = "#4F6820",
                        'Cloud 70-100%' = "#314010")
   # summarise data
-  df <-  readr::read_csv(icsv) %>%
+  df <-  readr::read_csv(icsv, col_types = readr::cols()) |>
     dplyr::filter(DensityClass != "Other")
 
   sites <- unique(df$Site)
   for(i in seq_along(sites)){
     site <- sites[i]
-    df2 <- df %>%
+    df2 <- df |>
       dplyr::filter(Site == site)
     # helpers
     yr_range <- paste0(min(df$Year), '-', max(df$Year))
