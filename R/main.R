@@ -56,7 +56,7 @@
 #' @export
 
 veg_dens <- function(irast, areaname, ext = ".tif",
-                     calibration = "./supplementary/calibration.csv"){
+                     calibration = "supplementary/calibration.csv"){
   cli::cli_alert_info("Converting index rasters to vegetation density")
   # starting df of I/O paths
   rastdf <- dplyr::tibble(path = fs::dir_ls(irast, glob = paste0("*", ext, "$"))) |>
@@ -130,7 +130,7 @@ veg_dens <- function(irast, areaname, ext = ".tif",
 #'
 #' @examples
 #' \dontrun{
-#' general_mask(irast = "./veg_dens", imask = "./raster_masks")
+#' general_mask(irast = "veg_dens", imask = "raster_masks")
 #' }
 #'
 #' @import dplyr
@@ -208,7 +208,7 @@ general_mask <- function(irast, imask, ext = ".tif", mval = 0){
 #'
 #' @examples
 #' \dontrun{
-#' make_mask(ivect = ""vectors/cloud_new.shp", refimage = "veg_dens/LgCSMP_vdens_2018.tif"
+#' make_mask(ivect = "vectors/cloud_new.shp", refimage = "veg_dens/LgCSMP_vdens_2018.tif"
 #' }
 #'
 #' @importFrom terra vect project rast rasterize subst writeRaster
@@ -276,7 +276,7 @@ make_mask <- function(ivect, refimage, attribname = "year", loc ="raster_masks/c
 #'
 #' @examples
 #' \dontrun{
-#' cloud_mask(irast = "veg_dens_mskd", imask = ""raster_masks/cloud_masks")
+#' cloud_mask(irast = "veg_dens_mskd", imask = raster_masks/cloud_masks")
 #' }
 #'
 #' @import dplyr
@@ -408,7 +408,7 @@ cloud_mask <- function(irast, imask, ext = ".tif"){
 #' @importFrom terra rast writeRaster classify lapp minmax
 #'
 #' @export
-veg_class <- function(irast, ext = ".tif", classes = "./supplementary/density_classes.csv"){
+veg_class <- function(irast, ext = ".tif", classes = "supplementary/density_classes.csv"){
   cli::cli_alert_info("Performing vegetation classification")
   # get classes
   if(file.exists(classes) == FALSE) cli::cli_abort(c("Classes csv dosen't exist",
