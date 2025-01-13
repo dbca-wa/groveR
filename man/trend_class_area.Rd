@@ -24,7 +24,7 @@ contains the region information.}
 Calculated areas are exported via csv file to `trend_class\`.
 }
 \description{
-\code{change_extent} creates area stats for previously generated trend class
+\code{trend_class_area} creates area stats for previously generated trend class
      rasters.
 }
 \details{
@@ -35,8 +35,8 @@ This function is designed to calculate the area of each trend class
 }
 \examples{
 \dontrun{
-trend_class_areas(irast = "./trend_class/LgCSMP_mangroves_2005-2009_trendclass.img",
-    iregions = "./vectors/regions.shp", attribname = "regions")
+trend_class_areas(irast = "trend_class/Test_National_Park_2014-2023_trendclass.tif",
+    iregions = "vectors/regions.shp", attribname = "regions")
 }
 
 }

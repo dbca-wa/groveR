@@ -30,8 +30,8 @@ Takes a file path to an extent summary csv file as created by
 }
 \examples{
 \dontrun{
-veg_dens_class_plot(icsv = "./extent_summaries/NatPark_2005-2009_extent_summaries.csv",
-    areaname = "NatPark", cap = "RSSA")
+veg_dens_class_plot(icsv = "extent_summaries/lgcsmp_2014-2023_extent_summaries.csv",
+    areaname = "lgcsmp", cap = "RSSA")
 }
 
 }
