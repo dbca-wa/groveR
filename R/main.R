@@ -208,7 +208,7 @@ general_mask <- function(irast, imask, ext = ".tif", mval = 0){
 #'
 #' @examples
 #' \dontrun{
-#' make_mask(ivect = "vectors/cloud_new.shp", refimage = "veg_dens/LgCSMP_vdens_2018.tif"
+#' make_mask(ivect = "vectors/cloud_vectors.shp", refimage = "veg_dens/LgCSMP_vdens_2018.tif"
 #' }
 #'
 #' @importFrom terra vect project rast rasterize subst writeRaster
@@ -464,6 +464,9 @@ veg_class <- function(irast, ext = ".tif", classes = "supplementary/density_clas
 #' @details This function is designed to calculate the area of each class as
 #'     defined by using the \code{\link{veg_class}} per reporting area and site.
 #'     Reporting areas are defined by input shape file. Output results to csv.
+#'
+#'     Note that the attribute column of the input shape file must contain a
+#'     region name followed by a site name separated by an underscore.
 #'
 #'     The function can also compute cloudy probabilities. This is when some
 #'     mangroves have been masked in one year, the function looks to see what the
@@ -853,7 +856,7 @@ trend_class_area <- function(irast, iregions, attribname){
 #' A function to calculate area of extent change and generate change rasters for
 #' reporting.
 #'
-#'  \code{extent_change} calculates change between all consecutive  vegetation
+#'  \code{extent_change} calculates change between all consecutive vegetation
 #'      classification rasters and outputs summary area stats and change shape files.
 #'
 #' @details This function calculates change between all consecutive  vegetation
@@ -896,7 +899,7 @@ trend_class_area <- function(irast, iregions, attribname){
 #' @importFrom units set_units
 #'
 #' @export
-extent_change <- function(irast, iregions, attribname, ext = ".tif"){
+extent_change <- function(irast, areaname, iregions, attribname, ext = ".tif"){
   cli::cli_alert_info("Calculating change in extent between years")
   rastdf <- dplyr::tibble(path = fs::dir_ls(irast, glob = paste0("*", ext, "$"))) |>
     dplyr::mutate(yr = readr::parse_number(basename(path))) |>
