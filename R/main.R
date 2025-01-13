@@ -276,7 +276,7 @@ make_mask <- function(ivect, refimage, attribname = "year", loc ="raster_masks/c
 #'
 #' @examples
 #' \dontrun{
-#' cloud_mask(irast = "veg_dens_mskd", imask = raster_masks/cloud_masks")
+#' cloud_mask(irast = "veg_dens_mskd", imask = "raster_masks/cloud_masks")
 #' }
 #'
 #' @import dplyr
