@@ -48,6 +48,9 @@ This function is designed to calculate the area of each class as
     defined by using the \code{\link{veg_class}} per reporting area and site.
     Reporting areas are defined by input shape file. Output results to csv.
 
+    Note that the attribute column of the input shape file must contain a
+    region name followed by a site name separated by an underscore.
+
     The function can also compute cloudy probabilities. This is when some
     mangroves have been masked in one year, the function looks to see what the
     classification was the previous year. If that year wasn't cloudy in that
