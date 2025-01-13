@@ -164,12 +164,6 @@ make_index_rasters <- function(p = "."){
     dname <- file.path(p, "index_rasters/lgcsmp_ndvi_2011.tif")
     terra::writeRaster(re, filename = dname)
 
-    f <- system.file("extdata/index_rasters",
-                     "lgcsmp_ndvi_2012.tif", package = "groveR")
-    rf <- terra::rast(f)
-    dname <- file.path(p, "index_rasters/lgcsmp_ndvi_2012.tif")
-    terra::writeRaster(rf, filename = dname)
-
     g <- system.file("extdata/index_rasters",
                      "lgcsmp_ndvi_2013.tif", package = "groveR")
     rg <- terra::rast(g)
