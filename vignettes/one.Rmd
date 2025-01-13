@@ -40,13 +40,15 @@ structure your analysis will run smoother and you won't be inclined to lose
 anything.
 
 ## How?
-You will firstly create a top level directory (**Processing Folder**) where all 
-interim products and final outputs will be generated. This can be wherever and 
-named whatever is convenient. As previously suggested, if set up as an RStudio 
-Project, this will already be your working directory. If not this is where you 
-should set it to. Following this you can populate it with sub-directories that 
-will house user data inputs. If you run the code below it will create those for 
-you.
+It is strongly recommended that you use an RStudio project. Either create one 
+from scratch or create one from an existing directory. This will now become your 
+working directory and all file paths are relative to this. If you do not wish to 
+use RStudio then the same effect can be achieved by setting your working directory 
+to a folder that makes sense to you.
+
+The next stage is to use `groveR` to setup a directory tree. These folders will 
+be used to house various data and many of `groveR's` functions will default to 
+looking in them for required data.
 
 ```{r, folders, eval=FALSE}
 # Make the sub-directories in the processing folder
@@ -57,7 +59,9 @@ make_folders(p =".")
 ## What does it look like?
 The sub-directories have the following structure:
 
-![](plots/fstruct.png)
+![](plots/dirtree1.png)
+
+These directories will contain user supplied data:
 
 * `raster_masks/` will contain "general" raster masks of the type that will be 
 applied to all satellite data.
@@ -80,27 +84,29 @@ rasters, one per year, will have been chosen on the basis of:
 
 * An appropriate index, when used in a model, provide the best measure of cover.
 * That the time of capture is the same for all time steps i.e. the same season.
-* That they are free from cloud, or where cloud is unavoidable, they have had cloud 
-masked and the appropriate mask has been retained.
+* That they are free from cloud. Where cloud is unavoidable, the cloud has either 
+been digitised and a corresponding shape file has been stored in `vectors/`, or 
+a cloud mask has been created and stored in `raster_masks/cloud_masks/`.
 * That they cover the whole area of interest. If the area of interest is larger 
 than an available satellite scene, they have been mosiacked together.
 * That they all have identical extents (footprints) and pixel sizes.
 
-The above data will be large and as such should not be located in the 
+The above data will be large and as such may not be located in the 
 **Processing Folder**. You will however need to know where it is and be able to 
-provide a filepath to it's location.
+provide a file path to it's location.
 
 The other data that you will need to provide will be stored in the appropriate 
 sub-directories of the described **Processing Folder**. Ensure any masks have 
 the same extents and pixel sizes as the annual rasters. The required csv files 
-will be described in detail later in the vignettes as will the shape file.
+will be described in detail later in the vignettes as will any shape file.
 
 ## A Note on Projections
 Any data that is used for your analysis must have a consistent projection. As 
 reporting areas used in mangrove monitoring can straddle more than one UTM zone, 
 Albers Australia (EPSG: 3577) has been used as a default. This is a reasonable 
 choice as it enables easy calculation for area in metres and UTM zones are not 
-an issue.
+an issue. All outputs will be in EPSG:3577 and functions will check and re-project 
+inputs if they differ.
 
 ## Another Note - Example Data
 Shipped with this package is example data from the Kimberley's. The following 

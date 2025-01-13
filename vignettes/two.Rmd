@@ -30,9 +30,8 @@ At this point either fill the directories with the example data or if
 you are an old hand at this, use your own data. If using your own data you can skip 
 this bit and start the next vignette.
 
-So at this stage you have the folders setup and the is your 
-working directory. Run the following code to save the example data to where it 
-needs to be.
+So at this stage you have the initial folders setup. Run the following code to 
+save the example data to where it needs to be.
 
 ```{r, data_setup, eval=FALSE}
 # Access internal dummy user data and write to sub-directories
@@ -41,7 +40,7 @@ make_example_data(p = ".")
 
 After running that your directories should look like this:
 
-![](plots/ex_data.png)
+![](plots/dirtree2.png)
 
 
 ## Example index data
@@ -58,24 +57,27 @@ make_index_rasters(p = ".")
 
 After running that your directories should look like this:
 
-![](plots/ex_data2.png)
+![](plots/dirtree3.png)
 
 ## What have we got?
-The index raster data is a small subset in area and time (2005-2009) from a 
+The index raster data is a small subset in area and time (2007-2023) from a 
 monitoring program in Lalang-Garram Camden Sound Marine Park in the Kimberley 
-region Western Australia.
+region Western Australia. Data for 2012 is purposefully missing to demonstrate 
+some behaviours (more on this later).
 
-**NOTE on naming**. Its always good to maintain a naming convention that shows 
-the provenance of the imagery data. The name of the data used here for example 
-indicates that the data is Landsat NBART, for the LgSCMP, it is NDVI, shows the 
-year and that it is projected to Albers Australia.
-
-There is both a land and a reef mask to suit as well as cloud mask for the 2006 
-index raster. The reef mask is an example of an inverse mask (more on this later).
+There is a land mask. 
 
 In the supplementary directory is a calibration file (model coefficients) to 
 transform the index to vegetation densities. There are also density and trend 
-class files for classification.
+class csv files to provide bins for classification.
 
-Lastly there is a shape file in the vectors directory which gives boundaries for 
-both a fictitious reporting region and some sites within it.
+Lastly there are a couple of shape files in the vectors directory. One provides 
+boundaries for both a fictitious reporting region and some sites within it. The 
+other provides ficticious digitised clouds which will be converted later to cloud 
+masks.
+
+**NOTE on naming**. The functions in `groveR` will consistently name each interim 
+product based on user provided parameters (function specific) and a 4 digit year 
+which must be part of the index image name. Please do not include other numbers 
+in your naming convention. Something simple like the example data is recommended.
+
