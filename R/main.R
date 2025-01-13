@@ -867,6 +867,9 @@ trend_class_area <- function(irast, iregions, attribname){
 #' @param irast Character file path to input veg density rasters that have been
 #'     through the veg classification process, i.e. those that are found in
 #'     `veg_class\`.
+#' @param areaname Character vector representing the geographical area that the
+#'     user is processing, e.g. marine park acronym. It will be used for inclusion
+#'     to the output name.
 #' @param iregions Character file path to a shape file (including extension)
 #'     that defines reporting regions. The shape file should have an attribute
 #'     column that defines the overall reporting "region" plus "site", if
@@ -885,7 +888,7 @@ trend_class_area <- function(irast, iregions, attribname){
 #'
 #' @examples
 #' \dontrun{
-#' extent_change(irast = "veg_class", iregions = "vectors/regions.shp",
+#' extent_change(irast = "veg_class", areaname = "lgcsmp", iregions = "vectors/regions.shp",
 #'     attribname = "regions")
 #' }
 #'
