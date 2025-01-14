@@ -1,5 +1,5 @@
 ---
-title: "Masking"
+title: "General masking"
 output: 
   prettydoc::html_pretty:
     theme: leonids
@@ -21,53 +21,46 @@ knitr::opts_chunk$set(
 
 ## Purpose
 Masking is important in remote sensing analysis as it is used to exclude 
-areas not intended for processing. This focuses the analysis and cuts down 
-processing times as only what's important is worked on.
+areas not intended for processing and thereby analysis. This focuses the analysis  
+and cuts down processing times as only what's important is worked on.
 
-The masking that the `groveR` package performs can be thought of as "general" 
-masking, where areas common to all image time steps are masked. For example in 
+General masking is where areas common to all image time steps are masked. For example in 
 this study, land above the high water level where mangroves don't grow, is 
-excluded.
+excluded. Masking that affects only specific time steps, for example cloud or haze, is 
+covered in the next vignette.
 
-Any masking that affects only specific time steps, such as cloud masking, should 
-have been done during image selection and index raster creation. `groveR` does 
-not have any functionality in this area. It does however have the ability to encode 
-cloud masked areas so that they can be included in statistics. More on this in 
-the next vignette.
-
-## Use the mask_product() function
+## Use the general_mask() function
 To mask out an area, a raster mask is applied to a raster of interest. Usually a 
-mask is generated with 1's and NA values, where 1's indicate the area of interest. When 
-the mask is applied, any areas where there is a NA is excluded.
+mask is generated with 1's and 0 values (or NA's), where 1's indicate the area of 
+interest. When the mask is applied, any areas where there is a 0 is excluded.
 
-The alternate scenario is also possible (1 indicates areas to be excluded) and in 
-this function that will be called an "inverse" mask. 
-
-The example data includes a land mask and an inverse reef mask and this will be 
-applied below. It is important that if your mask is "inverse" then it contains 
-'INV' in it's name. For example our reef mask is called "reef_msk_INV.tif".
-
+The example data includes a land mask and is the only mask residing in the 
+`raster_masks/` directory and this will be applied below. 
 ```{r, gen_msk, eval=FALSE}
-# Assign the parameters
-irast <- "./veg_dens"
-rastkey <- ".tif"
-choice <- "all"
-imask <- "./raster_masks"
-maskkey <- ".tif"
+# The general form of the function is (NOTE the default parameters)
+general_mask <- function(irast, imask, ext = ".tif", mval = 0)
+
+# the mval parameter is the "mask value" i.e. what value to mask out.
+
+# We only need to assign the first 2 parameters as the defaults are fine
+irast <- "veg_dens"
+imask <- "raster_masks"
 
 # Run the function
-mask_product(irast, rastkey, choice, imask, maskkey)
+general_mask(irast, imask)
 ```
 
-* **irast** - input veg density raster file path.
-* **rastkey** - wildcard to ensure correct file extension is parsed. 
-* **choice** - here we elect to do everything in the folder. When updating products 
-you can input one year, e.g. 2006 or a selection e.g. c(2006, 2009). Note years 
-can be entered as a numeric.
-* **imask** - input mask raster file path.
-* **maskkey** - wildcard to ensure correct file extension is parsed.
+* **irast** - input veg density rasters directory.
+* **imask** - input masks raster directory.
 
 ## What's going to happen?
-A new directory will be created, `veg_dens_mskd_for_trends/` and the masked 
+A new directory will be created, `veg_dens_mskd/` and the masked 
 vegetation density rasters will be written to it. These will be the inputs for 
 other functions.
+
+**NOTE on general masks**. The above example is only applying one land mask, 
+however if there were multiple masks then they would also be applied. This is so 
+you can have different masks relating to different entities, such as one for land, 
+one for reefs etc. When the `general_mask()` function looks for input masks it does 
+not recursively examine the `imask` directory which is why cloud masks can reside 
+in a directory at that location too. 
