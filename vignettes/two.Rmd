@@ -63,9 +63,10 @@ After running that your directories should look like this:
 The index raster data is a small subset in area and time (2007-2023) from a 
 monitoring program in Lalang-Garram Camden Sound Marine Park in the Kimberley 
 region Western Australia. Data for 2012 is purposefully missing to demonstrate 
-some behaviours (more on this later).
+some behaviours (more on this later) and is in tif format. Note that tif format 
+is preferred but functions do allow for other formats.
 
-There is a land mask. 
+There is also a land mask. 
 
 In the supplementary directory is a calibration file (model coefficients) to 
 transform the index to vegetation densities. There are also density and trend 
@@ -80,4 +81,11 @@ masks.
 product based on user provided parameters (function specific) and a 4 digit year 
 which must be part of the index image name. Please do not include other numbers 
 in your naming convention. Something simple like the example data is recommended.
+
+**NOTE on supplementary data**. The supplementary data shipped with the package, 
+whilst a good start for mangrove analysis, may not be the most applicable to 
+your area of interest. Always check with *Kathy Murray* from the *RSSA Program* 
+before running on your area of interest. If you are starting a new area of study 
+where no work has been done before, please use these supplementary csv files as 
+a guide. The format and column headings are important.
 
