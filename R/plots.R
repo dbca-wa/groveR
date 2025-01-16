@@ -82,7 +82,7 @@ veg_dens_class_plot <- function(icsv, areaname, cap){
 #' \code{change_extent_plot} creates stacked bar chart of vegetation change summaries.
 #'
 #' @details Takes a file path to an extent change csv file as created by
-#'     \code{link{change_extent}} located in `extent_change\` and produce
+#'     \code{link{extent_change}} located in `extent_change\` and produce
 #'     a stacked bar chart representing the same.
 #'
 #' @param icsv Character representation of the name of the extent change
