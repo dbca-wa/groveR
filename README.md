@@ -11,10 +11,10 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![GitHub
-issues](https://img.shields.io/github/issues/bartesto/groveR.svg?style=popout)](https://github.com/bartesto/groveR/issues/)
-[![Last-changedate](https://img.shields.io/github/last-commit/bartesto/groveR.svg)](https://github.com/bartesto/groveR/commits/master)
+issues](https://img.shields.io/github/issues/dbca-wa/groveR.svg?style=popout)](https://github.com/dbca-wa/groveR/issues/)
+[![Last-changedate](https://img.shields.io/github/last-commit/dbca-wa/groveR.svg)](https://github.com/dbca-wa/groveR/commits/master)
 [![Github top
-language](https://img.shields.io/github/languages/top/bartesto/groveR.svg)](https://github.com/bartesto/groveR/)
+language](https://img.shields.io/github/languages/top/dbca-wa/groveR.svg)](https://github.com/dbca-wa/groveR/)
 [![DOI](https://zenodo.org/badge/202643428.svg)](https://zenodo.org/badge/latestdoi/202643428)
 <!-- badges: end -->
 
@@ -23,11 +23,11 @@ The goal of groveR is to …
 ## Installation
 
 You can install the released version of groveR from
-[GitHub](https://github.com/bartesto) with:
+[GitHub](https://github.com/dbca-wa) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("bartesto/groveR")
+devtools::install_github("dbca-wa/groveR")
 library(groveR)
 ```
 
@@ -35,4 +35,4 @@ library(groveR)
 
 All functions within rivRmon have the usual R help files, however the
 best place to see these and some vignettes is the [groveR
-website](https://bartesto.github.io/groveR/index.html)
+website](https://dbca-wa.github.io/groveR/index.html)
