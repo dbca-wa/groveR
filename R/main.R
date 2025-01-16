@@ -208,7 +208,8 @@ general_mask <- function(irast, imask, ext = ".tif", mval = 0){
 #'
 #' @examples
 #' \dontrun{
-#' make_mask(ivect = "vectors/cloud_vectors.shp", refimage = "veg_dens/LgCSMP_vdens_2018.tif"
+#' make_mask(ivect = "vectors/cloud_vectors.shp", refimage = "veg_dens/LgCSMP_vdens_2018.tif",
+#' attribname = "year", loc ="raster_masks/cloud_masks")
 #' }
 #'
 #' @importFrom terra vect project rast rasterize subst writeRaster
