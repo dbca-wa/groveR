@@ -864,7 +864,7 @@ trend_class_area <- function(irast, iregions, attribname){
 #'      then outputs extent change area statistics as well as extent change shape
 #'      files to spatially show where change has occurred.
 #'
-#' @param irast Character file path to input veg density rasters that have been
+#' @param irast Character file path to input veg class rasters that have been
 #'     through the veg classification process, i.e. those that are found in
 #'     `veg_class\`.
 #' @param areaname Character vector representing the geographical area that the
