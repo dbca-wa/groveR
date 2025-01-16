@@ -30,7 +30,7 @@ The `veg_class_area()` function takes the reclass bins and reports on their
 respective areas. In order to report effectively, a region needs to be delineated. This boundary 
 needs to be supplied in a shape file. Convention has it that an attribute column, 
 named "region" contains a region name and a site name separated by an underscore. 
-An example might be "lgscmp_east".
+An example might be "lgscmp_east", "lgscmp_west" etc.
 
 ```{r, veg_class_area, eval=FALSE}
 # The general form of the function is (NOTE the default parameters)

@@ -68,4 +68,7 @@ over different period lengths can equate to drastically different amounts of
 absolute change. The classification bins shipped with the data have been determined 
 for a 10 year period and will be either too sensitive or not sensitive enough to 
 other period lengths.
-regression is 10 years. The user
+
+**NOTE on cloud handling in regressions**
+If pixels have been encoded as cloud, the value is swapped to NA as any numerical 
+value will adversely affect the regression.
