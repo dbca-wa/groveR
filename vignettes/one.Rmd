@@ -91,7 +91,7 @@ a cloud mask has been created and stored in `raster_masks/cloud_masks/`.
 than an available satellite scene, they have been mosiacked together.
 * That they all have identical extents (footprints) and pixel sizes.
 
-The above data will be large and as such may not be located in the 
+The above mentioned index data will be large and as such may not be located in the 
 **Processing Folder**. You will however need to know where it is and be able to 
 provide a file path to it's location.
 

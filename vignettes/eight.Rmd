@@ -57,7 +57,7 @@ trend_class(irast, areaname, end = 2023)
 * **end** - the end year of the time series to consider (usually the latest).
 
 ## What's going to happen?
-Two rasters are going to be created. One will be show the per pixel result of 
+Two rasters are going to be created. One will be to show the per pixel result of 
 the regression. The second will be the same data but reclassed according to the 
 trend class bins in the supplementary csv. 
 

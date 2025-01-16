@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 
 ## Purpose
 Masking is important in remote sensing analysis as it is used to exclude 
-areas not intended for processing and thereby analysis. This focuses the analysis  
+areas not intended for processing and thereby analysis. This focuses the analysis 
 and cuts down processing times as only what's important is worked on.
 
 General masking is where areas common to all image time steps are masked. For example in 
