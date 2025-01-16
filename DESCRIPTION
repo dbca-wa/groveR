@@ -5,9 +5,9 @@ Version: 0.2.2
 Authors@R: person("Bart", "Huntley", email = "bart.huntley@dbca.wa.gov.au",
                   role = c("aut", "cre", "prg", "res"),
                   comment = c(ORCID = "0000-0002-9519-4105"))
-Maintainer: Bart Huntley <bart.huntley@dbca.wa.gov.au>
-URL: https://github.com/Bartesto/groveR
-BugReports: https://github.com/Bartesto/groveR/issues
+Maintainer: Kathy Murray <kathy.murray@dbca.wa.gov.au>
+URL: https://github.com/dbca-wa/groveR, https://dbca-wa.github.io/groveR
+BugReports: https://github.com/dbca-wa/groveR/issues
 Description: Tools to process satellite mosaics into useful mangrove 
     monitoring products.
 License: file LICENSE
