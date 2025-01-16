@@ -25,7 +25,7 @@ A PNG format graphic will be written to the `extent_change\`
 }
 \details{
 Takes a file path to an extent change csv file as created by
-    \code{link{change_extent}} located in `extent_change\` and produce
+    \code{link{extent_change}} located in `extent_change\` and produce
     a stacked bar chart representing the same.
 }
 \examples{
