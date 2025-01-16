@@ -15,6 +15,12 @@ articles:
       - three
       - four
       - five
+      - six
+      - seven
+      - eight
+      - nine
+      - ten
+      - eleven
 
 reference:
   - title: "Make a workspace"
@@ -28,9 +34,9 @@ reference:
       Creating and masking vegetation density products.
     contents:
       - veg_dens
-      - mask_product
-      - cloud_mask_bulk
-      - cloud_mask_select
+      - general_mask
+      - make_mask
+      - cloud_mask
 
   - title: "Vegetation classification"
     desc: >
@@ -51,13 +57,14 @@ reference:
     desc: >
       Calculation of change in vegetation extent and creation of change rasters.
     contents:
-      - change_extent
-      - change_extent_plot
+      - extent_change
+      - extent_change_plot
 
-  - title: "Access the example data"
+  - title: "Helper functions"
     desc: >
-      Functions that will make example data.
+      Set up processing folders and make example data.
     contents:
+      - make_folders
       - make_example_data
       - make_index_rasters
 
