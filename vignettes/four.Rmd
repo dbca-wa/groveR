@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-![](plots/tree_logo_small.png)
+![groveR logo](plots/tree_logo_small.png)
 
 ## Purpose
 Masking is important in remote sensing analysis as it is used to exclude 

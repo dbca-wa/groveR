@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-![](plots/tree_logo_small.png)
+![groveR logo](plots/tree_logo_small.png)
 
 ## Purpose
 The best way to get a handle on this package is to try it out with the example 
@@ -40,7 +40,7 @@ make_example_data(p = ".")
 
 After running that your directories should look like this:
 
-![](plots/dirtree2.png)
+![Directory tree with example data](plots/dirtree2.png)
 
 
 ## Example index data
@@ -57,7 +57,7 @@ make_index_rasters(p = ".")
 
 After running that your directories should look like this:
 
-![](plots/dirtree3.png)
+![Directory tree with index data](plots/dirtree3.png)
 
 ## What have we got?
 The index raster data is a small subset in area and time (2007-2023) from a 

@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-![](plots/tree_logo_small.png)
+![groveR logo](plots/tree_logo_small.png)
 
 ## Purpose
 Over time area of mangroves increase and decrease in response to various drivers 
@@ -66,7 +66,7 @@ extent_change(irast, areaname, iregions, attribname)
 A csv of areas in hectares will be output to the `extent_change\` directory and will look 
 similar to this.
 
-![](plots/extentchange.png)
+![Example of extent change statistics](plots/extentchange.png)
 
 Note that change between consecutive years is calculated and in the example there 
 are some cloudy years.

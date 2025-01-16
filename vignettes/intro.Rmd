@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 ```
 
 
-![](plots/tree_logo_small.png)
+![groveR logo](plots/tree_logo_small.png)
 
 # Introduction
 This package is all about bringing together a standard work flow that utilises 
@@ -26,7 +26,7 @@ satellite data to monitor mangroves. It focuses on taking annual satellite data
 through a number of processing steps to produce useful vegetation cover and 
 change metrics. 
 
-![](plots/wflow.png)
+![Package conceptual diagram](plots/wflow.png)
 
 Whilst the focus is mangroves, many of the processing steps are generalisable 
 to other vegetation types and the package should be handy for other studies.

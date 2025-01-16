@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-![](plots/tree_logo_small.png)
+![groveR logo](plots/tree_logo_small.png)
 
 ## Purpose
 The next stage is to calculate both trends and trend classes for easy 
@@ -35,7 +35,7 @@ The bins are drawn from the `supplementary/trend_classes.csv` and like other
 supplementary data should be checked for validity for your area of interest. The 
 trend class bins look like the below.
 
-![](plots/trends.png)
+![Trend classes](plots/trends.png)
 
 ```{r, trend_class, eval=FALSE}
 # The general form of the function is (NOTE the default parameters)

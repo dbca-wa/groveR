@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-![](plots/tree_logo_small.png)
+![groveR logo](plots/tree_logo_small.png)
 
 ## Purpose
 The next step is to calculate the area of each vegetation class per year. The 
@@ -59,7 +59,7 @@ veg_class_area(irast, iregions, attribname, areaname)
 A csv of areas in hectares will be output to the `extent_summaries\` directory and will look 
 similar to this.
 
-![](plots/vegclassarea.png)
+![Vegetation class area example](plots/vegclassarea.png)
 
 The above shows the example data for 2013-2016 and also demonstrates what happens 
 if there was cloud in one of the mosaics (2015) and the default parameters were used. The 

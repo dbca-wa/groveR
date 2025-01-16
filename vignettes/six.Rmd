@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-![](plots/tree_logo_small.png)
+![groveR logo](plots/tree_logo_small.png)
 
 ## Purpose
 The vegetation density rasters, whilst useful, presently contain continuous 
@@ -35,7 +35,7 @@ likely contains the correct values but as always, if unsure please check. Below
 is a screenshot of shipped data, make sure you follow the same format if changes 
 are required.
 
-![](plots/densityclasses.png)
+![Vegetation density classes](plots/densityclasses.png)
 
 The above example shows the lower and upper limits to bin the continuous values 
 into the reclass value. Here, densities of between 0-10 are ignored and values 

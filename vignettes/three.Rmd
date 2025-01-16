@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-![](plots/tree_logo_small.png)
+![groveR logo](plots/tree_logo_small.png)
 
 ## Introduction
 The following articles or vignettes are intended to provide an example of how to 
@@ -46,7 +46,7 @@ will convert them to a measure of cover. It should be located in the
 **Processing Folder** in `supplementary/`. The csv needs to have the following 
 format:
 
-![](plots/calib.png)
+![Calibration file](plots/calib.png)
 
 Please ensure the column names are as indicated above. The names mean:
 

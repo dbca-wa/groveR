@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-![](plots/tree_logo_small.png)
+![groveR](plots/tree_logo_small.png)
 
 ## Purpose
 A plot is a great way to summarise statistics and the `groveR` package ships 
@@ -86,7 +86,7 @@ is required use "".
 Running `veg_dens_class_plot()` will create a plot like this:
 
 
-![](plots/vegplot.png)
+![Vegetation class plot example](plots/vegplot.png)
 
 Note that there was no data for 2012.
 
@@ -94,7 +94,7 @@ Note that there was no data for 2012.
 
 Running `extent_change_plot()` will create a plot like this:
 
-![](plots/extentplot.png)
+![Extent change plot example](plots/extentplot.png)
 
 Note that with 2012 data missing from the time series, the chart displays change 
 in extent between data for 2011 and 2013.

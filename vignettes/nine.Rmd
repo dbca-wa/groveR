@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-![](plots/tree_logo_small.png)
+![groveR logo](plots/tree_logo_small.png)
 
 
 ## Purpose
@@ -58,4 +58,4 @@ exist, run the function for them one at a time.
 A csv of areas in hectares will be output to the `trend_class\` directory and will look 
 similar to this.
 
-![](plots/trendclassarea.png)
+![Trend class area example](plots/trendclassarea.png)
