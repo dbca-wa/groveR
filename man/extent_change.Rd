@@ -8,7 +8,7 @@ reporting.}
 extent_change(irast, areaname, iregions, attribname, ext = ".tif")
 }
 \arguments{
-\item{irast}{Character file path to input veg density rasters that have been
+\item{irast}{Character file path to input veg class rasters that have been
 through the veg classification process, i.e. those that are found in
 `veg_class\`.}
 
