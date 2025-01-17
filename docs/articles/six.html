@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>General masking • groveR</title>
+<title>Classifying vegetation • groveR</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="General masking">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Classifying vegetation">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -51,11 +51,11 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>General masking</h1>
+      <h1>Classifying vegetation</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/dbca-wa/groveR/blob/HEAD/vignettes/four.Rmd" class="external-link"><code>vignettes/four.Rmd</code></a></small>
-      <div class="d-none name"><code>four.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/dbca-wa/groveR/blob/HEAD/vignettes/six.Rmd" class="external-link"><code>vignettes/six.Rmd</code></a></small>
+      <div class="d-none name"><code>six.Rmd</code></div>
     </div>
 
     
@@ -66,58 +66,53 @@
 <div class="section level2">
 <h2 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
 </h2>
-<p>Masking is important in remote sensing analysis as it is used to
-exclude areas not intended for processing and thereby analysis. This
-focuses the analysis and cuts down processing times as only what’s
-important is worked on.</p>
-<p>General masking is where areas common to all image time steps are
-masked. For example in this study, land above the high water level where
-mangroves don’t grow, is excluded. Masking that affects only specific
-time steps, for example cloud or haze, is covered in the next
-vignette.</p>
+<p>The vegetation density rasters, whilst useful, presently contain
+continuous values which are a little unwieldy when analysing and
+summarising. The next step in the processing workflow is to “bin” the
+continuous values into meaningful groupings.</p>
 </div>
 <div class="section level2">
-<h2 id="use-the-general_mask-function">Use the general_mask() function<a class="anchor" aria-label="anchor" href="#use-the-general_mask-function"></a>
+<h2 id="use-the-veg_class-function">Use the veg_class() function<a class="anchor" aria-label="anchor" href="#use-the-veg_class-function"></a>
 </h2>
-<p>To mask out an area, a raster mask is applied to a raster of
-interest. Usually a mask is generated with 1’s and 0 values (or NA’s),
-where 1’s indicate the area of interest. When the mask is applied, any
-areas where there is a 0 is excluded.</p>
-<p>The example data includes a land mask and is the only mask residing
-in the <code>raster_masks/</code> directory and this will be applied
-below.</p>
+<p>We now apply the <code><a href="../reference/veg_class.html">veg_class()</a></code> function to our masked veg
+density outputs. If there has never been cloud in any of the mosaics
+then you can use the <code>veg_dens_mskd\</code> directory (lucky you),
+however the <code>veg_dens_mskd_cld\</code> directory is the
+alternative. The function will apply the user determined density classes
+found at <code>supplementary/density_classes.csv</code>. The example
+shipped with the package most likely contains the correct values but as
+always, if unsure please check. Below is a screenshot of shipped data,
+make sure you follow the same format if changes are required.</p>
+<div class="float">
+<img src="../reference/figures/densityclasses.png" alt="Vegetation density classes"><div class="figcaption">Vegetation density classes</div>
+</div>
+<p>The above example shows the lower and upper limits to bin the
+continuous values into the reclass value. Here, densities of between
+0-10 are ignored and values above this fall into 5 density bins (1-5).
+The reclass value of 6 is reserved for cloud (cloud masking encoded the
+affected pixels to -99 in a prior step).</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># The general form of the function is (NOTE the default parameters)</span></span>
-<span><span class="co"># general_mask &lt;- function(irast, imask, ext = ".tif", mval = 0)</span></span>
+<span><span class="co"># veg_class(irast, ext = ".tif", classes = "supplementary/density_classes.csv")</span></span>
 <span></span>
-<span><span class="co"># the mval parameter is the "mask value" i.e. what value to mask out.</span></span>
-<span></span>
-<span><span class="co"># We only need to assign the first 2 parameters as the defaults are fine</span></span>
-<span><span class="va">irast</span> <span class="op">&lt;-</span> <span class="st">"veg_dens"</span></span>
-<span><span class="va">imask</span> <span class="op">&lt;-</span> <span class="st">"raster_masks"</span></span>
+<span><span class="co"># We only need to assign one of the parameters as the defaults are fine</span></span>
+<span><span class="va">irast</span> <span class="op">&lt;-</span> <span class="st">"veg_dens_mskd_cld"</span></span>
 <span></span>
 <span><span class="co"># Run the function</span></span>
-<span><span class="fu"><a href="../reference/general_mask.html">general_mask</a></span><span class="op">(</span><span class="va">irast</span>, <span class="va">imask</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/veg_class.html">veg_class</a></span><span class="op">(</span><span class="va">irast</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>
-<strong>irast</strong> - input veg density rasters directory.</li>
-<li>
-<strong>imask</strong> - input masks raster directory.</li>
+<strong>irast</strong> - input vegetation density directory.</li>
 </ul>
 </div>
 <div class="section level2">
 <h2 id="whats-going-to-happen">What’s going to happen?<a class="anchor" aria-label="anchor" href="#whats-going-to-happen"></a>
 </h2>
-<p>A new directory will be created, <code>veg_dens_mskd/</code> and the
-masked vegetation density rasters will be written to it. These will be
-the inputs for other functions.</p>
-<p><strong>NOTE on general masks</strong>. The above example is only
-applying one land mask, however if there were multiple masks then they
-would also be applied. This is so you can have different masks relating
-to different entities, such as one for land, one for reefs etc. When the
-<code><a href="../reference/general_mask.html">general_mask()</a></code> function looks for input masks it does not
-recursively examine the <code>imask</code> directory which is why cloud
-masks can reside in a directory at that location too.</p>
+<p>The input vegetation density rasters will be reclassified according
+to the density classes provided in the csv file and will be written to
+<code>veg_class/</code> directory. Whilst these raster layers can be
+useful as visualisations, in this workflow they will be summarised by
+area and this will be covered in the next vignette.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

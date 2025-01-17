@@ -1,90 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://bartesto.github.io/groveR/404.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/articles/five.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/articles/four.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/articles/intro.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/articles/one.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/articles/three.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/articles/two.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/index.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/reference/change_extent.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/reference/change_extent_plot.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/reference/cloud_mask_bulk.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/reference/cloud_mask_select.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/reference/ext_chng_plot.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/reference/make_example_data.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/reference/make_folders.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/reference/make_index_rasters.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/reference/mask_product.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/reference/trend_class.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/reference/trend_class_area.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/reference/trend_class_areas.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/reference/veg_class.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/reference/veg_class_area.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/reference/veg_dens.html</loc>
-  </url>
-  <url>
-    <loc>https://bartesto.github.io/groveR/reference/veg_dens_class_plot.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://dbca-wa.github.io/groveR/404.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/articles/eight.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/articles/eleven.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/articles/five.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/articles/four.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/articles/index.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/articles/intro.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/articles/nine.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/articles/one.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/articles/seven.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/articles/six.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/articles/ten.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/articles/three.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/articles/two.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/authors.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/index.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/LICENSE-text.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/news/index.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/reference/cloud_mask.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/reference/extent_change.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/reference/extent_change_plot.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/reference/general_mask.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/reference/index.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/reference/make_example_data.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/reference/make_folders.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/reference/make_index_rasters.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/reference/make_mask.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/reference/trend_class.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/reference/trend_class_area.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/reference/veg_class.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/reference/veg_class_area.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/reference/veg_dens.html</loc></url>
+<url><loc>https://dbca-wa.github.io/groveR/reference/veg_dens_class_plot.html</loc></url>
 </urlset>
+
