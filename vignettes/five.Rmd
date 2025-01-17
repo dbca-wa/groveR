@@ -69,7 +69,7 @@ Next we apply the cloud masks we just made to the appropriate vegetation density
 annual rasters.
 ```{r, cloud_mask, eval=FALSE}
 # The general form of the function is (NOTE the default parameters)
-cloud_mask(irast, imask, ext = ".tif")
+# cloud_mask(irast, imask, ext = ".tif")
 
 # We only need to assign the first 2 parameters as the defaults are fine
 irast <- "veg_dens_mskd"

@@ -5,7 +5,7 @@ output:
     theme: leonids
     highlight: github
 vignette: >
-  %\VignetteIndexEntry{Dealing With Cloud}
+  %\VignetteIndexEntry{Calculating trendclass area}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 resource_files:

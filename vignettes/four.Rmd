@@ -5,7 +5,7 @@ output:
     theme: leonids
     highlight: github
 vignette: >
-  %\VignetteIndexEntry{Masking}
+  %\VignetteIndexEntry{General masking}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 resource_files:
