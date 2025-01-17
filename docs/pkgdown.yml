@@ -1,15 +1,20 @@
-pandoc: '2.18'
-pkgdown: 2.0.5
+pandoc: '3.2'
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
+  eight: eight.html
+  eleven: eleven.html
   five: five.html
   four: four.html
   intro: intro.html
+  nine: nine.html
   one: one.html
+  seven: seven.html
+  six: six.html
+  ten: ten.html
   three: three.html
   two: two.html
-last_built: 2022-09-08T07:30Z
+last_built: 2025-01-17T00:36Z
 urls:
-  reference: https://bartesto.github.io/groveR/reference
-  article: https://bartesto.github.io/groveR/articles
-
+  reference: https://dbca-wa.github.io/groveR/reference
+  article: https://dbca-wa.github.io/groveR/articles
