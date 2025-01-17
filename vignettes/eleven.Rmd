@@ -41,7 +41,7 @@ The `veg_dens_class_plot()` function uses the csv output from running the
 # veg_dens_class_plot(icsv, areaname, cap)
 
 # We  need to assign all of the parameters
-icsv<- "extent_summaries/LGSCMP_2007-2023_extent_summaries.csv"
+icsv <- "extent_summaries/LGSCMP_2007-2023_extent_summaries.csv"
 areaname <- "LGSCMP"
 cap <- "produced by RSSA"
 
@@ -67,7 +67,7 @@ The `extent_change_plot()` function uses the csv output from running the
 # extent_change_plot(icsv, areaname, cap)
 
 # We  need to assign all of the parameters
-icsv<- "extent_change/LGSCMP_2007-2023_extent_change.csv"
+icsv <- "extent_change/LGSCMP_2007-2023_extent_change.csv"
 areaname <- "LGSCMP"
 cap <- "produced by RSSA"
 
