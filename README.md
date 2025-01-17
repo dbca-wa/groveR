@@ -15,7 +15,7 @@ issues](https://img.shields.io/github/issues/dbca-wa/groveR.svg?style=popout)](h
 [![Last-changedate](https://img.shields.io/github/last-commit/dbca-wa/groveR.svg)](https://github.com/dbca-wa/groveR/commits/master)
 [![Github top
 language](https://img.shields.io/github/languages/top/dbca-wa/groveR.svg)](https://github.com/dbca-wa/groveR/)
-[![DOI](https://zenodo.org/badge/202643428.svg)](https://zenodo.org/badge/latestdoi/202643428)
+[![DOI](https://zenodo.org/badge/307265420.svg)](https://doi.org/10.5281/zenodo.14676717)
 <!-- badges: end -->
 
 The goal of groveR is to …
