@@ -8,6 +8,8 @@ vignette: >
   %\VignetteIndexEntry{Dealing With Cloud}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+resource_files:
+  - '../man/figures/tree_logo_small.png'
 ---
 
 ```{r, include = FALSE}
@@ -17,7 +19,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-![groveR logo](plots/tree_logo_small.png)
+![groveR logo](../man/figures/tree_logo_small.png)
 
 ## Purpose
 Clouds are the bane of remote sensing studies. They obscure the reflectance values 
@@ -43,7 +45,7 @@ digitised boundaries of all clouds identified through the entire time series of
 mosaics. The test data includes an example located at `vectors/cloud_vectors.shp`.
 ```{r, make_mask, eval=FALSE}
 # The general form of the function is (NOTE the default parameters)
-make_mask(ivect, refimage, attribname = "year", loc ="raster_masks/cloud_masks")
+# make_mask(ivect, refimage, attribname = "year", loc ="raster_masks/cloud_masks")
 
 # We only need to assign the first 2 parameters as the defaults are fine
 ivect <- "vectors/cloud_vectors.shp"

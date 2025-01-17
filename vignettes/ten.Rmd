@@ -8,6 +8,9 @@ vignette: >
   %\VignetteIndexEntry{Dealing With Cloud}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+resource_files:
+  - '../man/figures/tree_logo_small.png'
+  - '../man/figures/extentchange.png'
 ---
 
 ```{r, include = FALSE}
@@ -17,7 +20,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-![groveR logo](plots/tree_logo_small.png)
+![groveR logo](../man/figures/tree_logo_small.png)
 
 ## Purpose
 Over time area of mangroves increase and decrease in response to various drivers 
@@ -41,7 +44,7 @@ shape file that was used when running the `veg_class_area()` and/or the
 
 ```{r, extent_change, eval=FALSE}
 # The general form of the function is (NOTE there are no default parameters)
-extent_change(irast, iregions, areaname, attribname)
+# extent_change(irast, iregions, areaname, attribname)
 
 # We  need to assign all four of the parameters
 irast <- "veg_class"
@@ -66,7 +69,7 @@ extent_change(irast, areaname, iregions, attribname)
 A csv of areas in hectares will be output to the `extent_change\` directory and will look 
 similar to this.
 
-![Example of extent change statistics](plots/extentchange.png)
+![Example of extent change statistics](../man/figures/extentchange.png)
 
 Note that change between consecutive years is calculated and in the example there 
 are some cloudy years.

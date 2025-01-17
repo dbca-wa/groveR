@@ -8,6 +8,9 @@ vignette: >
   %\VignetteIndexEntry{Index to Vegetation Density}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+resource_files:
+  - '../man/figures/tree_logo_small.png'
+  - '../man/figures/calib.png'
 ---
 
 ```{r, include = FALSE}
@@ -17,7 +20,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-![groveR logo](plots/tree_logo_small.png)
+![groveR logo](../man/figures/tree_logo_small.png)
 
 ## Introduction
 The following articles or vignettes are intended to provide an example of how to 
@@ -46,7 +49,7 @@ will convert them to a measure of cover. It should be located in the
 **Processing Folder** in `supplementary/`. The csv needs to have the following 
 format:
 
-![Calibration file](plots/calib.png)
+![Calibration file](../man/figures/calib.png)
 
 Please ensure the column names are as indicated above. The names mean:
 
@@ -70,7 +73,7 @@ parameters directly to the function.
 
 ```{r, veg_dens, eval=FALSE}
 # The general form of the function is (NOTE the default parameters)
-veg_dens(irast, areaname, ext = ".tif", calibration = "supplementary/calibration.csv")
+# veg_dens(irast, areaname, ext = ".tif", calibration = "supplementary/calibration.csv")
 
 # We only need to assign the first 2 parameters as the defaults are fine
 irast <- "index_rasters"

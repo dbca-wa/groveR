@@ -8,6 +8,9 @@ vignette: >
   %\VignetteIndexEntry{Introduction}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+resource_files:
+  - '../man/figures/tree_logo_small.png'
+  - '../man/figures/wflow.png'
 ---
 
 ```{r, include = FALSE}
@@ -18,7 +21,8 @@ knitr::opts_chunk$set(
 ```
 
 
-![groveR logo](plots/tree_logo_small.png)
+![groveR logo](../man/figures/tree_logo_small.png)
+
 
 # Introduction
 This package is all about bringing together a standard work flow that utilises 
@@ -26,7 +30,8 @@ satellite data to monitor mangroves. It focuses on taking annual satellite data
 through a number of processing steps to produce useful vegetation cover and 
 change metrics. 
 
-![Package conceptual diagram](plots/wflow.png)
+![Package conceptual diagram](../man/figures/wflow.png)
+
 
 Whilst the focus is mangroves, many of the processing steps are generalisable 
 to other vegetation types and the package should be handy for other studies.

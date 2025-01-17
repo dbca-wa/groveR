@@ -8,6 +8,9 @@ vignette: >
   %\VignetteIndexEntry{Dealing With Cloud}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+resource_files:
+  - '../man/figures/tree_logo_small.png'
+  - '../man/figures/vegclassarea.png'
 ---
 
 ```{r, include = FALSE}
@@ -17,7 +20,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-![groveR logo](plots/tree_logo_small.png)
+![groveR logo](../man/figures/tree_logo_small.png)
 
 ## Purpose
 The next step is to calculate the area of each vegetation class per year. The 
@@ -34,7 +37,7 @@ An example might be "lgscmp_east", "lgscmp_west" etc.
 
 ```{r, veg_class_area, eval=FALSE}
 # The general form of the function is (NOTE the default parameters)
-veg_class_area(irast, iregions, attribname, areaname, ext = ".tif", probabilities = TRUE)
+# veg_class_area(irast, iregions, attribname, areaname, ext = ".tif", probabilities = TRUE)
 
 # We  need to assign four of the parameters as the other defaults are fine
 irast <- "veg_class"
@@ -59,7 +62,7 @@ veg_class_area(irast, iregions, attribname, areaname)
 A csv of areas in hectares will be output to the `extent_summaries\` directory and will look 
 similar to this.
 
-![Vegetation class area example](plots/vegclassarea.png)
+![Vegetation class area example](../man/figures/vegclassarea.png)
 
 The above shows the example data for 2013-2016 and also demonstrates what happens 
 if there was cloud in one of the mosaics (2015) and the default parameters were used. The 

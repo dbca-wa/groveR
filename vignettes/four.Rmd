@@ -8,6 +8,8 @@ vignette: >
   %\VignetteIndexEntry{Masking}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+resource_files:
+  - '../man/figures/tree_logo_small.png'
 ---
 
 ```{r, include = FALSE}
@@ -17,7 +19,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-![groveR logo](plots/tree_logo_small.png)
+![groveR logo](../man/figures/tree_logo_small.png)
 
 ## Purpose
 Masking is important in remote sensing analysis as it is used to exclude 
@@ -38,7 +40,7 @@ The example data includes a land mask and is the only mask residing in the
 `raster_masks/` directory and this will be applied below. 
 ```{r, gen_msk, eval=FALSE}
 # The general form of the function is (NOTE the default parameters)
-general_mask <- function(irast, imask, ext = ".tif", mval = 0)
+# general_mask <- function(irast, imask, ext = ".tif", mval = 0)
 
 # the mval parameter is the "mask value" i.e. what value to mask out.
 

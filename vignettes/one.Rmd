@@ -8,6 +8,9 @@ vignette: >
   %\VignetteIndexEntry{Package Install and Processing Folder Setup}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+resource_files:
+  - '../man/figures/tree_logo_small.png'
+  - '../man/figures/dirtree1.png'
 ---
 
 ```{r, include = FALSE}
@@ -17,7 +20,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-![groveR logo](plots/tree_logo_small.png)
+![groveR logo](../man/figures/tree_logo_small.png)
 
 ## Install and load the package
 You only need to install the package once (unless you are updating it). The 
@@ -59,7 +62,8 @@ make_folders(p =".")
 ## What does it look like?
 The sub-directories have the following structure:
 
-![Processing directory tree](plots/dirtree1.png)
+![Processing directory tree](../man/figures/dirtree1.png)
+
 
 These directories will contain user supplied data:
 
