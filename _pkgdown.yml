@@ -1,5 +1,5 @@
 template:
-  params:
+    bootstrap: 5
     bootswatch: flatly
 
 destination: docs
@@ -69,4 +69,4 @@ reference:
       - make_index_rasters
 
 
-url: https://bartesto.github.io/groveR
+url: https://dbca-wa.github.io/groveR
