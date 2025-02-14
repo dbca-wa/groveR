@@ -167,14 +167,14 @@ general_mask <- function(irast, imask, ext = ".tif", mval = 0){
   }
 }
 
-#' A function to create a cloud mask from a shape file
+#' A function to create a cloud mask from a shapefile
 #'
-#' \code{make_mask} takes an input polygon shape file and converts to a raster
+#' \code{make_mask} takes an input polygon shapefile and converts to a raster
 #'    mask.
 #'
 #' @details Input raster mosaics will inevitably contain the odd cloud or smoke
 #'    haze that obscures regions of interest. The user should create a polygon
-#'    shape file that identifies where the cloud is within the image as this
+#'    shapefile that identifies where the cloud is within the image as this
 #'    identifies where we have less certainty in our analysis. The user digitises
 #'    a polygon that surrounds the cloud and ensures that each polygon contains
 #'    an attribute called 'year' which has a 4 digit representation of the year
@@ -190,12 +190,12 @@ general_mask <- function(irast, imask, ext = ".tif", mval = 0){
 #'    relocate the product as required.
 #'
 #' @param ivect Character string of the file path and name of the input
-#'    shape file.
+#'    shapefile.
 #' @param refimage Character string of the file path and name of a raster
 #'    that has the correct extent and cell size for the current analysis, e.g.
 #'    this could be one of the input rasters for \code{link{veg_dens}}.
 #' @param attribname Character string of the name of the attribute column in the
-#'    shape file that gives the year that the polygon applies to. Defaults to
+#'    shapefile that gives the year that the polygon applies to. Defaults to
 #'    "year".
 #' @param loc Character string of the file path to the directory where the output/s
 #'    should be written. Defaults to"raster_masks/cloud_masks" which works with
@@ -464,9 +464,9 @@ veg_class <- function(irast, ext = ".tif", classes = "supplementary/density_clas
 #'
 #' @details This function is designed to calculate the area of each class as
 #'     defined by using the \code{\link{veg_class}} per reporting area and site.
-#'     Reporting areas are defined by input shape file. Output results to csv.
+#'     Reporting areas are defined by input shapefile. Output results to csv.
 #'
-#'     Note that the attribute column of the input shape file must contain a
+#'     Note that the attribute column of the input shapefile must contain a
 #'     region name followed by a site name separated by an underscore.
 #'
 #'     The function can also compute cloudy probabilities. This is when some
@@ -481,8 +481,8 @@ veg_class <- function(irast, ext = ".tif", classes = "supplementary/density_clas
 #' @param irast Character file path to input veg density rasters that have been
 #'     through the veg classification process, i.e. those that are found in
 #'     `veg_class_cloud_prob\` or `veg_class\`.
-#' @param iregions Character file path to a shape file (including extension)
-#'     that defines reporting regions. The shape file should have an attribute
+#' @param iregions Character file path to a shapefile (including extension)
+#'     that defines reporting regions. The shapefile should have an attribute
 #'     column that defines the overall reporting "region" plus "site", such as
 #'     "NatPark_site1", "NatPark_site2" etc. The underscore delineates region
 #'     from site and must be present.
@@ -516,8 +516,8 @@ veg_class <- function(irast, ext = ".tif", classes = "supplementary/density_clas
 #' @export
 veg_class_area <- function(irast, iregions, attribname, areaname, ext = ".tif",
                            probabilities = TRUE){
-  # get reporting shape file
-  if(file.exists(iregions) == FALSE) cli::cli_abort(c("Reporting region shape file dosen't exist",
+  # get reporting shapefile
+  if(file.exists(iregions) == FALSE) cli::cli_abort(c("Reporting region shapefile dosen't exist",
                                                       "i" = "check file path and ensure file exists"))
   regions <- terra::vect(iregions)
   # gather input rasters
@@ -779,14 +779,14 @@ trend_class <- function(irast, areaname, end, period = 10,
 #'
 #' @details This function is designed to calculate the area of each trend class
 #'     as defined by using the \code{\link{trend_class}} per reporting area or
-#'     site.Reporting areas are defined by input shape file. Outputs results to
+#'     site.Reporting areas are defined by input shapefile. Outputs results to
 #'     csv.
 #'
 #' @param irast Character file path to the trend class raster for a distinct period
 #'     that has been written to the `trend_class\` directory. If multiple periods
 #'     (and rasters) exist, run this one at a time.
-#' @param iregions Character file path to a shape file (including extension)
-#'     that defines reporting regions. The shape file should have an attribute
+#' @param iregions Character file path to a shapefile (including extension)
+#'     that defines reporting regions. The shapefile should have an attribute
 #'     column that defines the overall reporting "region" plus "site", if
 #'     applicable, such as "NatPark_site1", "NatPark_site2" etc. The underscore
 #'     delineates region from site.
@@ -858,7 +858,7 @@ trend_class_area <- function(irast, iregions, attribname){
 #' reporting.
 #'
 #'  \code{extent_change} calculates change between all consecutive vegetation
-#'      classification rasters and outputs summary area stats and change shape files.
+#'      classification rasters and outputs summary area stats and change shapefiles.
 #'
 #' @details This function calculates change between all consecutive  vegetation
 #'      classification rasters created from running \code{\link{veg_class}}. It
@@ -871,8 +871,8 @@ trend_class_area <- function(irast, iregions, attribname){
 #' @param areaname Character vector representing the geographical area that the
 #'     user is processing, e.g. marine park acronym. It will be used for inclusion
 #'     to the output name.
-#' @param iregions Character file path to a shape file (including extension)
-#'     that defines reporting regions. The shape file should have an attribute
+#' @param iregions Character file path to a shapefile (including extension)
+#'     that defines reporting regions. The shapefile should have an attribute
 #'     column that defines the overall reporting "region" plus "site", if
 #'     applicable, such as "NatPark_site1", "NatPark_site2" etc. The underscore
 #'     delineates region from site.
@@ -882,7 +882,7 @@ trend_class_area <- function(irast, iregions, attribname){
 #'     rasters. Defaults to ".tif" as this is the preferred file type.
 #'
 #'
-#' @return The csv and shape files are exported to `extent_change\`.
+#' @return The csv and shapefiles are exported to `extent_change\`.
 #'
 #'
 #' @author Bart Huntley, \email{bart.huntley@@dbca.wa.gov.au}
