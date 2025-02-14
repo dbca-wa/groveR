@@ -88,7 +88,7 @@ make_example_data <- function(p = "."){
     cname <- file.path(p, "supplementary/trend_classes.csv")
     readr::write_csv(trn, path = cname)
 
-    #shape file
+    #shapefile
     shpp <- system.file("extdata/vectors", "regions.shp", package = "groveR")
     shp <- sf::st_read(shpp)
     sname <- file.path(p, "vectors/regions.shp")
