@@ -11,8 +11,8 @@ trend_class_area(irast, iregions, attribname)
 that has been written to the `trend_class\` directory. If multiple periods
 (and rasters) exist, run this one at a time.}
 
-\item{iregions}{Character file path to a shape file (including extension)
-that defines reporting regions. The shape file should have an attribute
+\item{iregions}{Character file path to a shapefile (including extension)
+that defines reporting regions. The shapefile should have an attribute
 column that defines the overall reporting "region" plus "site", if
 applicable, such as "NatPark_site1", "NatPark_site2" etc. The underscore
 delineates region from site.}
@@ -30,7 +30,7 @@ Calculated areas are exported via csv file to `trend_class\`.
 \details{
 This function is designed to calculate the area of each trend class
     as defined by using the \code{\link{trend_class}} per reporting area or
-    site.Reporting areas are defined by input shape file. Outputs results to
+    site.Reporting areas are defined by input shapefile. Outputs results to
     csv.
 }
 \examples{
