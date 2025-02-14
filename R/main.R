@@ -201,7 +201,7 @@ general_mask <- function(irast, imask, ext = ".tif", mval = 0){
 #'    should be written. Defaults to"raster_masks/cloud_masks" which works with
 #'    the suggested project folder structure and workflow.
 #'
-#' @return cloud masks will be written to "raster_masks/cloud_masks" unless unless
+#' @return cloud masks will be written to "raster_masks/cloud_masks" unless
 #'    'loc' parameter is changed, as tif files.
 #'
 #' @author Bart Huntley, \email{bart.huntley@@dbca.wa.gov.au}
@@ -482,7 +482,7 @@ veg_class <- function(irast, ext = ".tif", classes = "supplementary/density_clas
 #'     through the veg classification process, i.e. those that are found in
 #'     `veg_class_cloud_prob\` or `veg_class\`.
 #' @param iregions Character file path to a shape file (including extension)
-#'     that defines reporting regions. The shape file should have one attribute
+#'     that defines reporting regions. The shape file should have an attribute
 #'     column that defines the overall reporting "region" plus "site", such as
 #'     "NatPark_site1", "NatPark_site2" etc. The underscore delineates region
 #'     from site and must be present.
