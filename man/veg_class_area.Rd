@@ -18,8 +18,8 @@ veg_class_area(
 through the veg classification process, i.e. those that are found in
 `veg_class_cloud_prob\` or `veg_class\`.}
 
-\item{iregions}{Character file path to a shape file (including extension)
-that defines reporting regions. The shape file should have one attribute
+\item{iregions}{Character file path to a shapefile (including extension)
+that defines reporting regions. The shapefile should have an attribute
 column that defines the overall reporting "region" plus "site", such as
 "NatPark_site1", "NatPark_site2" etc. The underscore delineates region
 from site and must be present.}
@@ -46,9 +46,9 @@ Calculated areas are exported via csv file to `extent_summaries\`.
 \details{
 This function is designed to calculate the area of each class as
     defined by using the \code{\link{veg_class}} per reporting area and site.
-    Reporting areas are defined by input shape file. Output results to csv.
+    Reporting areas are defined by input shapefile. Output results to csv.
 
-    Note that the attribute column of the input shape file must contain a
+    Note that the attribute column of the input shapefile must contain a
     region name followed by a site name separated by an underscore.
 
     The function can also compute cloudy probabilities. This is when some
