@@ -16,8 +16,8 @@ through the veg classification process, i.e. those that are found in
 user is processing, e.g. marine park acronym. It will be used for inclusion
 to the output name.}
 
-\item{iregions}{Character file path to a shape file (including extension)
-that defines reporting regions. The shape file should have an attribute
+\item{iregions}{Character file path to a shapefile (including extension)
+that defines reporting regions. The shapefile should have an attribute
 column that defines the overall reporting "region" plus "site", if
 applicable, such as "NatPark_site1", "NatPark_site2" etc. The underscore
 delineates region from site.}
@@ -29,11 +29,11 @@ contains the region information.}
 rasters. Defaults to ".tif" as this is the preferred file type.}
 }
 \value{
-The csv and shape files are exported to `extent_change\`.
+The csv and shapefiles are exported to `extent_change\`.
 }
 \description{
 \code{extent_change} calculates change between all consecutive vegetation
-     classification rasters and outputs summary area stats and change shape files.
+     classification rasters and outputs summary area stats and change shapefiles.
 }
 \details{
 This function calculates change between all consecutive  vegetation
