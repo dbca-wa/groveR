@@ -2,7 +2,7 @@
 % Please edit documentation in R/main.R
 \name{make_mask}
 \alias{make_mask}
-\title{A function to create a cloud mask from a shape file}
+\title{A function to create a cloud mask from a shapefile}
 \usage{
 make_mask(
   ivect,
@@ -13,14 +13,14 @@ make_mask(
 }
 \arguments{
 \item{ivect}{Character string of the file path and name of the input
-shape file.}
+shapefile.}
 
 \item{refimage}{Character string of the file path and name of a raster
 that has the correct extent and cell size for the current analysis, e.g.
 this could be one of the input rasters for \code{link{veg_dens}}.}
 
 \item{attribname}{Character string of the name of the attribute column in the
-shape file that gives the year that the polygon applies to. Defaults to
+shapefile that gives the year that the polygon applies to. Defaults to
 "year".}
 
 \item{loc}{Character string of the file path to the directory where the output/s
@@ -28,17 +28,17 @@ should be written. Defaults to"raster_masks/cloud_masks" which works with
 the suggested project folder structure and workflow.}
 }
 \value{
-cloud masks will be written to "raster_masks/cloud_masks" unless unless
+cloud masks will be written to "raster_masks/cloud_masks" unless
    'loc' parameter is changed, as tif files.
 }
 \description{
-\code{make_mask} takes an input polygon shape file and converts to a raster
+\code{make_mask} takes an input polygon shapefile and converts to a raster
    mask.
 }
 \details{
 Input raster mosaics will inevitably contain the odd cloud or smoke
    haze that obscures regions of interest. The user should create a polygon
-   shape file that identifies where the cloud is within the image as this
+   shapefile that identifies where the cloud is within the image as this
    identifies where we have less certainty in our analysis. The user digitises
    a polygon that surrounds the cloud and ensures that each polygon contains
    an attribute called 'year' which has a 4 digit representation of the year
