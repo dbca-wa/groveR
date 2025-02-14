@@ -18,11 +18,14 @@ language](https://img.shields.io/github/languages/top/dbca-wa/groveR.svg)](https
 [![DOI](https://zenodo.org/badge/307265420.svg)](https://doi.org/10.5281/zenodo.14676717)
 <!-- badges: end -->
 
-The goal of groveR is to …
+The goal of `groveR` is to bring together a standard work flow that
+utilises satellite data to monitor mangroves. It focuses on taking
+annual satellite data through a number of processing steps to produce
+useful vegetation cover and change metrics.
 
 ## Installation
 
-You can install the released version of groveR from
+You can install the released version of `groveR` from
 [GitHub](https://github.com/dbca-wa) with:
 
 ``` r
@@ -33,6 +36,6 @@ library(groveR)
 
 ## Help Files
 
-All functions within rivRmon have the usual R help files, however the
+All functions within `groveR` have the usual R help files, however the
 best place to see these and some vignettes is the [groveR
 website](https://dbca-wa.github.io/groveR/index.html)
