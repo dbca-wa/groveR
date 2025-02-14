@@ -31,7 +31,7 @@ tabulated results can then be used to create plots.
 ## Use the veg_class_area() function
 The `veg_class_area()` function takes the reclass bins and reports on their 
 respective areas. In order to report effectively, a region needs to be delineated. This boundary 
-needs to be supplied in a shape file. Convention has it that an attribute column, 
+needs to be supplied in a shapefile. Convention has it that an attribute column, 
 named "region" contains a region name and a site name separated by an underscore. 
 An example might be "lgscmp_east", "lgscmp_west" etc.
 
@@ -52,7 +52,7 @@ veg_class_area(irast, iregions, attribname, areaname)
 
 * **irast** - input vegetation classification directory.
 
-* **iregions** - file path to a shape file denoting the reporting region.
+* **iregions** - file path to a shapefile denoting the reporting region.
 
 * **attribname** - the name of the attribute column containing region information.
 

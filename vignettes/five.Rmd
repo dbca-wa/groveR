@@ -38,9 +38,9 @@ classification based on the prior year's data is constructed.
 
 ## Use the make_mask() function
 The user first familiarises themselves with the original mosaics, identifies cloud 
-or smoke haze, digitises a polygon around them and saves the result as a shape file. 
-The shape file must have an attribute column called "year" which is populated with 
-the 4 digit year that the cloud was observed in. One shape file can contain the 
+or smoke haze, digitises a polygon around them and saves the result as a shapefile. 
+The shapefile must have an attribute column called "year" which is populated with 
+the 4 digit year that the cloud was observed in. One shapefile can contain the 
 digitised boundaries of all clouds identified through the entire time series of 
 mosaics. The test data includes an example located at `vectors/cloud_vectors.shp`.
 ```{r, make_mask, eval=FALSE}
@@ -56,13 +56,13 @@ make_mask(ivect, refimage)
 
 ```
 
-* **ivect** - input file path to cloud shape file.
+* **ivect** - input file path to cloud shapefile.
 * **refimage** - file path to any raster that has been created during processing 
 thus far. The format of the raster is used as a template to create the cloud masks.
 
 ## What's going to happen?
 One cloud mask for each unique year found in the attribute column of the cloud 
-shape file will be written to `raster_masks/cloud_masks/`.
+shapefile will be written to `raster_masks/cloud_masks/`.
 
 ## Use the cloud_mask() function
 Next we apply the cloud masks we just made to the appropriate vegetation density 

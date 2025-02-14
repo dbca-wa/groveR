@@ -76,7 +76,7 @@ In the supplementary directory is a calibration file (model coefficients) to
 transform the index to vegetation densities. There are also density and trend 
 class csv files to provide bins for classification.
 
-Lastly there are a couple of shape files in the vectors directory. One provides 
+Lastly there are a couple of shapefiles in the vectors directory. One provides 
 boundaries for both a fictitious reporting region and some sites within it. The 
 other provides ficticious digitised clouds which will be converted later to cloud 
 masks.

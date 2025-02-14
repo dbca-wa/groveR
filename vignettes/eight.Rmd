@@ -31,8 +31,8 @@ is occurring and will later be used as inputs to calculate areas.
 
 ## Use the trend_class() function
 The `trend_class()` function will perform a per pixel linear regression and then 
-classify the values into 5 bins which correspond to the trend classes from 
-VegMachine; minor gain, major gain, stable, minor loss and major loss.
+classify the values into 5 bins which correspond to the trend classes; major gain (1), 
+minor gain (2), stable (3), minor loss (4) and major loss (5).
 
 The bins are drawn from the `supplementary/trend_classes.csv` and like other 
 supplementary data should be checked for validity for your area of interest. The 
