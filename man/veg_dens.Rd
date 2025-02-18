@@ -16,9 +16,11 @@ veg_dens(
 \item{irast}{Character file path to input vegetation index rasters.}
 
 \item{areaname}{Character vector representing the geographical area that the
-user is processing, e.g. marine park name. This will become part of the
-named interim data sets and should be brief and contain no spaces or
-underscores. Acronyms are good.}
+user is processing. It is good practice to add in the satellite sensor
+used to create the index images to help keep track of the source. Just do
+not add any numbers to the names. An example might be "lgcsmp_lsat" or
+"lgcsmp_sent" for Lalang-garram landsat and Lalang-garram sentinel respectively.
+It will be used for inclusion to the output csv name.}
 
 \item{ext}{Character representation of the input file type. Defaults to ".tif"
 as this is the preferred file type.}
@@ -57,7 +59,7 @@ Density to vegetation index relationship must be established through
 }
 \examples{
 \dontrun{
-veg_dens(irast = "Z:/DEC/projectXX/mosaics", areaname = "lgcsmp")
+veg_dens(irast = "Z:/DEC/projectXX/mosaics", areaname = "lgcsmp_lsat")
     }
 
 }
