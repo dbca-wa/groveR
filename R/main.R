@@ -27,9 +27,11 @@
 #'
 #' @param irast Character file path to input vegetation index rasters.
 #' @param areaname Character vector representing the geographical area that the
-#'      user is processing, e.g. marine park name. This will become part of the
-#'      named interim data sets and should be brief and contain no spaces or
-#'      underscores. Acronyms are good.
+#'     user is processing. It is good practice to add in the satellite sensor
+#'     used to create the index images to help keep track of the source. Just do
+#'     not add any numbers to the names. An example might be "lgcsmp_lsat" or
+#'     "lgcsmp_sent" for Lalang-garram landsat and Lalang-garram sentinel respectively.
+#'     It will be used for inclusion to the output csv name.
 #' @param ext Character representation of the input file type. Defaults to ".tif"
 #'      as this is the preferred file type.
 #' @param calibration Character representation of the name of the calibration
@@ -43,7 +45,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' veg_dens(irast = "Z:/DEC/projectXX/mosaics", areaname = "lgcsmp")
+#' veg_dens(irast = "Z:/DEC/projectXX/mosaics", areaname = "lgcsmp_lsat")
 #'     }
 #'
 #' @import dplyr
@@ -489,8 +491,11 @@ veg_class <- function(irast, ext = ".tif", classes = "supplementary/density_clas
 #' @param attribname Character string of the name of the attribute column that
 #'     contains the region information.
 #' @param areaname Character vector representing the geographical area that the
-#'     user is processing, e.g. marine park acronym. It will be used for inclusion
-#'     to the output csv name.
+#'     user is processing. It is good practice to add in the satellite sensor
+#'     used to create the index images to help keep track of the source. Just do
+#'     not add any numbers to the names. An example might be "lgcsmp_lsat" or
+#'     "lgcsmp_sent" for Lalang-garram landsat and Lalang-garram sentinel respectively.
+#'     It will be used for inclusion to the output csv name.
 #' @param ext Character representation of the file extension of the input rasters.
 #'     Defaults to ".tif" as this is the preferred file type.
 #' @param probabilities Boolean to indicate whether to calculate cloudy
@@ -503,7 +508,7 @@ veg_class <- function(irast, ext = ".tif", classes = "supplementary/density_clas
 #' @examples
 #' \dontrun{
 #' veg_class_area(irast = "veg_class", iregions = "vectors/regions.shp",
-#'                attribname = "regions", areaname = "lgcsmp")
+#'                attribname = "regions", areaname = "lgscmp_lsat")
 #' }
 #'
 #' @import dplyr
@@ -661,8 +666,11 @@ veg_class_area <- function(irast, iregions, attribname, areaname, ext = ".tif",
 #' @param irast Character file path to input veg density rasters that have been
 #'     masked and found in either `veg_dens_mskd\` or `veg_dens_mskd_cld\`.
 #' @param areaname Character vector representing the geographical area that the
-#'     user is processing, e.g. marine park acronym. It will be used for inclusion
-#'     to the output name.
+#'     user is processing. It is good practice to add in the satellite sensor
+#'     used to create the index images to help keep track of the source. Just do
+#'     not add any numbers to the names. An example might be "lgcsmp_lsat" or
+#'     "lgcsmp_sent" for Lalang-garram landsat and Lalang-garram sentinel respectively.
+#'     It will be used for inclusion to the output csv name.
 #' @param end Numeric denoting final year of analysis.
 #' @param period Numeric denoting intended length of trend analysis. Note that
 #'     periods are matched to class bins so ensure that appropriate period
@@ -680,7 +688,7 @@ veg_class_area <- function(irast, iregions, attribname, areaname, ext = ".tif",
 #'
 #' @examples
 #' \dontrun{
-#' trend_class(irast = "veg_dens_mskd_cld", areaname = "lgcsmp",
+#' trend_class(irast = "veg_dens_mskd_cld", areaname = "lgscmp_lsat",
 #'     end = 2023)
 #' }
 #'
@@ -869,8 +877,11 @@ trend_class_area <- function(irast, iregions, attribname){
 #'     through the veg classification process, i.e. those that are found in
 #'     `veg_class\`.
 #' @param areaname Character vector representing the geographical area that the
-#'     user is processing, e.g. marine park acronym. It will be used for inclusion
-#'     to the output name.
+#'     user is processing. It is good practice to add in the satellite sensor
+#'     used to create the index images to help keep track of the source. Just do
+#'     not add any numbers to the names. An example might be "lgcsmp_lsat" or
+#'     "lgcsmp_sent" for Lalang-garram landsat and Lalang-garram sentinel respectively.
+#'     It will be used for inclusion to the output csv name.
 #' @param iregions Character file path to a shapefile (including extension)
 #'     that defines reporting regions. The shapefile should have an attribute
 #'     column that defines the overall reporting "region" plus "site", if
