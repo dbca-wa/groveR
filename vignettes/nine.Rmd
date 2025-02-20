@@ -40,7 +40,7 @@ used when running the `veg_class_area()`.
 # trend_class_area(irast, iregions, attribname)
 
 # We  need to assign all three of the parameters
-irast <- "trend_class/lgscmp_2014-2023_trendclass.tif"
+irast <- "trend_class/lgcsmp_lsat_2014-2023_trendclass.tif"
 iregions <- "vectors/regions.shp"
 attribname <- "regions"
 
@@ -61,4 +61,4 @@ exist, run the function for them one at a time.
 A csv of areas in hectares will be output to the `trend_class\` directory and will look 
 similar to this.
 
-![Trend class area example](../man/figures/trendclassarea.png)
+![*Trend class area example*](../man/figures/trendclassarea.png)

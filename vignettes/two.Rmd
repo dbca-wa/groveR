@@ -44,7 +44,7 @@ make_example_data(p = ".")
 
 After running that your directories should look like this:
 
-![Directory tree with example data](../man/figures/dirtree2.png)
+![*Directory tree with example data*](../man/figures/dirtree2.png)
 
 
 ## Example index data
@@ -61,7 +61,7 @@ make_index_rasters(p = ".")
 
 After running that your directories should look like this:
 
-![Directory tree with index data](../man/figures/dirtree3.png)
+![*Directory tree with index data*](../man/figures/dirtree3.png)
 
 ## What have we got?
 The index raster data is a small subset in area and time (2007-2023) from a 

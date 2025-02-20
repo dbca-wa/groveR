@@ -43,7 +43,7 @@ An example might be "lgscmp_east", "lgscmp_west" etc.
 irast <- "veg_class"
 iregions <- "vectors/regions.shp"
 attribname <- "regions"
-areaname <- "lgscmp"
+areaname <- "lgcsmp_lsat"
 
 # Run the function
 veg_class_area(irast, iregions, attribname, areaname)
@@ -62,7 +62,7 @@ veg_class_area(irast, iregions, attribname, areaname)
 A csv of areas in hectares will be output to the `extent_summaries\` directory and will look 
 similar to this.
 
-![Vegetation class area example](../man/figures/vegclassarea.png)
+![*Vegetation class area example*](../man/figures/vegclassarea.png)
 
 The above shows the example data for 2013-2016 and also demonstrates what happens 
 if there was cloud in one of the mosaics (2015) and the default parameters were used. The 

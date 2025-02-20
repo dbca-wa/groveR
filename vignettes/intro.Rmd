@@ -30,7 +30,7 @@ satellite data to monitor mangroves. It focuses on taking annual satellite data
 through a number of processing steps to produce useful vegetation cover and 
 change metrics. 
 
-![Package conceptual diagram](../man/figures/wflow.png)
+![*Package conceptual diagram*](../man/figures/wflow.png)
 
 
 Whilst the focus is mangroves, many of the processing steps are generalisable 

@@ -38,7 +38,7 @@ The bins are drawn from the `supplementary/trend_classes.csv` and like other
 supplementary data should be checked for validity for your area of interest. The 
 trend class bins look like the below.
 
-![Trend classes](../man/figures/trends.png)
+![*Trend classes*](../man/figures/trends.png)
 
 ```{r, trend_class, eval=FALSE}
 # The general form of the function is (NOTE the default parameters)
@@ -46,7 +46,7 @@ trend class bins look like the below.
 
 # We  need to assign three of the parameters as the other defaults are fine
 irast <- "veg_dens_mskd_cld"
-areaname <- "lgscmp"
+areaname <- "lgcsmp_lsat"
 end <- 2023
 
 # Run the function

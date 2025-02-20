@@ -62,7 +62,7 @@ make_folders(p =".")
 ## What does it look like?
 The sub-directories have the following structure:
 
-![Processing directory tree](../man/figures/dirtree1.png)
+![*Processing directory tree*](../man/figures/dirtree1.png)
 
 
 These directories will contain user supplied data:

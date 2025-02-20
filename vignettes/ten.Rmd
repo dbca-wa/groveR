@@ -48,7 +48,7 @@ shapefile that was used when running the `veg_class_area()` and/or the
 
 # We  need to assign all four of the parameters
 irast <- "veg_class"
-areaname <- "LGSCMP"
+areaname <- "lgcsmp_lsat"
 iregions <- "vectors/regions.shp"
 attribname <- "regions"
 
@@ -69,10 +69,10 @@ extent_change(irast, areaname, iregions, attribname)
 A csv of areas in hectares will be output to the `extent_change\` directory and will look 
 similar to this.
 
-![Example of extent change statistics](../man/figures/extentchange.png)
+![*Example of extent change statistics*](../man/figures/extentchange.png)
 
 Note that change between consecutive years is calculated and in the example there 
 are some cloudy years.
 
-shapefiles are also created for each comparison year/site combination. All are 
+Shapefiles are also created for each comparison year/site combination. All are 
 written to the `extent_change\` directory.

@@ -38,7 +38,7 @@ likely contains the correct values but as always, if unsure please check. Below
 is a screenshot of shipped data, make sure you follow the same format if changes 
 are required.
 
-![Vegetation density classes](../man/figures/densityclasses.png)
+![*Vegetation density classes*](../man/figures/densityclasses.png)
 
 The above example shows the lower and upper limits to bin the continuous values 
 into the reclass value. Here, densities of between 0-10 are ignored and values 

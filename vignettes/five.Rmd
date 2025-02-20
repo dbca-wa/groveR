@@ -49,7 +49,7 @@ mosaics. The test data includes an example located at `vectors/cloud_vectors.shp
 
 # We only need to assign the first 2 parameters as the defaults are fine
 ivect <- "vectors/cloud_vectors.shp"
-refimage <- "veg_dens/lgscmp_vdens_2011.tif"
+refimage <- "veg_dens/lgcsmp_lsat_vdens_2011.tif"
 
 # Run the function
 make_mask(ivect, refimage)
