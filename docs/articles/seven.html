@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">groveR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,7 +75,7 @@ year. The tabulated results can then be used to create plots.</p>
 <p>The <code><a href="../reference/veg_class_area.html">veg_class_area()</a></code> function takes the reclass bins and
 reports on their respective areas. In order to report effectively, a
 region needs to be delineated. This boundary needs to be supplied in a
-shape file. Convention has it that an attribute column, named “region”
+shapefile. Convention has it that an attribute column, named “region”
 contains a region name and a site name separated by an underscore. An
 example might be “lgscmp_east”, “lgscmp_west” etc.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -86,15 +86,15 @@ example might be “lgscmp_east”, “lgscmp_west” etc.</p>
 <span><span class="va">irast</span> <span class="op">&lt;-</span> <span class="st">"veg_class"</span></span>
 <span><span class="va">iregions</span> <span class="op">&lt;-</span> <span class="st">"vectors/regions.shp"</span></span>
 <span><span class="va">attribname</span> <span class="op">&lt;-</span> <span class="st">"regions"</span></span>
-<span><span class="va">areaname</span> <span class="op">&lt;-</span> <span class="st">"lgscmp"</span></span>
+<span><span class="va">areaname</span> <span class="op">&lt;-</span> <span class="st">"lgcsmp_lsat"</span></span>
 <span></span>
 <span><span class="co"># Run the function</span></span>
 <span><span class="fu"><a href="../reference/veg_class_area.html">veg_class_area</a></span><span class="op">(</span><span class="va">irast</span>, <span class="va">iregions</span>, <span class="va">attribname</span>, <span class="va">areaname</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li><p><strong>irast</strong> - input vegetation classification
 directory.</p></li>
-<li><p><strong>iregions</strong> - file path to a shape file denoting
-the reporting region.</p></li>
+<li><p><strong>iregions</strong> - file path to a shapefile denoting the
+reporting region.</p></li>
 <li><p><strong>attribname</strong> - the name of the attribute column
 containing region information.</p></li>
 <li><p><strong>areaname</strong> - a geographical area or marine park
@@ -108,7 +108,7 @@ name for the output csv.</p></li>
 <code>extent_summaries\</code> directory and will look similar to
 this.</p>
 <div class="float">
-<img src="../reference/figures/vegclassarea.png" alt="Vegetation class area example"><div class="figcaption">Vegetation class area example</div>
+<img src="../reference/figures/vegclassarea.png" alt="Vegetation class area example"><div class="figcaption"><em>Vegetation class area example</em></div>
 </div>
 <p>The above shows the example data for 2013-2016 and also demonstrates
 what happens if there was cloud in one of the mosaics (2015) and the

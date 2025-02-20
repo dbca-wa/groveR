@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">groveR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,8 +84,8 @@ in the <code>extent_summaries/</code> directory.</p>
 <span><span class="co"># veg_dens_class_plot(icsv, areaname, cap)</span></span>
 <span></span>
 <span><span class="co"># We  need to assign all of the parameters</span></span>
-<span><span class="va">icsv</span> <span class="op">&lt;-</span> <span class="st">"extent_summaries/LGSCMP_2007-2023_extent_summaries.csv"</span></span>
-<span><span class="va">areaname</span> <span class="op">&lt;-</span> <span class="st">"LGSCMP"</span></span>
+<span><span class="va">icsv</span> <span class="op">&lt;-</span> <span class="st">"extent_summaries/lgcsmp_lsat_2007-2023_extent_summaries.csv"</span></span>
+<span><span class="va">areaname</span> <span class="op">&lt;-</span> <span class="st">"lgcsmp_lsat"</span></span>
 <span><span class="va">cap</span> <span class="op">&lt;-</span> <span class="st">"produced by RSSA"</span></span>
 <span></span>
 <span><span class="co"># Run the function</span></span>
@@ -107,8 +107,8 @@ the <code>extent_change/</code> directory.</p>
 <span><span class="co"># extent_change_plot(icsv, areaname, cap)</span></span>
 <span></span>
 <span><span class="co"># We  need to assign all of the parameters</span></span>
-<span><span class="va">icsv</span> <span class="op">&lt;-</span> <span class="st">"extent_change/LGSCMP_2007-2023_extent_change.csv"</span></span>
-<span><span class="va">areaname</span> <span class="op">&lt;-</span> <span class="st">"LGSCMP"</span></span>
+<span><span class="va">icsv</span> <span class="op">&lt;-</span> <span class="st">"extent_change/lgcsmp_lsat_2007-2023_extent_change.csv"</span></span>
+<span><span class="va">areaname</span> <span class="op">&lt;-</span> <span class="st">"lgcsmp_lsat"</span></span>
 <span><span class="va">cap</span> <span class="op">&lt;-</span> <span class="st">"produced by RSSA"</span></span>
 <span></span>
 <span><span class="co"># Run the function</span></span>
@@ -129,13 +129,13 @@ caption below the plot. If nothing is required use ““.</p></li>
 <p>Running <code><a href="../reference/veg_dens_class_plot.html">veg_dens_class_plot()</a></code> will create a plot like
 this:</p>
 <div class="float">
-<img src="../reference/figures/vegplot.png" alt="Vegetation class plot example"><div class="figcaption">Vegetation class plot example</div>
+<img src="../reference/figures/vegplot.png" alt="Vegetation class plot example"><div class="figcaption"><em>Vegetation class plot example</em></div>
 </div>
 <p>Note that there was no data for 2012.</p>
 <p>Running <code><a href="../reference/extent_change_plot.html">extent_change_plot()</a></code> will create a plot like
 this:</p>
 <div class="float">
-<img src="../reference/figures/extentplot.png" alt="Extent change plot example"><div class="figcaption">Extent change plot example</div>
+<img src="../reference/figures/extentplot.png" alt="Extent change plot example"><div class="figcaption"><em>Extent change plot example</em></div>
 </div>
 <p>Note that with 2012 data missing from the time series, the chart
 displays change in extent between data for 2011 and 2013.</p>

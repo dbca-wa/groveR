@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">groveR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,9 +88,9 @@ year’s data is constructed.</li>
 </h2>
 <p>The user first familiarises themselves with the original mosaics,
 identifies cloud or smoke haze, digitises a polygon around them and
-saves the result as a shape file. The shape file must have an attribute
+saves the result as a shapefile. The shapefile must have an attribute
 column called “year” which is populated with the 4 digit year that the
-cloud was observed in. One shape file can contain the digitised
+cloud was observed in. One shapefile can contain the digitised
 boundaries of all clouds identified through the entire time series of
 mosaics. The test data includes an example located at
 <code>vectors/cloud_vectors.shp</code>.</p>
@@ -100,13 +100,13 @@ mosaics. The test data includes an example located at
 <span></span>
 <span><span class="co"># We only need to assign the first 2 parameters as the defaults are fine</span></span>
 <span><span class="va">ivect</span> <span class="op">&lt;-</span> <span class="st">"vectors/cloud_vectors.shp"</span></span>
-<span><span class="va">refimage</span> <span class="op">&lt;-</span> <span class="st">"veg_dens/lgscmp_vdens_2011.tif"</span></span>
+<span><span class="va">refimage</span> <span class="op">&lt;-</span> <span class="st">"veg_dens/lgcsmp_lsat_vdens_2011.tif"</span></span>
 <span></span>
 <span><span class="co"># Run the function</span></span>
 <span><span class="fu"><a href="../reference/make_mask.html">make_mask</a></span><span class="op">(</span><span class="va">ivect</span>, <span class="va">refimage</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>
-<strong>ivect</strong> - input file path to cloud shape file.</li>
+<strong>ivect</strong> - input file path to cloud shapefile.</li>
 <li>
 <strong>refimage</strong> - file path to any raster that has been
 created during processing thus far. The format of the raster is used as
@@ -117,7 +117,7 @@ a template to create the cloud masks.</li>
 <h2 id="whats-going-to-happen">What’s going to happen?<a class="anchor" aria-label="anchor" href="#whats-going-to-happen"></a>
 </h2>
 <p>One cloud mask for each unique year found in the attribute column of
-the cloud shape file will be written to
+the cloud shapefile will be written to
 <code>raster_masks/cloud_masks/</code>.</p>
 </div>
 <div class="section level2">

@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">groveR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -107,7 +107,7 @@ required data.</p>
 </h2>
 <p>The sub-directories have the following structure:</p>
 <div class="float">
-<img src="../reference/figures/dirtree1.png" alt="Processing directory tree"><div class="figcaption">Processing directory tree</div>
+<img src="../reference/figures/dirtree1.png" alt="Processing directory tree"><div class="figcaption"><em>Processing directory tree</em></div>
 </div>
 <p>These directories will contain user supplied data:</p>
 <ul>
@@ -119,7 +119,7 @@ dates.</p></li>
 <li><p><code>supplementary/</code> will contain three csv files. One
 each to describe calibration coefficients, density classes and trend
 classes.</p></li>
-<li><p><code>vectors/</code> will contain a shape file that delineates
+<li><p><code>vectors/</code> will contain a shapefile that delineates
 the region that output area stats are generated for.</p></li>
 </ul>
 </div>
@@ -135,13 +135,17 @@ the basis of:</p>
 of cover.</li>
 <li>That the time of capture is the same for all time steps i.e. the
 same season.</li>
+<li>That at the time of capture it was low tide as water underneath
+mangrove canopies confounds the analysis.</li>
 <li>That they are free from cloud. Where cloud is unavoidable, the cloud
-has either been digitised and a corresponding shape file has been stored
+has either been digitised and a corresponding shapefile has been stored
 in <code>vectors/</code>, or a cloud mask has been created and stored in
 <code>raster_masks/cloud_masks/</code>.</li>
 <li>That they cover the whole area of interest. If the area of interest
-is larger than an available satellite scene, they have been mosiacked
-together.</li>
+is larger than an available satellite scene, multiple scenes have been
+mosiacked together to produce the index raster.</li>
+<li>That the source data for the index rasters all come from the one
+satellite source, i.e. all Landsat or all Sentinel.</li>
 <li>That they all have identical extents (footprints) and pixel
 sizes.</li>
 </ul>
@@ -153,7 +157,7 @@ location.</p>
 appropriate sub-directories of the described <strong>Processing
 Folder</strong>. Ensure any masks have the same extents and pixel sizes
 as the annual rasters. The required csv files will be described in
-detail later in the vignettes as will any shape file.</p>
+detail later in the vignettes as will any shapefile.</p>
 </div>
 <div class="section level2">
 <h2 id="a-note-on-projections">A Note on Projections<a class="anchor" aria-label="anchor" href="#a-note-on-projections"></a>

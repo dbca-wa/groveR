@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">groveR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,17 +75,17 @@ however this time we are calculating the trend class areas.</p>
 <p>The <code><a href="../reference/trend_class_area.html">trend_class_area()</a></code> function takes the trend class
 bins and reports on their respective areas. In order to report
 effectively, a region needs to be delineated. This boundary needs to be
-supplied in a shape file. Convention has it that an attribute column,
+supplied in a shapefile. Convention has it that an attribute column,
 named “region” contains a region name and a site name separated by an
 underscore. An example might be “lgscmp_east”, “lgscmp_west” etc. This
-should be the same shape file that was used when running the
+should be the same shapefile that was used when running the
 <code><a href="../reference/veg_class_area.html">veg_class_area()</a></code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># The general form of the function is (NOTE there are no default parameters)</span></span>
 <span><span class="co"># trend_class_area(irast, iregions, attribname)</span></span>
 <span></span>
 <span><span class="co"># We  need to assign all three of the parameters</span></span>
-<span><span class="va">irast</span> <span class="op">&lt;-</span> <span class="st">"trend_class/lgscmp_2014-2023_trendclass.tif"</span></span>
+<span><span class="va">irast</span> <span class="op">&lt;-</span> <span class="st">"trend_class/lgcsmp_lsat_2014-2023_trendclass.tif"</span></span>
 <span><span class="va">iregions</span> <span class="op">&lt;-</span> <span class="st">"vectors/regions.shp"</span></span>
 <span><span class="va">attribname</span> <span class="op">&lt;-</span> <span class="st">"regions"</span></span>
 <span></span>
@@ -96,8 +96,8 @@ should be the same shape file that was used when running the
 a distinct period that has been written to the <code>trend_class\</code>
 directory. If multiple periods (and rasters) exist, run the function for
 them one at a time.</p></li>
-<li><p><strong>iregions</strong> - file path to a shape file denoting
-the reporting region.</p></li>
+<li><p><strong>iregions</strong> - file path to a shapefile denoting the
+reporting region.</p></li>
 <li><p><strong>attribname</strong> - the name of the attribute column
 containing region information.</p></li>
 </ul>
@@ -108,7 +108,7 @@ containing region information.</p></li>
 <p>A csv of areas in hectares will be output to the
 <code>trend_class\</code> directory and will look similar to this.</p>
 <div class="float">
-<img src="../reference/figures/trendclassarea.png" alt="Trend class area example"><div class="figcaption">Trend class area example</div>
+<img src="../reference/figures/trendclassarea.png" alt="Trend class area example"><div class="figcaption"><em>Trend class area example</em></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
