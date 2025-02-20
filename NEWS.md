@@ -2,7 +2,7 @@
 
 * Initial release of groveR.
 
-# groveR 0.2.2
+# groveR 0.2.3
 
 * Major rework of groveR has been undertaken to update most functions to now 
 use `terra` and `sf` packages for the majority of spatial data work and has now 
