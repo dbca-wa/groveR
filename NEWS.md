@@ -1,7 +1,3 @@
-# groveR 0.1.0
-
-* Initial release of groveR.
-
 # groveR 0.2.3
 
 * Major rework of groveR has been undertaken to update most functions to now 
@@ -22,4 +18,7 @@ also been tested on Sentinel imagery.
     + `veg_class()` now incorporates any cloud masking to outputs.
     + `change_extent()` renamed to `extent_change()` to better reflect its function.
     
-    
+
+# groveR 0.1.0
+
+* Initial release of groveR.
